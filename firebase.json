@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "jet-set-journey",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

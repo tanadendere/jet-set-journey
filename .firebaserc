@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "jetsetjourney-tana": {
+      "hosting": {
+        "jet-set-journey": [
+          "jetsetjourney-tana"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "jetsetjourney-tana"
+  }
+}
