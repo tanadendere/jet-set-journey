@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
       if (user) {
         this.authService.currentUserSignal.set({
           email: user.email!,
-          username: user.displayName!,
+          name: user.displayName!,
+          userId: user.uid!,
         });
       } else {
         this.authService.currentUserSignal.set(null);

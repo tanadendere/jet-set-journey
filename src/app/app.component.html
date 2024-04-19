@@ -5,7 +5,7 @@
 </div>
 } @if (authService.currentUserSignal()){
 <div>
-  {{ authService.currentUserSignal()?.username }}
+  {{ authService.currentUserSignal()?.name }}
   <span (click)="logout()">Logout</span>
 </div>
 }
