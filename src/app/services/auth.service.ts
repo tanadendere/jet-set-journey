@@ -9,27 +9,45 @@ import {
 } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { IUser } from '../models/user';
+import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
+  crudService = inject(CrudService);
   user$ = user(this.firebaseAuth); // persisting user when logged in
   currentUserSignal = signal<IUser | null | undefined>(undefined); // undefined because it takes time to get the user
 
   register(
     email: string,
-    username: string,
+    name: string,
+    surname: string,
     password: string
   ): Observable<void> {
+    let newUser: IUser = {
+      email: email,
+      name: name,
+      surname: surname,
+      password: password,
+      userId: '',
+    };
+
     const promise = createUserWithEmailAndPassword(
       this.firebaseAuth,
       email,
       password
-    ).then((response) =>
-      updateProfile(response.user, { displayName: username })
-    );
+    )
+      .then((response) => {
+        updateProfile(response.user, { displayName: name });
+        newUser.userId = response.user.uid;
+        this.crudService.addUser(newUser);
+      })
+      .catch((error) =>
+        console.error('Error with registering the user.', error)
+      )
+      .finally(() => alert(`${name} has been successfully registered!`));
 
     return from(promise);
   }

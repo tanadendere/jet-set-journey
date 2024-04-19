@@ -17,8 +17,9 @@ export class RegisterComponent {
   router = inject(Router);
 
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
     email: ['', Validators.required],
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
     password: ['', Validators.required],
   });
   errorMessage: string | null = null;
@@ -26,7 +27,7 @@ export class RegisterComponent {
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
     this.authService
-      .register(rawForm.email, rawForm.username, rawForm.password)
+      .register(rawForm.email, rawForm.name, rawForm.surname, rawForm.password)
       .subscribe({
         next: () => {
           this.router.navigateByUrl('/'); //redirect to homePage
