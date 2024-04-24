@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { collection, addDoc } from 'firebase/firestore';
 import { environment } from '../../environments/environment';
 import { IUser } from '../models/user';
-import {} from '../app.config';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, doc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,12 @@ export class CrudService {
   firestore = inject(Firestore);
 
   async addUser(user: IUser) {
-    const docRef = await addDoc(
-      collection(this.firestore, environment.collectionNames.usersCollection),
+    await setDoc(
+      doc(
+        this.firestore,
+        environment.collectionNames.usersCollection,
+        user.email
+      ),
       {
         email: user.email,
         name: user.name,
@@ -21,11 +25,21 @@ export class CrudService {
         surname: user.surname,
         userId: user.userId,
       }
-    )
-      .then((response) => {
-        console.log('Document written with ID: ', response.id);
-      })
-      .catch((error) => console.error('Error adding document: ', error));
+    ).catch((error) => console.error('Error adding document: ', error));
+  }
+
+  async getUser(userEmail: string): Promise<IUser> {
+    return getDocs(
+      collection(this.firestore, environment.collectionNames.usersCollection)
+    ).then((response) => {
+      let user: IUser = {} as IUser;
+      response.forEach((doc) => {
+        if (doc.id === userEmail) {
+          user = doc.data() as IUser;
+        }
+      });
+      return user;
+    });
   }
 
   constructor() {}

@@ -30,7 +30,7 @@ export class RegisterComponent {
       .register(rawForm.email, rawForm.name, rawForm.surname, rawForm.password)
       .subscribe({
         next: () => {
-          this.router.navigateByUrl('/'); //redirect to homePage
+          this.router.navigateByUrl('login'); //redirect to homePage
         },
         error: (err) => {
           this.errorMessage = err.code;

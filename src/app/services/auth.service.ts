@@ -46,8 +46,7 @@ export class AuthService {
       })
       .catch((error) =>
         console.error('Error with registering the user.', error)
-      )
-      .finally(() => alert(`${name} has been successfully registered!`));
+      );
 
     return from(promise);
   }
@@ -57,7 +56,11 @@ export class AuthService {
       this.firebaseAuth,
       email,
       password
-    ).then(() => {});
+    ).then(() => {
+      this.crudService.getUser(email).then((user) => {
+        this.currentUserSignal.set(user);
+      });
+    });
 
     return from(promise);
   }
