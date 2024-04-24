@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 import { environment } from '../../environments/environment';
 import { IUser } from '../models/user';
 import { Firestore, doc, getDocs, setDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +40,4 @@ export class CrudService {
       return user;
     });
   }
-
-  constructor() {}
 }
