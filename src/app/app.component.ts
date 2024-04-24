@@ -13,7 +13,6 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'jet-set-journey';
-  http = inject(HttpClient);
   authService = inject(AuthService);
 
   logout(): void {
