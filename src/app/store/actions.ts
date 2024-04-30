@@ -7,26 +7,26 @@ export const registerUser = createAction(
 );
 
 export const addUserToFirestore = createAction(
-  '[DB Service] Add user to Firestore',
+  '[User] Add to Firestore',
   props<{ user: IUser }>()
 );
 
 export const registerUserComplete = createAction(
-  '[Auth Firebase] User register success',
+  '[User] Register success',
   props<{ user: IUser }>()
 );
 
 export const loginUser = createAction(
-  '[Login Page] Login',
+  '[User] Login',
   props<{ email: string; password: string }>()
 );
 
 export const getUserFromFirestore = createAction(
-  '[DB Service] User retrival from Firestore',
+  '[User] Retrival from Firestore',
   props<{ email: string }>()
 );
 
 export const loginUserComplete = createAction(
-  '[Auth Firebase] User login success',
+  '[User] Login success',
   props<{ user: IUser }>()
 );
