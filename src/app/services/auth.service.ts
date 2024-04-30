@@ -1,13 +1,14 @@
 import { Injectable, inject, signal } from '@angular/core';
 import {
   Auth,
+  UserCredential,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
   user,
 } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
+import { EMPTY, Observable, from } from 'rxjs';
 import { IUser } from '../models/user';
 import { CrudService } from './crud.service';
 
@@ -18,51 +19,40 @@ export class AuthService {
   firebaseAuth = inject(Auth);
   crudService = inject(CrudService);
   user$ = user(this.firebaseAuth); // persisting user when logged in
-  currentUserSignal = signal<IUser | null | undefined>(undefined); // undefined because it takes time to get the user
+  // currentUserSignal = signal<IUser | null | undefined>(undefined); // undefined because it takes time to get the user
 
   register(
     email: string,
     name: string,
-    surname: string,
     password: string
-  ): Observable<void> {
-    let newUser: IUser = {
-      email: email,
-      name: name,
-      surname: surname,
-      password: password,
-      userId: '',
-    };
+  ): Observable<string | void> {
+    return from(
+      createUserWithEmailAndPassword(this.firebaseAuth, email, password)
+        .then((response) => {
+          updateProfile(response.user, { displayName: name });
+          return response.user.uid;
+        })
+        .catch((error) =>
+          console.error('Error with registering the user.', error)
+        )
+    );
 
-    const promise = createUserWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password
-    )
-      .then((response) => {
-        updateProfile(response.user, { displayName: name });
-        newUser.userId = response.user.uid;
-        this.crudService.addUser(newUser);
-      })
-      .catch((error) =>
-        console.error('Error with registering the user.', error)
-      );
-
-    return from(promise);
+    // return from(promise);
   }
 
-  login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password
-    ).then(() => {
-      this.crudService.getUser(email).then((user) => {
-        this.currentUserSignal.set(user);
-      });
-    });
-
-    return from(promise);
+  login(email: string, password: string): Observable<UserCredential> {
+    return from(
+      signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
+        (response) => {
+          return response;
+        }
+      )
+    );
+    // .then(() => {
+    //   this.crudService.getUser(email).then((user) => {
+    //     this.currentUserSignal.set(user);
+    //   });
+    // });
   }
 
   logout(): Observable<void> {

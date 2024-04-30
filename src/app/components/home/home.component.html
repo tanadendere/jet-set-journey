@@ -1,0 +1,12 @@
+@if(user$ | async; as user){
+
+<div>
+  {{ user | json }}
+  <span (click)="logout()">Logout</span>
+</div>
+} @else{
+<div>
+  <a routerLink="/login">Login</a>
+  <a routerLink="/register"> Register</a>
+</div>
+}
