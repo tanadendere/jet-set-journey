@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
+import { AppState } from '../../models/state';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
   router = inject(Router);
-  store = inject(Store);
+  store: Store<AppState> = inject(Store);
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -35,6 +36,7 @@ export class RegisterComponent {
         password: rawForm.password,
       })
     );
+    console.log('dispatched register');
 
     // this.authService
     //   .register(, rawForm.name, rawForm.password)

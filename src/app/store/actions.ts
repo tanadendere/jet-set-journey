@@ -1,8 +1,8 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props, union } from '@ngrx/store';
 import { IUser } from '../models/user';
 
 export const registerUser = createAction(
-  '[Register Page] Register',
+  '[User] Register',
   props<{ email: string; name: string; surname: string; password: string }>()
 );
 
@@ -30,3 +30,11 @@ export const loginUserComplete = createAction(
   '[User] Login success',
   props<{ user: IUser }>()
 );
+
+export const logoutUser = createAction('[User] Logout success');
+
+const all = union({
+  registerUser,
+});
+
+export type CoreActionsUnion = typeof all;

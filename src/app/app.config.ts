@@ -9,7 +9,14 @@ import { environment } from '../environments/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { userFeatureKey, userManagementReducers } from './store/reducers';
+import {
+  metaReducers,
+  reducers,
+  userFeatureKey,
+  userManagementReducers,
+} from './store/reducers';
+import { provideRouterStore } from '@ngrx/router-store';
+import { UserManagementEffects } from './store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,8 +27,9 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
     ]),
     importProvidersFrom(provideFirestore(() => getFirestore())),
-    provideStore(),
+    provideStore(reducers, { metaReducers }),
     provideState({ name: userFeatureKey, reducer: userManagementReducers }),
-    provideEffects(),
+    provideEffects(UserManagementEffects),
+    provideRouterStore(),
   ],
 };

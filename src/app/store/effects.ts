@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  CoreActionsUnion,
   addUserToFirestore,
   getUserFromFirestore,
   loginUser,
@@ -12,18 +13,14 @@ import { EMPTY, catchError, map, retry, switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../models/user';
 import { CrudService } from '../services/crud.service';
+import { ActionCreator } from '@ngrx/store';
+import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class UserManagementEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private crudService: CrudService
-  ) {}
-
   registerUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerUser),
+      ofType(registerUser.type),
       switchMap((action) =>
         this.authService
           .register(action.email, action.name, action.password)
@@ -107,4 +104,12 @@ export class UserManagementEffects {
       )
     )
   );
+
+  constructor(
+    private actions$: Actions<CoreActionsUnion>,
+    private authService: AuthService,
+    private crudService: CrudService
+  ) {
+    console.log('hello from the effects');
+  }
 }
