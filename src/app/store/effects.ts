@@ -50,7 +50,7 @@ export class UserManagementEffects {
 
   addUserToFirestore$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addUserToFirestore),
+      ofType(addUserToFirestore.type),
       switchMap((action) =>
         this.crudService.addUser(action.user).pipe(
           map(() => {
@@ -71,7 +71,7 @@ export class UserManagementEffects {
 
   loginUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loginUser),
+      ofType(loginUser.type),
       switchMap((action) =>
         this.authService.login(action.email, action.password).pipe(
           map(() => {
@@ -89,7 +89,7 @@ export class UserManagementEffects {
 
   getUserFromFirestore$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getUserFromFirestore),
+      ofType(getUserFromFirestore.type),
       switchMap((action) =>
         this.crudService.getUser(action.email).pipe(
           map((user) => {

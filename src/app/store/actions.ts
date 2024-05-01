@@ -35,6 +35,11 @@ export const logoutUser = createAction('[User] Logout success');
 
 const all = union({
   registerUser,
+  addUserToFirestore,
+  registerUserComplete,
+  loginUser,
+  getUserFromFirestore,
+  loginUserComplete,
 });
 
 export type CoreActionsUnion = typeof all;
