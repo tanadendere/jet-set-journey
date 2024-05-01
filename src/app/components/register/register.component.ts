@@ -23,6 +23,7 @@ export class RegisterComponent {
     name: ['', Validators.required],
     surname: ['', Validators.required],
     password: ['', Validators.required],
+    confirmPassword: ['', Validators.required],
   });
   errorMessage: string | null = null;
 
