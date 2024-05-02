@@ -1,6 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -14,8 +13,8 @@ import {
   reducers,
   userFeatureKey,
   userManagementReducers,
-} from './store/reducers';
-import { UserManagementEffects } from './store/effects';
+} from './userManagement/store/reducers';
+import { UserManagementEffects } from './userManagement/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   UserCredential,
@@ -6,11 +6,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
-  user,
 } from '@angular/fire/auth';
-import { EMPTY, Observable, from } from 'rxjs';
-import { IUser } from '../models/user';
-import { CrudService } from './crud.service';
+import { Observable, from } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -18,11 +15,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   firebaseAuth = inject(Auth);
-  crudService = inject(CrudService);
   router = inject(Router);
-
-  user$ = user(this.firebaseAuth); // persisting user when logged in
-  // currentUserSignal = signal<IUser | null | undefined>(undefined); // undefined because it takes time to get the user
 
   register(
     email: string,
@@ -39,8 +32,6 @@ export class AuthService {
           console.error('Error with registering the user.', error)
         )
     );
-
-    // return from(promise);
   }
 
   login(email: string, password: string): Observable<UserCredential> {
@@ -51,11 +42,6 @@ export class AuthService {
         }
       )
     );
-    // .then(() => {
-    //   this.crudService.getUser(email).then((user) => {
-    //     this.currentUserSignal.set(user);
-    //   });
-    // });
   }
 
   logout(): Observable<void> {

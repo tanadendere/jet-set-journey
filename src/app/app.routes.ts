@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './userManagement/components/register/register.component';
+import { LoginComponent } from './userManagement/components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './userManagement/guards/auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
@@ -15,7 +15,7 @@ export const routes: Routes = [
     path: 'trips',
     component: HomeComponent,
     canActivateChild: [AuthGuard],
-    // TO-DO:
+    // TO-DO: create the trip component
     // children: [
     //   {
     //     path: 'trip-details/:id',

@@ -15,9 +15,6 @@ import { EMPTY, catchError, map, retry, switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../models/user';
 import { CrudService } from '../services/crud.service';
-import { ActionCreator } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
-import { AuthGuard } from '../guards/auth.guard';
 
 @Injectable()
 export class UserManagementEffects {
@@ -129,7 +126,5 @@ export class UserManagementEffects {
     private actions$: Actions<CoreActionsUnion>,
     private authService: AuthService,
     private crudService: CrudService
-  ) {
-    console.log('hello from the effects');
-  }
+  ) {}
 }

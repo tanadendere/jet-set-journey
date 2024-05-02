@@ -10,17 +10,17 @@ import { RegisterComponent } from '../components/register/register.component';
 import { Observable, map } from 'rxjs';
 import { IUser } from '../models/user';
 import { selectUser } from '../store/selectors';
-import { AppState } from '../models/state';
+import { AppState } from '../../models/state';
 import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
+  router = inject(Router);
+  authService = inject(AuthService);
   store: Store<AppState> = inject(Store);
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
-
-  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate: CanActivateFn = (childRoute, state) => {
     return true;
@@ -56,7 +56,6 @@ export class AuthGuard {
     if (isAuthenticated()) {
       return true;
     } else {
-      // Redirect to the login page if the user is not authenticated
       this.router.navigate(['/login']);
       return false;
     }
