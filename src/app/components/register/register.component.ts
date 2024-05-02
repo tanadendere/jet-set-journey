@@ -5,6 +5,9 @@ import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
 import { AppState } from '../../models/state';
+import { Observable, map } from 'rxjs';
+import { IUser } from '../../models/user';
+import { selectUser } from '../../store/selectors';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +21,10 @@ export class RegisterComponent {
   router = inject(Router);
   store: Store<AppState> = inject(Store);
 
+  user$: Observable<IUser | undefined> = this.store.select(selectUser);
+
+  hasUnsavedChanges = true;
+
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
     name: ['', Validators.required],
@@ -29,6 +36,7 @@ export class RegisterComponent {
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
+    this.hasUnsavedChanges = false;
     this.store.dispatch(
       registerUser({
         email: rawForm.email,
@@ -37,8 +45,7 @@ export class RegisterComponent {
         password: rawForm.password,
       })
     );
-    console.log('dispatched register');
-
+    console.log('HELLO in register 4');
     // this.authService
     //   .register(, rawForm.name, rawForm.password)
     //   .subscribe({
@@ -49,5 +56,14 @@ export class RegisterComponent {
     //       this.errorMessage = err.code;
     //     },
     //   });
+
+    console.log('in register 2');
+    this.user$.subscribe((user) => {
+      if (user != undefined) {
+        console.log(user);
+        this.router.navigateByUrl('trips');
+      }
+      console.log('in register');
+    });
   }
 }

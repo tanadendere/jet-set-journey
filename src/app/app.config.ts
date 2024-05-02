@@ -15,7 +15,6 @@ import {
   userFeatureKey,
   userManagementReducers,
 } from './store/reducers';
-import { provideRouterStore } from '@ngrx/router-store';
 import { UserManagementEffects } from './store/effects';
 
 export const appConfig: ApplicationConfig = {
@@ -30,6 +29,5 @@ export const appConfig: ApplicationConfig = {
     provideStore(reducers, { metaReducers }),
     provideState({ name: userFeatureKey, reducer: userManagementReducers }),
     provideEffects(UserManagementEffects),
-    provideRouterStore(),
   ],
 };

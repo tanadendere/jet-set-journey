@@ -31,7 +31,9 @@ export const loginUserComplete = createAction(
   props<{ user: IUser }>()
 );
 
-export const logoutUser = createAction('[User] Logout success');
+export const logoutUser = createAction('[User] Logout');
+
+export const logoutUserComplete = createAction('[User] Logout success');
 
 const all = union({
   registerUser,

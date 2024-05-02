@@ -7,6 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../../models/state';
 import { selectUser } from '../../store/selectors';
 import { Observable } from 'rxjs';
+import { loginUser, logoutUser } from '../../store/actions';
 
 @Component({
   selector: 'app-home',
@@ -18,15 +19,11 @@ import { Observable } from 'rxjs';
 export class HomeComponent {
   title = 'jet-set-journey';
   authService = inject(AuthService);
+  store: Store<AppState> = inject(Store);
 
   // @Input() user: IUser | null | undefined;
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
-
-  constructor(private store: Store<AppState>) {
-    // this.user$ = store.pipe(select(selectUser))
-  }
-
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(logoutUser());
   }
 }

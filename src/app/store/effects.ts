@@ -6,6 +6,8 @@ import {
   getUserFromFirestore,
   loginUser,
   loginUserComplete,
+  logoutUser,
+  logoutUserComplete,
   registerUser,
   registerUserComplete,
 } from './actions';
@@ -15,6 +17,7 @@ import { IUser } from '../models/user';
 import { CrudService } from '../services/crud.service';
 import { ActionCreator } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Injectable()
 export class UserManagementEffects {
@@ -98,6 +101,23 @@ export class UserManagementEffects {
           retry(1),
           catchError((err) => {
             alert(`This user does not exist` + err.toString());
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+
+  logoutUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logoutUser.type),
+      switchMap(() =>
+        this.authService.logout().pipe(
+          map(() => {
+            return logoutUserComplete();
+          }),
+          retry(1),
+          catchError((err) => {
             return EMPTY;
           })
         )

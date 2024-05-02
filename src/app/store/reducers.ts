@@ -7,7 +7,12 @@ import {
   on,
 } from '@ngrx/store';
 import { AppState } from '../models/state';
-import { loginUserComplete, logoutUser, registerUserComplete } from './actions';
+import {
+  loginUserComplete,
+  logoutUser,
+  logoutUserComplete,
+  registerUserComplete,
+} from './actions';
 import { IUser } from '../models/user';
 import { isDevMode } from '@angular/core';
 
@@ -20,6 +25,7 @@ const intialState: AppState = {
 export const userManagementReducers = createReducer(
   intialState,
   on(registerUserComplete, (state, { user }) => {
+    console.log('hello from reducers', user);
     return {
       ...state,
       user,
@@ -30,6 +36,12 @@ export const userManagementReducers = createReducer(
       ...state,
       user,
     };
+  }),
+  on(logoutUserComplete, (state) => {
+    return {
+      ...state,
+      user: undefined,
+    };
   })
 );
 
@@ -39,9 +51,8 @@ const debugMeta = (
   reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> => {
   return (state, action) => {
-    console.log('state', state);
     console.log('action', action);
-
+    console.log('state', state);
     return reducer(state, action);
   };
 };

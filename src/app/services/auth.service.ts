@@ -11,6 +11,7 @@ import {
 import { EMPTY, Observable, from } from 'rxjs';
 import { IUser } from '../models/user';
 import { CrudService } from './crud.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,8 @@ import { CrudService } from './crud.service';
 export class AuthService {
   firebaseAuth = inject(Auth);
   crudService = inject(CrudService);
+  router = inject(Router);
+
   user$ = user(this.firebaseAuth); // persisting user when logged in
   // currentUserSignal = signal<IUser | null | undefined>(undefined); // undefined because it takes time to get the user
 
@@ -57,6 +60,7 @@ export class AuthService {
 
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth);
+    this.router.navigateByUrl('login');
     return from(promise);
   }
 }
