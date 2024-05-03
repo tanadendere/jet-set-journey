@@ -11,7 +11,7 @@ import {
   getTripsFromFirestore,
   addTripToFirestore,
   getTripsComplete,
-  deleteTripToFirestore,
+  deleteTripFromFirestore,
 } from './actions';
 import { ITrip } from '../models/trip';
 
@@ -45,9 +45,9 @@ export class UserDashboardEffects {
     )
   );
 
-  deleteTripToFirestore$ = createEffect(() =>
+  deleteTripFromFirestore$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(deleteTripToFirestore.type),
+      ofType(deleteTripFromFirestore.type),
       switchMap((action) =>
         this.crudService.deleteTrip(action.userEmail, action.tripId).pipe(
           map(() => {

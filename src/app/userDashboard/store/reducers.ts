@@ -9,7 +9,10 @@ import {
 import { AppState, TripState } from '../../models/state';
 import { getTripsComplete } from './actions';
 import { isDevMode } from '@angular/core';
-import { logoutUser } from '../../userManagement/store/actions';
+import {
+  logoutUser,
+  logoutUserComplete,
+} from '../../userManagement/store/actions';
 import { ITrip } from '../models/trip';
 
 export const userDashboardFeatureKey = 'userDashboardFeature';
@@ -23,6 +26,10 @@ export const userDashboardReducers = createReducer(
   on(getTripsComplete, (state, { trips }) => ({
     ...state,
     trips,
+  })),
+  on(logoutUserComplete, (state, {}) => ({
+    ...state,
+    trips: undefined,
   }))
 );
 

@@ -79,6 +79,7 @@ export class CrudService {
             tripId: doc.id,
             tripName: tripData.tripName,
             destination: tripData.destination,
+            userEmail: userEmail,
           };
           trips.push(trip);
         });

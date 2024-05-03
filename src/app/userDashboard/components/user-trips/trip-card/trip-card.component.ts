@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ITrip } from '../../../models/trip';
+import { TripState } from '../../../../models/state';
+import { Store } from '@ngrx/store';
+import { deleteTripFromFirestore } from '../../../store/actions';
 
 @Component({
   selector: 'app-trip-card',
@@ -11,4 +14,14 @@ import { ITrip } from '../../../models/trip';
 export class TripCardComponent {
   @Input()
   trip: ITrip = {} as ITrip;
+  store: Store<TripState> = inject(Store);
+
+  deleteTrip() {
+    this.store.dispatch(
+      deleteTripFromFirestore({
+        userEmail: this.trip.userEmail,
+        tripId: this.trip.tripId,
+      })
+    );
+  }
 }
