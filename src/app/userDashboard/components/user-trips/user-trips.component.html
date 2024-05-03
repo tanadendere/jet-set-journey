@@ -1,2 +1,6 @@
-<p>user-trips works!</p>
-<app-add-trip></app-add-trip>
+@if(trips$ | async; as trips){
+
+<app-trip-card *ngFor="let trip of trips" [trip]="trip"></app-trip-card>
+} @else{
+<div></div>
+}
