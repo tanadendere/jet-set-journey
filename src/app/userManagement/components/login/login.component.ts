@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { loginUser } from '../../store/actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../../models/user';
 import { selectUser } from '../../store/selectors';
 
@@ -18,6 +18,7 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   store: Store<AppState> = inject(Store);
+  userSubscription: Subscription = new Subscription();
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
 
   form = this.fb.nonNullable.group({
@@ -31,10 +32,14 @@ export class LoginComponent {
     this.store.dispatch(
       loginUser({ email: rawForm.email, password: rawForm.password })
     );
-    this.user$.subscribe((user) => {
+    this.userSubscription = this.user$.subscribe((user) => {
       if (user != undefined) {
         this.router.navigateByUrl('trips');
       }
     });
+  }
+
+  ngOnDestory() {
+    this.userSubscription.unsubscribe();
   }
 }

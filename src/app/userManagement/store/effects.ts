@@ -79,7 +79,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(`This user does not exit` + err.toString());
+            alert(`This user does not exist` + err.toString());
             return EMPTY;
           })
         )

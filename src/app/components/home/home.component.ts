@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { IUser } from '../../userManagement/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
-import { Observable } from 'rxjs';
 import { logoutUser } from '../../userManagement/store/actions';
 import { UserTripsComponent } from '../../userDashboard/components/user-trips/user-trips.component';
 
@@ -18,7 +16,7 @@ import { UserTripsComponent } from '../../userDashboard/components/user-trips/us
 })
 export class HomeComponent {
   store: Store<AppState> = inject(Store);
-  user$: Observable<IUser | undefined> = this.store.select(selectUser);
+  user$ = this.store.select(selectUser);
   logout(): void {
     this.store.dispatch(logoutUser());
   }
