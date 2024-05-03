@@ -1,0 +1,13 @@
+@if(user$ | async; as user){
+
+<div>
+  Good morning, {{ user.name }}
+  <span (click)="logout()">Logout</span>
+</div>
+} @else{
+<div>
+  <span>Opps, looks like you are not logged in. </span>
+  <a routerLink="/login">Login</a>
+  <a routerLink="/register"> Register</a>
+</div>
+}

@@ -1,13 +1,1 @@
-@if(authService.currentUserSignal() == null){
-<div>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register"> Register</a>
-</div>
-} @if (authService.currentUserSignal()){
-<div>
-  {{ authService.currentUserSignal()?.name }}
-  <span (click)="logout()">Logout</span>
-</div>
-}
-
-<router-outlet></router-outlet>
+<router-outlet />
