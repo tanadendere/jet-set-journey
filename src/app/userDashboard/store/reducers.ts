@@ -6,14 +6,13 @@ import {
   createReducer,
   on,
 } from '@ngrx/store';
-import { AppState, TripState } from '../../models/state';
+import { TripState } from '../../models/state';
 import { getTripsComplete } from './actions';
 import { isDevMode } from '@angular/core';
 import {
   logoutUser,
   logoutUserComplete,
 } from '../../userManagement/store/actions';
-import { ITrip } from '../models/trip';
 
 export const userDashboardFeatureKey = 'userDashboardFeature';
 

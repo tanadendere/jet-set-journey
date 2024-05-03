@@ -5,12 +5,10 @@ import {
   collection,
   deleteDoc,
   doc,
-  docData,
   getDocs,
-  setDoc,
 } from '@angular/fire/firestore';
 import { ITrip } from '../models/trip';
-import { EMPTY, Observable, from } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -24,9 +22,6 @@ export class CrudService {
     tripName: string,
     tripDestination: string
   ): Observable<void> {
-    console.log(
-      `${environment.collectionNames.usersCollection}/${userEmail}/${environment.collectionNames.tripsCollection}`
-    );
     return from(
       addDoc(
         collection(
@@ -43,13 +38,6 @@ export class CrudService {
         })
         .catch((error) => console.error('Error adding the trip: ', error))
     );
-
-    // console.log(`${environment.collectionNames.usersCollection}/${userEmail}`);
-    // const newTripRef = collection(
-    //   this.firestore,
-    //   `${environment.collectionNames.usersCollection}/${userEmail}/${environment.collectionNames.tripsCollection}`
-    // ));
-    // return from(docRef);
   }
 
   deleteTrip(userEmail: string, tripId: string): Observable<void> {

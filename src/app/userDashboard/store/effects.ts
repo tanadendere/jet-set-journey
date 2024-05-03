@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, retry, catchError, EMPTY } from 'rxjs';
-import {
-  addUserToFirestore,
-  registerUserComplete,
-} from '../../userManagement/store/actions';
 import { CrudService } from '../services/crud.service';
 import {
   CoreActionsUnion,
@@ -13,13 +9,9 @@ import {
   getTripsComplete,
   deleteTripFromFirestore,
 } from './actions';
-import { ITrip } from '../models/trip';
 
 @Injectable()
 export class UserDashboardEffects {
-  // addTripToFirestore
-  // deleteTripToFirestore
-
   addTripToFirestore$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addTripToFirestore.type),

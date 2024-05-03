@@ -1,11 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppState, TripState } from '../../../models/state';
+import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import { addTripToFirestore } from '../../../userDashboard/store/actions';
 import { IUser } from '../../../userManagement/models/user';
-import { selectUser } from '../../../userManagement/store/selectors';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-add-trip',
@@ -15,9 +13,6 @@ import { map } from 'rxjs';
   styleUrl: './add-trip.component.scss',
 })
 export class AddTripComponent {
-  userStore: Store<AppState> = inject(Store);
-  user$ = this.userStore.select(selectUser);
-
   @Input()
   user: IUser | undefined | null = undefined;
 
@@ -32,7 +27,6 @@ export class AddTripComponent {
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-
     if (this.user != undefined) {
       this.tripStore.dispatch(
         addTripToFirestore({
