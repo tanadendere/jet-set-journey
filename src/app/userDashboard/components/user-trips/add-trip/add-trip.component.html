@@ -1,0 +1,22 @@
+<h1>Add a trip</h1>
+
+@if (errorMessage) {
+<div>{{ errorMessage }}</div>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <input type="text" placeholder="Trip name" formControlName="tripName" />
+  </div>
+  <div>
+    <input
+      type="text"
+      placeholder="Destination"
+      formControlName="destination"
+    />
+  </div>
+  <div><button>Cancel</button></div>
+  <div>
+    <button type="submit">Sign Up</button>
+  </div>
+</form>

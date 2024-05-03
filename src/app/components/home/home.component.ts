@@ -7,11 +7,12 @@ import { AppState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { Observable } from 'rxjs';
 import { logoutUser } from '../../userManagement/store/actions';
+import { UserTripsComponent } from '../../userDashboard/components/user-trips/user-trips.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, UserTripsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
