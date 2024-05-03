@@ -7,7 +7,7 @@ import {
   signOut,
   updateProfile,
 } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({

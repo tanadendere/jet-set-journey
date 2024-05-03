@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
 import { AppState } from '../../../models/state';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../../models/user';
 import { selectUser } from '../../store/selectors';
 
@@ -18,6 +18,7 @@ export class RegisterComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   store: Store<AppState> = inject(Store);
+  userSubscription: Subscription = new Subscription();
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
 
   hasUnsavedChanges = true;
@@ -43,10 +44,14 @@ export class RegisterComponent {
       })
     );
 
-    this.user$.subscribe((user) => {
+    this.userSubscription = this.user$.subscribe((user) => {
       if (user != undefined) {
         this.router.navigateByUrl('trips');
       }
     });
+  }
+
+  ngOnDestory() {
+    this.userSubscription.unsubscribe();
   }
 }

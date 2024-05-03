@@ -26,14 +26,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: LoginComponent,
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    redirectTo: 'login',
   },
   {
     path: '**',
-    component: LoginComponent,
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // TO-DO: change this to NotFoundPage
+    redirectTo: 'login',
   },
 ];
