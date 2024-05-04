@@ -26,7 +26,7 @@ export class UserTripsComponent {
 
   ngOnInit() {
     this.userSubscription = this.user$.subscribe((user) => {
-      if (user != undefined) {
+      if (user) {
         this.store.dispatch(getTripsFromFirestore({ userEmail: user.email }));
       }
     });
