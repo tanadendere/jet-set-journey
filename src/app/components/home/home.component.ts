@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { getTripsFromFirestore } from '../../userDashboard/store/actions';
 import { selectTrips } from '../../userDashboard/store/selectors';
 import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
+import { ITrip } from '../../userDashboard/models/trip';
 
 @Component({
   selector: 'app-home',
@@ -44,8 +45,8 @@ export class HomeComponent {
     });
   }
 
-  navigateToTripDetails(tripId: string) {
-    this.router.navigateByUrl(`trip-details/${tripId}`);
+  navigateToTripDetails(trip: ITrip) {
+    this.router.navigateByUrl(`trip-details/${trip.tripId}`);
   }
 
   logout(): void {

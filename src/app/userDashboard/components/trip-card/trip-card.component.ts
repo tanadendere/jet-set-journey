@@ -14,18 +14,12 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class TripCardComponent {
   @Input() trip: ITrip = {} as ITrip;
-  @Output() tripClicked: EventEmitter<string> = new EventEmitter<string>();
+  @Output() tripClicked: EventEmitter<ITrip> = new EventEmitter<ITrip>();
   store: Store<TripState> = inject(Store);
   router = inject(Router);
 
   onTripClick() {
-    this.tripClicked.emit(this.trip.tripId);
-  }
-
-  navigateToDetails() {
-    // console.log(`trips/trip-details/${this.trip.tripId}`);
-    this.router.navigateByUrl(`trips/trip-details/${this.trip.tripId}`);
-    // this.router.navigateByUrl(`register`);
+    this.tripClicked.emit(this.trip);
   }
 
   deleteTrip() {
