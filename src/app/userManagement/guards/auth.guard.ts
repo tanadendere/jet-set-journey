@@ -10,7 +10,7 @@ import { RegisterComponent } from '../components/register/register.component';
 import { Observable, map } from 'rxjs';
 import { IUser } from '../models/user';
 import { selectUser } from '../store/selectors';
-import { AppState } from '../../models/state';
+import { UserState } from '../../models/state';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -19,7 +19,7 @@ import { Store } from '@ngrx/store';
 export class AuthGuard {
   router = inject(Router);
   authService = inject(AuthService);
-  store: Store<AppState> = inject(Store);
+  store: Store<UserState> = inject(Store);
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
 
   canActivate: CanActivateFn = (childRoute, state) => {

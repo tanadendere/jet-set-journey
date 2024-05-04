@@ -1,0 +1,3 @@
+@if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
+<app-trip-card [trip]="trip"></app-trip-card>
+} }

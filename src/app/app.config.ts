@@ -15,6 +15,11 @@ import {
   userManagementReducers,
 } from './userManagement/store/reducers';
 import { UserManagementEffects } from './userManagement/store/effects';
+import { UserDashboardEffects } from './userDashboard/store/effects';
+import {
+  userDashboardFeatureKey,
+  userDashboardReducers,
+} from './userDashboard/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +32,10 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideFirestore(() => getFirestore())),
     provideStore(reducers, { metaReducers }),
     provideState({ name: userFeatureKey, reducer: userManagementReducers }),
-    provideEffects(UserManagementEffects),
+    provideState({
+      name: userDashboardFeatureKey,
+      reducer: userDashboardReducers,
+    }),
+    provideEffects(UserManagementEffects, UserDashboardEffects),
   ],
 };
