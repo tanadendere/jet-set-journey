@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { IUser } from '../models/user';
+import { IUser } from '../guards/models/user';
 
 export const registerUser = createAction(
   '[User] Register',

@@ -13,7 +13,7 @@ import {
 } from './actions';
 import { EMPTY, catchError, map, retry, switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { IUser } from '../models/user';
+import { IUser } from '../guards/models/user';
 import { CrudService } from '../services/crud.service';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { collection } from 'firebase/firestore';
 import { environment } from '../../../environments/environment';
-import { IUser } from '../models/user';
+import { IUser } from '../guards/models/user';
 import { Firestore, doc, getDocs, setDoc } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 

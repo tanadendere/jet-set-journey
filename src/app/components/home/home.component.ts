@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { UserState } from '../../models/state';
+import { TripState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { logoutUser } from '../../userManagement/store/actions';
-import { UserTripsComponent } from '../../userDashboard/components/user-trips/user-trips.component';
 import { AddTripComponent } from './add-trip/add-trip.component';
+import { Subscription } from 'rxjs';
+import { getTripsFromFirestore } from '../../userDashboard/store/actions';
+import { selectTrips } from '../../userDashboard/store/selectors';
+import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +20,36 @@ import { AddTripComponent } from './add-trip/add-trip.component';
     CommonModule,
     RouterOutlet,
     RouterLink,
-    UserTripsComponent,
     AddTripComponent,
+    TripCardComponent,
   ],
 })
 export class HomeComponent {
-  store: Store<UserState> = inject(Store);
-  user$ = this.store.select(selectUser);
+  userStore: Store<UserState> = inject(Store);
+  user$ = this.userStore.select(selectUser);
+  userSubscription = new Subscription();
+
+  tripStore: Store<TripState> = inject(Store);
+  trips$ = this.tripStore.select(selectTrips);
+
+  router = inject(Router);
+
+  ngOnInit() {
+    this.userSubscription = this.user$.subscribe((user) => {
+      if (user) {
+        this.tripStore.dispatch(
+          getTripsFromFirestore({ userEmail: user.email })
+        );
+      }
+    });
+  }
+
+  navigateToTripDetails(tripId: string) {
+    this.router.navigateByUrl(`trip-details/${tripId}`);
+  }
+
   logout(): void {
-    this.store.dispatch(logoutUser());
+    this.userStore.dispatch(logoutUser());
+    this.userSubscription.unsubscribe();
   }
 }

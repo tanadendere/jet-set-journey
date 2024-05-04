@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
 import { UserState } from '../../../models/state';
 import { Observable, Subscription } from 'rxjs';
-import { IUser } from '../../models/user';
+import { IUser } from '../../guards/models/user';
 import { selectUser } from '../../store/selectors';
 
 @Component({

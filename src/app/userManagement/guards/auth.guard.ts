@@ -8,7 +8,7 @@ import {
 import { AuthService } from '../services/auth.service';
 import { RegisterComponent } from '../components/register/register.component';
 import { Observable, map } from 'rxjs';
-import { IUser } from '../models/user';
+import { IUser } from './models/user';
 import { selectUser } from '../store/selectors';
 import { UserState } from '../../models/state';
 import { Store } from '@ngrx/store';

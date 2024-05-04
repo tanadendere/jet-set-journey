@@ -3,6 +3,7 @@ import { RegisterComponent } from './userManagement/components/register/register
 import { LoginComponent } from './userManagement/components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './userManagement/guards/auth.guard';
+import { TripDetailsComponent } from './tripManagement/components/trip-details/trip-details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
@@ -14,20 +15,17 @@ export const routes: Routes = [
   {
     path: 'trips',
     component: HomeComponent,
-    canActivateChild: [AuthGuard],
-    // TO-DO: create the trip component
-    // children: [
-    //   {
-    //     path: 'trip-details/:id',
-    //     component: TripComponent,
-    //     canDeactivate: [AuthGuard],
-    //   },
-    // ],
+    // canActivateChild: [AuthGuard],
+    children: [],
+  },
+  {
+    path: 'trip-details/:tripId',
+    component: TripDetailsComponent,
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login',
+    redirectTo: 'trips',
   },
   {
     path: '**',
