@@ -6,7 +6,7 @@ import { AuthGuard } from './userManagement/guards/auth.guard';
 import { TripDetailsComponent } from './tripManagement/components/trip-details/trip-details.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   {
     path: 'register',
     component: RegisterComponent,
@@ -15,12 +15,12 @@ export const routes: Routes = [
   {
     path: 'trips',
     component: HomeComponent,
-    // canActivateChild: [AuthGuard],
-    children: [],
+    canActivate: [AuthGuard],
   },
   {
     path: 'trip-details/:tripId',
     component: TripDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '',

@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import { addTripToFirestore } from '../../../userDashboard/store/actions';
-import { IUser } from '../../../userManagement/guards/models/user';
+import { IUser } from '../../../userManagement/models/user';
 
 @Component({
   selector: 'app-add-trip',

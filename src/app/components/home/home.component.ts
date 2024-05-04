@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TripState, UserState } from '../../models/state';
+import { ItineraryState, TripState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { logoutUser } from '../../userManagement/store/actions';
 import { AddTripComponent } from './add-trip/add-trip.component';
@@ -11,6 +11,10 @@ import { getTripsFromFirestore } from '../../userDashboard/store/actions';
 import { selectTrips } from '../../userDashboard/store/selectors';
 import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
 import { ITrip } from '../../userDashboard/models/trip';
+import {
+  getItineraryItemsFromFirestore,
+  getTripDetailsPage,
+} from '../../tripManagement/store/actions';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +37,8 @@ export class HomeComponent {
   tripStore: Store<TripState> = inject(Store);
   trips$ = this.tripStore.select(selectTrips);
 
+  itineraryStore: Store<ItineraryState> = inject(Store);
+
   router = inject(Router);
 
   ngOnInit() {
@@ -46,6 +52,7 @@ export class HomeComponent {
   }
 
   navigateToTripDetails(trip: ITrip) {
+    this.itineraryStore.dispatch(getTripDetailsPage({ trip: trip }));
     this.router.navigateByUrl(`trip-details/${trip.tripId}`);
   }
 
