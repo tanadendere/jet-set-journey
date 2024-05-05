@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
-import { AppState } from '../../../models/state';
+import { UserState } from '../../../models/state';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../../models/user';
 import { selectUser } from '../../store/selectors';
@@ -17,7 +17,7 @@ import { selectUser } from '../../store/selectors';
 export class RegisterComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
-  store: Store<AppState> = inject(Store);
+  store: Store<UserState> = inject(Store);
   userSubscription: Subscription = new Subscription();
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
 

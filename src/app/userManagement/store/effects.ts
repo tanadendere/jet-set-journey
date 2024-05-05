@@ -38,7 +38,7 @@ export class UserManagementEffects {
             retry(1),
             catchError((err) => {
               alert(
-                `${action.name}, unfortunately we could not register you. Please try again` +
+                `${action.name}, unfortunately we could not register you. Please try again \n\n` +
                   err.toString()
               );
               return EMPTY;
@@ -59,7 +59,7 @@ export class UserManagementEffects {
           retry(1),
           catchError((err) => {
             alert(
-              `${action.user.name}, unfortunately we could not add you to the database. Please register again.` +
+              `${action.user.name}, unfortunately we could not add you to the database. Please register again. \n\n` +
                 err.toString()
             );
             return EMPTY;
@@ -79,7 +79,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(`This user does not exist` + err.toString());
+            alert(`This user does not exist \n\n` + err.toString());
             return EMPTY;
           })
         )
@@ -97,7 +97,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(`This user does not exist` + err.toString());
+            alert(`This user does not exist \n\n` + err.toString());
             return EMPTY;
           })
         )
@@ -115,6 +115,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
+            alert(`Could not log you out. \n\n` + err.toString());
             return EMPTY;
           })
         )

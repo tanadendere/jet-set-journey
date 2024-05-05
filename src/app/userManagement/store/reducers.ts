@@ -6,7 +6,7 @@ import {
   createReducer,
   on,
 } from '@ngrx/store';
-import { AppState } from '../../models/state';
+import { UserState } from '../../models/state';
 import {
   loginUserComplete,
   logoutUser,
@@ -17,12 +17,12 @@ import { isDevMode } from '@angular/core';
 
 export const userFeatureKey = 'userFeature';
 
-const intialState: AppState = {
+const initialState: UserState = {
   user: undefined,
 };
 
 export const userManagementReducers = createReducer(
-  intialState,
+  initialState,
   on(registerUserComplete, (state, { user }) => ({
     ...state,
     user,
@@ -39,11 +39,11 @@ export const userManagementReducers = createReducer(
 
 // META REDUCERS TO LOG ACTIONS
 
-export const reducers: ActionReducerMap<AppState> = {};
+export const reducers: ActionReducerMap<UserState> = {};
 
 const debugMeta = (
-  reducer: ActionReducer<AppState>
-): ActionReducer<AppState> => {
+  reducer: ActionReducer<UserState>
+): ActionReducer<UserState> => {
   return (state, action) => {
     console.log('state', state);
     console.log('action', action);
@@ -52,8 +52,8 @@ const debugMeta = (
 };
 
 const logoutMeta = (
-  reducer: ActionReducer<AppState>
-): ActionReducer<AppState> => {
+  reducer: ActionReducer<UserState>
+): ActionReducer<UserState> => {
   return (state, action) => {
     if (action?.type === logoutUser.type) {
       return reducer(undefined, { type: INIT });
@@ -62,6 +62,6 @@ const logoutMeta = (
   };
 };
 
-export const metaReducers: MetaReducer<AppState>[] = isDevMode()
+export const metaReducers: MetaReducer<UserState>[] = isDevMode()
   ? [debugMeta]
   : [logoutMeta];
