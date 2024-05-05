@@ -50,7 +50,7 @@ export class TripDetailsComponent {
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
     location: ['', Validators.required],
-    tag: ['', Validators.required],
+    itineraryTag: ['', Validators.required],
     startDateTime: ['', Validators.required],
     endDateTime: ['', Validators.required],
     costEstimate: ['', Validators.required],
@@ -63,7 +63,7 @@ export class TripDetailsComponent {
       const itineraryItem: IItineraryItem = {
         itineraryName: rawForm.name,
         tripId: this.trip.tripId,
-        tag: rawForm.tag,
+        tag: rawForm.itineraryTag,
         startDateTime: rawForm.startDateTime,
         endDateTime: rawForm.endDateTime,
         currency: 'ZAR',
