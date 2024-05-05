@@ -17,6 +17,7 @@ export interface IItineraryItem {
 // 'Outdoor Activity'
 // 'Indoor Activity'
 // 'Sight Seeing'
+// 'Shopping'
 // 'Visiting friends and family'
 // 'Relaxation'
 // 'Travel'
