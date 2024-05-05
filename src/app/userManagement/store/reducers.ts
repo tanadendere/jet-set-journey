@@ -19,6 +19,7 @@ export const userFeatureKey = 'userFeature';
 
 const initialState: UserState = {
   user: undefined,
+  currency: undefined,
 };
 
 export const userManagementReducers = createReducer(

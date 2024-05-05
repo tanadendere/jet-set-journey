@@ -1,0 +1,146 @@
+<h1>Itinerary</h1>
+
+@if (trip$ | async; as trip) {
+<div>{{ trip.tripName }}</div>
+<div>{{ trip.tripName }}</div>
+}
+<!-- this button will toggle the form display -->
+<button>Add an item</button>
+
+@if(itinerary$ | async; as itinerary){ @for (item of itinerary; track
+item.itemId) {
+<app-itinerary-item [item]="item"></app-itinerary-item>
+
+} }@else {
+<div>No itinerary items. Add items to build your trip.</div>
+}
+
+<form [formGroup]="form" (ngSubmit)="addAnItem()">
+  <h2>Add to your itinerary</h2>
+  <div>
+    <input type="text" placeholder="Title" formControlName="name" />
+  </div>
+  <div>
+    <input type="text" placeholder="Location" formControlName="location" />
+  </div>
+  <div>
+    <p>Tag:</p>
+    <input
+      type="radio"
+      id="placeToStay"
+      formControlName="itineraryTag"
+      value="Place to stay"
+    />
+    <label for="placeToStay">Place to stay</label><br />
+    <input
+      type="radio"
+      id="foodAndDrink"
+      formControlName="itineraryTag"
+      value="Food and drink"
+    />
+    <label for="foodAndDrink">Food and drink</label><br />
+    <input
+      type="radio"
+      id="activityOutdoor"
+      formControlName="itineraryTag"
+      value="Outdoor Activity"
+    />
+    <label for="activityOutdoor">Outdoor Activity</label><br />
+    <input
+      type="radio"
+      id="activityIndoor"
+      formControlName="itineraryTag"
+      value="Indoor Activity"
+    />
+    <label for="activityIndoor">Indoor Activity</label><br />
+    <input
+      type="radio"
+      id="sightSeeing"
+      formControlName="itineraryTag"
+      value="Sight Seeing"
+    />
+    <label for="sightSeeing">Sight Seeing</label><br />
+    <input
+      type="radio"
+      id="shopping"
+      formControlName="itineraryTag"
+      value="Shopping"
+    />
+    <label for="shopping">Shopping</label><br />
+    <input
+      type="radio"
+      id="relaxation"
+      formControlName="itineraryTag"
+      value="Relaxation"
+    />
+    <label for="relaxation">Relaxation</label><br />
+    <input
+      type="radio"
+      id="visiting"
+      formControlName="itineraryTag"
+      value="Visiting friends and family"
+    />
+    <label for="visiting">Visiting friends and family</label><br />
+    <input
+      type="radio"
+      id="travel"
+      formControlName="itineraryTag"
+      value="Travel"
+    />
+    <label for="travel">Travel</label><br />
+    <input
+      type="radio"
+      id="occasion"
+      formControlName="itineraryTag"
+      value="Occasion"
+    />
+    <label for="occasion">Occasion</label><br />
+    <input
+      type="radio"
+      id="event"
+      formControlName="itineraryTag"
+      value="Event"
+    />
+    <label for="event">Event</label><br />
+    <input
+      type="radio"
+      id="culture"
+      formControlName="itineraryTag"
+      value="Culture"
+    />
+    <label for="culture">Culture</label><br />
+  </div>
+  <div>
+    <label for="startDateTime">Starts:</label>
+    <input
+      type="datetime-local"
+      id="startDateTime"
+      formControlName="startDateTime"
+    />
+  </div>
+  <div>
+    <label for="endDateTime">Ends:</label>
+    <input
+      type="datetime-local"
+      id="endDateTime"
+      formControlName="endDateTime"
+    />
+  </div>
+  <div>
+    <input
+      type="number"
+      placeholder="Cost Estimate"
+      formControlName="costEstimate"
+    />
+  </div>
+  <div>
+    <textarea rows="5" placeholder="Notes" formControlName="notes"></textarea>
+  </div>
+  <div>
+    <button type="submit">Add to itinerary</button>
+  </div>
+  <div>
+    <!-- this will toggle off the display for the form -->
+    <button>Cancel</button>
+  </div>
+</form>
