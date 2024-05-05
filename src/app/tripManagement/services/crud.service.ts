@@ -19,7 +19,6 @@ export class CrudService {
   firestore = inject(Firestore);
 
   getItineraryItems(trip: ITrip): Observable<IItineraryItem[]> {
-    console.log('we are getting the items');
     return from(
       getDocs(
         collection(
@@ -67,10 +66,6 @@ export class CrudService {
         .catch((error) => console.error('Error adding the trip: ', error))
     );
   }
-
-  // editItineraryItem(){
-
-  // }
 
   deleteItineraryItem(trip: ITrip, itineraryItemId: string): Observable<void> {
     return from(

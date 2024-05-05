@@ -11,10 +11,7 @@ import { getTripsFromFirestore } from '../../userDashboard/store/actions';
 import { selectTrips } from '../../userDashboard/store/selectors';
 import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
 import { ITrip } from '../../userDashboard/models/trip';
-import {
-  getItineraryItemsFromFirestore,
-  getTripDetailsPage,
-} from '../../tripManagement/store/actions';
+import { getTripDetailsPage } from '../../tripManagement/store/actions';
 
 @Component({
   selector: 'app-home',

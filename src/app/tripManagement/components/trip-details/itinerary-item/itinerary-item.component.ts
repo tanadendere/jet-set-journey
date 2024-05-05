@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { deleteItineraryItemFromFirestore } from '../../../store/actions';
 import { IItineraryItem } from '../../../models/itinerary';
 import { selectTripDetails } from '../../../store/selectors';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../../../userDashboard/models/trip';
 
@@ -44,5 +43,9 @@ export class ItineraryItemComponent {
         'That item cannot be deleted. Please try again or take it as a sign 😉'
       );
     }
+  }
+
+  ngOnDestory() {
+    this.tripSubscription.unsubscribe();
   }
 }

@@ -1,28 +1,6 @@
-// getTripById
-// => getTripByIdComplete
-// editTripById
-// => editTripByIdComplete
-
 import { createAction, props, union } from '@ngrx/store';
 import { ITrip } from '../../userDashboard/models/trip';
 import { IItineraryItem } from '../models/itinerary';
-
-// getItineraryItems
-// => getItineraryItemsComplete
-
-// addItineraryItem -> getItineraryItems
-// editItineraryItem -> getItineraryItems
-// deleteItineraryItem -> getItineraryItems
-
-// export const getTripById = createAction(
-//   '[Trip Management] Get trip from Firestore',
-//   props<{ userEmail: string; tripId: string }>()
-// );
-
-// export const getTripByIdComplete = createAction(
-//   '[Trip Management] Get trip from Firestore success',
-//   props<{ trip: ITrip }>()
-// );
 
 export const getTripDetailsPage = createAction(
   '[Trip Management] Get trip details',

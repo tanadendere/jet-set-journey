@@ -36,6 +36,7 @@ export const tripManagementReducers = createReducer(
   })),
   on(logoutUserComplete, (state, {}) => ({
     ...state,
+    trip: undefined,
     itinerary: undefined,
   }))
 );

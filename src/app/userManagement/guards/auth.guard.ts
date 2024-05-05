@@ -23,20 +23,14 @@ export class AuthGuard {
   user$: Observable<IUser | undefined> = this.store.select(selectUser);
 
   canActivate: CanActivateFn = () => {
-    console.log('in can activate');
     return this.checkAuth();
   };
 
-  canActivateChild: CanActivateChildFn = (childRoute, state) => {
+  canActivateChild: CanActivateChildFn = () => {
     return this.checkAuth();
   };
 
-  canDeactivate: CanDeactivateFn<RegisterComponent> = (
-    component,
-    currentRoute,
-    currentState,
-    nextState
-  ) => {
+  canDeactivate: CanDeactivateFn<RegisterComponent> = (component) => {
     if (component.hasUnsavedChanges) {
       return window.confirm(
         'You have unsaved changes. Do you really want to leave?'
@@ -46,11 +40,8 @@ export class AuthGuard {
   };
 
   private checkAuth(): Observable<boolean> {
-    console.log('in check auth');
-    let isAuthenticated = false;
     return this.user$.pipe(
       map((user) => {
-        console.log('in check auth 2');
         if (user) {
           return true;
         } else {
@@ -59,14 +50,5 @@ export class AuthGuard {
         }
       })
     );
-
-    // console.log(isAuthenticated);
-
-    // if (isAuthenticated) {
-    //   return true;
-    // } else {
-    //   console.log('hello');
-
-    // }
   }
 }

@@ -12,9 +12,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TripManagementEffects {
-  // addItineraryItemToFirestore
-  // deleteItineraryItemFromFirestore
-
   addItineraryItemToFirestore$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addItineraryItemToFirestore.type),
@@ -30,7 +27,7 @@ export class TripManagementEffects {
             retry(1),
             catchError((err) => {
               alert(
-                `Unfortunately we could not add that item to the database. Please try adding it again.` +
+                `Unfortunately we could not add that item to the database. Please try adding it again. \n\n` +
                   err.toString()
               );
               return EMPTY;
@@ -55,7 +52,7 @@ export class TripManagementEffects {
             retry(1),
             catchError((err) => {
               alert(
-                `Unfortunately we could not delete this trip. Please try deleting it again.` +
+                `Unfortunately we could not delete this trip. Please try deleting it again. \n\n` +
                   err.toString()
               );
               return EMPTY;
@@ -78,7 +75,8 @@ export class TripManagementEffects {
           retry(1),
           catchError((err) => {
             alert(
-              `Unfortunately we could retrieve your trips.` + err.toString()
+              `Unfortunately we could retrieve your trips. \n\n` +
+                err.toString()
             );
             return EMPTY;
           })
