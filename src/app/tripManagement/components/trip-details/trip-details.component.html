@@ -70,6 +70,13 @@ item.itemId) {
     <label for="relaxation">Relaxation</label><br />
     <input
       type="radio"
+      id="visiting"
+      formControlName="itineraryTag"
+      value="Visiting friends and family"
+    />
+    <label for="visiting">Visiting friends and family</label><br />
+    <input
+      type="radio"
       id="travel"
       formControlName="itineraryTag"
       value="Travel"
@@ -98,10 +105,22 @@ item.itemId) {
     <label for="culture">Culture</label><br />
   </div>
   <div>
-    <input type="text" placeholder="Starts" formControlName="startDateTime" />
+    <!-- <input type="text" placeholder="Starts" formControlName="startDateTime" /> -->
+    <label for="startDateTime">Starts:</label>
+    <input
+      type="datetime-local"
+      id="startDateTime"
+      formControlName="startDateTime"
+    />
   </div>
   <div>
-    <input type="text" placeholder="Ends" formControlName="endDateTime" />
+    <!-- <input type="text" placeholder="Ends" formControlName="endDateTime" /> -->
+    <label for="endDateTime">Ends:</label>
+    <input
+      type="datetime-local"
+      id="endDateTime"
+      formControlName="endDateTime"
+    />
   </div>
   <div>
     <input

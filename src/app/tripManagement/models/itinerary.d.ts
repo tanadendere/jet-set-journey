@@ -11,15 +11,15 @@ export interface IItineraryItem {
   notes: string;
 }
 
-export enum Tag {
-  placeToStay = 'Place to stay',
-  foodAndDrink = 'Food and drink',
-  activityOutdoor = 'Outdoor Activity',
-  activityIndoor = 'Indoor Activity',
-  sightSeeing = 'Sight Seeing',
-  relaxation = 'Relaxation',
-  travel = 'Travel',
-  occasion = 'Occasion',
-  event = 'Event',
-  culture = 'Culture',
-}
+// Tags
+// 'Place to stay'
+// 'Food and drink'
+// 'Outdoor Activity'
+// 'Indoor Activity'
+// 'Sight Seeing'
+// 'Visiting friends and family'
+// 'Relaxation'
+// 'Travel'
+// 'Occasion'
+// 'Event'
+// 'Culture'
