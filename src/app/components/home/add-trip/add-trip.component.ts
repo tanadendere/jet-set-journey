@@ -27,7 +27,7 @@ export class AddTripComponent {
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-    if (this.user != undefined) {
+    if (this.user) {
       this.tripStore.dispatch(
         addTripToFirestore({
           userEmail: this.user.email,
