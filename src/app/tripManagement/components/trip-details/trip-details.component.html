@@ -2,8 +2,17 @@
 
 @if (trip$ | async; as trip) {
 <div>{{ trip.tripName }}</div>
-<div>{{ trip.tripName }}</div>
-}
+<div>{{ trip.destination }}</div>
+
+@if(currencies$ | async; as currencies){
+<select (change)="onSelectCurrency($event)">
+  @for (currency of currencies; track currency.code) {
+  <option [value]="currency.code">
+    {{ currency.name }} ({{ currency.code }})
+  </option>
+  }
+</select>
+} }
 <!-- this button will toggle the form display -->
 <button>Add an item</button>
 
@@ -125,6 +134,22 @@ item.itemId) {
       id="endDateTime"
       formControlName="endDateTime"
     />
+  </div>
+  <div>
+    @if(currencies$ | async; as currencies){
+    <select formControlName="currency" (change)="onSelectCurrency($event)">
+      @for (currency of currencies; track currency.code) { @if (currency.code ==
+      selectedCurrencyCode) {
+      <option [value]="currency.code" selected>
+        {{ currency.name }} ({{ currency.code }})
+      </option>
+      } @else {
+      <option [value]="currency.code">
+        {{ currency.name }} ({{ currency.code }})
+      </option>
+      } }
+    </select>
+    }
   </div>
   <div>
     <input

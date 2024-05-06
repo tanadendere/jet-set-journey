@@ -5,10 +5,17 @@ import {
   CoreActionsUnion,
   addItineraryItemToFirestore,
   deleteItineraryItemFromFirestore,
+  getCurrencyList,
+  getCurrencyListComplete,
+  getInternalCurrencyList,
   getItineraryItemsFromFirestore,
   getItineraryItemsFromFirestoreComplete,
 } from './actions';
 import { Injectable } from '@angular/core';
+import { CurrencyService } from '../services/currency.service';
+import { ICurrency } from '../models/currency';
+import { Store } from '@ngrx/store';
+import { ItineraryState } from '../../models/state';
 
 @Injectable()
 export class TripManagementEffects {
@@ -85,8 +92,53 @@ export class TripManagementEffects {
     )
   );
 
+  getCurrencyList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCurrencyList.type),
+      switchMap(() =>
+        this.currencyService.getCurrencyList().pipe(
+          map((currencyList) => {
+            return getCurrencyListComplete({ currencyData: currencyList.data });
+          }),
+          retry(1),
+          catchError((err) => {
+            console.error(
+              'Could not make a request to external currency api, using the internal data',
+              err
+            );
+            this.store.dispatch(getInternalCurrencyList());
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+
+  getInternalCurrencyList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getInternalCurrencyList.type),
+      switchMap(() =>
+        this.currencyService.getInternalCurrencyList().pipe(
+          map((currencyList) => {
+            return getCurrencyListComplete({ currencyData: currencyList.data });
+          }),
+          retry(1),
+          catchError((err) => {
+            alert(
+              `Unfortunately we could retrieve the list of currencies. \n\n` +
+                err.toString()
+            );
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions<CoreActionsUnion>,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private currencyService: CurrencyService,
+    private store: Store<ItineraryState>
   ) {}
 }
