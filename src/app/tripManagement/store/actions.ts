@@ -2,6 +2,7 @@ import { createAction, props, union } from '@ngrx/store';
 import { ITrip } from '../../userDashboard/models/trip';
 import { IItineraryItem } from '../models/itinerary';
 import { ICurrency, ICurrencyData } from '../../userManagement/models/currency';
+import { IExchangeRate } from '../models/exchangeRate';
 
 export const getTripDetailsPage = createAction(
   '[Trip Management] Get trip details',
@@ -41,9 +42,14 @@ export const deleteItineraryItemFromFirestore = createAction(
   props<{ trip: ITrip; itineraryItemId: string }>()
 );
 
-// export const getCurrencyList = createAction(
-//   '[Trip Management] Get the list of currencies'
-// );
+export const getExchangeRates = createAction(
+  '[Trip Management] Get the latest exchange rate itinerary',
+  props<{ selectedCurrency: string; itemCurrencies: string[] }>()
+);
+export const getExchangeRatesComplete = createAction(
+  '[Trip Management] Get the total cost of itinerary complete',
+  props<{ exchangeRates: IExchangeRate[] }>()
+);
 
 // export const getInternalCurrencyList = createAction(
 //   '[Trip Management] Get the internal list of currencies'
@@ -61,6 +67,8 @@ const all = union({
   addItineraryItemToFirestore,
   editItineraryItemInFirestore,
   deleteItineraryItemFromFirestore,
+  getExchangeRates,
+  getExchangeRatesComplete,
   // getCurrencyList,
   // getInternalCurrencyList,
   // getCurrencyListComplete,

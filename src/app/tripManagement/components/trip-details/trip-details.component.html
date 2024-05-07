@@ -3,6 +3,9 @@
 @if (trip$ | async; as trip) {
 <div>{{ trip.tripName }}</div>
 <div>{{ trip.destination }}</div>
+} @if (totalCost$ | async; as totalCost) {
+<div>Total Cost {{ totalCost }}</div>
+<div></div>
 }
 <!-- @if(currencies$ | async; as currencies){
 <select (change)="onSelectCurrency($event)">

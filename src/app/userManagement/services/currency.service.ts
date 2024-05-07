@@ -9,13 +9,19 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CurrencyService {
-  getCurrencyList(): Observable<ICurrencyAPIObj> {
-    return from(this.currencyAPICaller());
-  }
+  // getCurrencyList(): Observable<ICurrencyAPIObj> {
+  //   return from(this.currencyAPICaller());
+  // }
 
-  async currencyAPICaller(): Promise<ICurrencyAPIObj> {
-    const client = new currencyapi(environment.currencyAPI);
-    return await client.currencies();
+  // async currencyAPICaller(): Promise<ICurrencyAPIObj> {
+  //   const client = new currencyapi(environment.currencyAPI);
+  //   return await client.currencies();
+  // }
+
+  getCurrencyList() {
+    return this.http.get<ICurrencyAPIObj>(
+      `https://api.currencyapi.com/v3/currencies?apikey=${environment.currencyAPI}`
+    );
   }
 
   getInternalCurrencyList() {

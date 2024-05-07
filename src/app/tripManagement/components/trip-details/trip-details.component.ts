@@ -3,13 +3,18 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { ItineraryState, UserState } from '../../../models/state';
 import { Store } from '@ngrx/store';
-import { selectItinerary, selectTripDetails } from '../../store/selectors';
+import {
+  selectItinerary,
+  selectTotalCost,
+  selectTripDetails,
+} from '../../store/selectors';
 import { IItineraryItem } from '../../models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../../userDashboard/models/trip';
 import {
   addItineraryItemToFirestore,
+  getExchangeRates,
   // getCurrencyList,
   // getInternalCurrencyList,
   getItineraryItemsFromFirestore,
@@ -17,6 +22,7 @@ import {
 import { ItineraryItemComponent } from './itinerary-item/itinerary-item.component';
 import { ICurrency } from '../../../userManagement/models/currency';
 import { selectCurrency } from '../../../userManagement/store/selectors';
+import { getCurrencyCodes } from '../../utilities/utils';
 
 @Component({
   selector: 'app-trip-details',
@@ -37,13 +43,18 @@ export class TripDetailsComponent {
   userStore: Store<UserState> = inject(Store);
   // currencies$ = this.store.select(selectCurrencies);
   selectedCurrency$ = this.userStore.select(selectCurrency);
+  selectedCurrencySubscription = new Subscription();
   store: Store<ItineraryState> = inject(Store);
   itinerary$ = this.store.select(selectItinerary);
+  itinerarySubscription = new Subscription();
+
   trip$ = this.store.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
 
   router = inject(Router);
+  totalCost = 0;
+  totalCost$ = this.store.select(selectTotalCost);
 
   constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
@@ -53,6 +64,24 @@ export class TripDetailsComponent {
       }
     });
     // this.store.dispatch(getInternalCurrencyList());
+    this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
+      (selectedCurrency) => {
+        if (selectedCurrency) {
+          this.itinerarySubscription = this.itinerary$.subscribe(
+            (itinerary) => {
+              if (itinerary) {
+                this.store.dispatch(
+                  getExchangeRates({
+                    selectedCurrency: selectedCurrency.code,
+                    itemCurrencies: getCurrencyCodes(itinerary),
+                  })
+                );
+              }
+            }
+          );
+        }
+      }
+    );
   }
 
   // onSelectCurrency(event: Event) {

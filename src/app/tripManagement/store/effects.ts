@@ -5,6 +5,8 @@ import {
   CoreActionsUnion,
   addItineraryItemToFirestore,
   deleteItineraryItemFromFirestore,
+  getExchangeRates,
+  getExchangeRatesComplete,
   // getCurrencyList,
   // getCurrencyListComplete,
   // getInternalCurrencyList,
@@ -17,6 +19,7 @@ import { ICurrency } from '../../userManagement/models/currency';
 import { Store } from '@ngrx/store';
 import { ItineraryState } from '../../models/state';
 import fs from 'fs';
+import { getListOfExhangeRates } from '../utilities/utils';
 
 @Injectable()
 export class TripManagementEffects {
@@ -89,6 +92,31 @@ export class TripManagementEffects {
             return EMPTY;
           })
         )
+      )
+    )
+  );
+
+  getExchangeRates$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getExchangeRates.type),
+      switchMap((action) =>
+        this.currencyService
+          .latestExchangeRate(action.selectedCurrency, action.itemCurrencies)
+          .pipe(
+            map((response) => {
+              return getExchangeRatesComplete({
+                exchangeRates: getListOfExhangeRates(response?.data),
+              });
+            }),
+            retry(1),
+            catchError((err) => {
+              alert(
+                `Unfortunately we could not get the current exchange rate. \n\n` +
+                  err.toString()
+              );
+              return EMPTY;
+            })
+          )
       )
     )
   );

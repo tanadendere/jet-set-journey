@@ -8,54 +8,58 @@ import {
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import currencyapi from '@everapi/currencyapi-js';
+import { IExchangeRateRoot } from '../models/exchangeRate';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CurrencyService {
-  itemName: string = 'CurrencyList';
-
-  // getCurrencyList(): Observable<ICurrencyAPIObj> {
-  //   return from(this.currencyAPICaller());
+  // latestExchangeRate(
+  //   selectedCurrency: string,
+  //   itemCurrencies: string[]
+  // ): Observable<IExchangeRateRoot> {
+  //   return this.currencyAPICaller(selectedCurrency, itemCurrencies);
+  //   // return from(currencyapi
+  //   //   .latest({
+  //   //     base_currency: selectedCurrency,
+  //   //     currencies: itemCurrency,
+  //   //   })
+  //   //   .then((response: { data: { [code: string]: { value: number } } }) => {
+  //   //     const rate = response?.data[0]?.value;
+  //   //     return rate;
+  //   //   }));
   // }
 
-  async currencyAPICaller(): Promise<ICurrencyAPIObj> {
-    const client = new currencyapi(environment.currencyAPI);
-    return await client.currencies();
+  latestExchangeRate(selectedCurrency: string, itemCurrencies: string[]) {
+    // const client = new currencyapi(environment.currencyAPI);
+    // return await client.latest({
+    //   base_currency: selectedCurrency,
+    //   currencies: formatCurrenciesString(itemCurrencies),
+    // });
+    console.log(
+      'formatted string',
+      this.formatCurrenciesString(itemCurrencies)
+    );
+    console.log(
+      'hello',
+      `https://api.currencyapi.com/v3/latest?apikey=${
+        environment.currencyAPI
+      }&currencies=${this.formatCurrenciesString(
+        itemCurrencies
+      )}&base_currency=${selectedCurrency}`
+    );
+
+    return this.http.get<IExchangeRateRoot>(
+      `https://api.currencyapi.com/v3/latest?apikey=${
+        environment.currencyAPI
+      }&currencies=${this.formatCurrenciesString(
+        itemCurrencies
+      )}&base_currency=${selectedCurrency}`
+    );
   }
 
-  // getInternalCurrencyList() {
-  //   return this.http.get<ICurrencyAPIObj>('assets/currencies.json');
-  // }
-
-  storeCurrencyList(currencyListResult: ICurrencyAPIObj) {
-    const storedCurrencyDataString = localStorage.getItem(this.itemName);
-    if (storedCurrencyDataString) {
-    }
-
-    const currencyData: ICurrencyListDataToStore = {
-      currencyData: currencyListResult,
-      expirationTime: Date.now() + 10800000, // three hours from now
-    };
-
-    const currencyDataString = JSON.stringify(currencyData);
-    localStorage.setItem(this.itemName, currencyDataString);
+  formatCurrenciesString(itemCurrencies: string[]): string {
+    return itemCurrencies.map((code) => encodeURIComponent(code)).join('%2C');
   }
-
-  retrieveCurrencyList(): Observable<ICurrencyAPIObj> {
-    const storedCurrencyDataString = localStorage.getItem(this.itemName);
-    if (storedCurrencyDataString) {
-      const currencyData: ICurrencyListDataToStore = JSON.parse(
-        storedCurrencyDataString
-      );
-
-      if (Date.now() > currencyData.expirationTime)
-        return from(this.currencyAPICaller());
-
-      return of(currencyData.currencyData);
-    }
-    return from(this.currencyAPICaller());
-  }
-
   constructor(private http: HttpClient) {}
 }
