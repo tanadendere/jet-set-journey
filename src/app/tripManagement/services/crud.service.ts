@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { IItineraryItem } from '../models/itinerary';
-import { ITrip } from '../../userDashboard/models/trip';
+import { ITrip } from '../models/trip';
 import {
   getDocs,
   collection,

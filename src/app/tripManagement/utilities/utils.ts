@@ -1,9 +1,7 @@
-import { ICurrency, ICurrencyData } from '../../userManagement/models/currency';
 import { IExchangeRateData, IExchangeRate } from '../models/exchangeRate';
 import { IItineraryItem } from '../models/itinerary';
 
 export function getCurrencyCodes(itinerary: IItineraryItem[]) {
-  console.log(itinerary);
   let currencyCodes: string[] = [];
   for (const item of itinerary) {
     if (!currencyCodes.includes(item.currency)) {
@@ -18,21 +16,8 @@ export function getCurrencyCodes(itinerary: IItineraryItem[]) {
 export function getListOfExhangeRates(
   exchangeRateData: IExchangeRateData
 ): IExchangeRate[] {
-  // for(const currency of currencies) {
-
-  // }
-  // for (const key in currencies) {
-  //     if (currencies.hasOwnProperty(key)) {
-  //       const item = currencies[];
-  //       console.log('Key:', key);
-  //       console.log('Name:', item.name);
-  //       console.log('Description:', item.description);
-  //     }
-  //   }
-
   const listOfExhangeRates: IExchangeRate[] = [];
 
-  // Iterate through the ICurrencyData object
   for (const exchangeRate in exchangeRateData) {
     if (exchangeRateData.hasOwnProperty(exchangeRate)) {
       const rate: IExchangeRate =
@@ -41,7 +26,6 @@ export function getListOfExhangeRates(
     }
   }
 
-  // Now currencyArray contains all the ICurrency objects
   return listOfExhangeRates;
 }
 

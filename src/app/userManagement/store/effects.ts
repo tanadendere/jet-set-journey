@@ -117,27 +117,6 @@ export class UserManagementEffects {
       switchMap(() =>
         this.currencyService.getCurrencyList().pipe(
           map((currencyList) => {
-            // fs.writeFile(
-            //   'assets/currencies.json',
-            //   JSON.stringify(currencyList),
-            //   (err) => {
-            //     if (err) {
-            //       console.log('Error writing file:', err);
-            //     } else {
-            //       console.log('Successfully wrote file');
-            //     }
-            //   }
-
-            // );
-            // const fs = require('fs-extra');
-            // const currencyJSONData = JSON.stringify(currencyList);
-            // const filePath = 'assets/currencies.json';
-
-            // fs.writeFile(filePath, currencyJSONData, (err: Error) => {
-            //   if (err) {
-            //     console.error('Error writing to file:', err);
-            //   }
-            // });
             return getCurrencyListComplete({ currencyData: currencyList.data });
           }),
           retry(1),

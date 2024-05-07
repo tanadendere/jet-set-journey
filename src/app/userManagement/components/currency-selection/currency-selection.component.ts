@@ -23,14 +23,6 @@ export class CurrencySelectionComponent {
 
   constructor() {
     this.userStore.dispatch(getCurrencyList());
-    // const currencySelection = document.querySelector(
-    //   '#currencySelection'
-    // ) as HTMLSelectElement;
-    // const selectedCurrency: ICurrency = JSON.parse(currencySelection.value);
-    // console.log(selectedCurrency);
-    // this.userStore.dispatch(
-    //   selectUserCurrency({ selectedCurrency: selectedCurrency })
-    // );
 
     this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
       (selectedCurrency) => {
@@ -51,5 +43,9 @@ export class CurrencySelectionComponent {
 
   stringfy(currency: ICurrency) {
     return JSON.stringify(currency);
+  }
+
+  ngOnDestroy() {
+    this.selectedCurrencySubscription.unsubscribe();
   }
 }

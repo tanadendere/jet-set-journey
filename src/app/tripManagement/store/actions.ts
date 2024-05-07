@@ -1,7 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import { ITrip } from '../../userDashboard/models/trip';
+import { ITrip } from '../models/trip';
 import { IItineraryItem } from '../models/itinerary';
-import { ICurrency, ICurrencyData } from '../../userManagement/models/currency';
 import { IExchangeRate } from '../models/exchangeRate';
 
 export const getTripDetailsPage = createAction(
@@ -51,14 +50,6 @@ export const getExchangeRatesComplete = createAction(
   props<{ exchangeRates: IExchangeRate[] }>()
 );
 
-// export const getInternalCurrencyList = createAction(
-//   '[Trip Management] Get the internal list of currencies'
-// );
-// export const getCurrencyListComplete = createAction(
-//   '[Trip Management] Get the list of currencies complete',
-//   props<{ currencyData: ICurrencyData }>()
-// );
-
 const all = union({
   editTripById,
   editTripByIdComplete,
@@ -69,8 +60,5 @@ const all = union({
   deleteItineraryItemFromFirestore,
   getExchangeRates,
   getExchangeRatesComplete,
-  // getCurrencyList,
-  // getInternalCurrencyList,
-  // getCurrencyListComplete,
 });
 export type CoreActionsUnion = typeof all;

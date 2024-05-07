@@ -1,8 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ItineraryState } from '../../models/state';
 import { tripManagementFeatureKey } from './reducer';
-import { getListOfCurrencies } from '../../userManagement/utilities/utils';
-import { selectUserState } from '../../userManagement/store/selectors';
 import { calculateItineraryTotalCost } from '../utilities/utils';
 
 export const selectTripManagementState = createFeatureSelector<ItineraryState>(
@@ -23,9 +21,8 @@ export const selectTripDetails = createSelector(
 export const selectTotalCost = createSelector(
   selectTripManagementState,
   (state) => {
-    // console.log(state.itinerary, state.exchangeRates);
     if (!(state.itinerary && state.exchangeRates)) {
-      return 110.0;
+      return 0;
     }
     return calculateItineraryTotalCost(state.itinerary, state.exchangeRates);
   }

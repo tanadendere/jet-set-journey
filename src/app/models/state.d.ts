@@ -1,6 +1,6 @@
 import { ICurrency, ICurrencyData } from '../userManagement/models/currency';
 import { IItineraryItem } from '../tripManagement/models/itinerary';
-import { ITrip } from '../userDashboard/models/trip';
+import { ITrip } from '../tripManagement/models/trip';
 import { IUser } from '../userManagement/models/user';
 import { IExchangeRate } from '../tripManagement/models/exchangeRate';
 
@@ -18,5 +18,4 @@ export interface ItineraryState {
   trip?: ITrip;
   itinerary?: IItineraryItem[];
   exchangeRates?: IExchangeRate[];
-  // currencyData?: ICurrencyData;
 }
