@@ -36,6 +36,7 @@ export class CurrencyService {
     //   base_currency: selectedCurrency,
     //   currencies: formatCurrenciesString(itemCurrencies),
     // });
+    console.log('itemCurrencies', itemCurrencies);
     console.log(
       'formatted string',
       this.formatCurrenciesString(itemCurrencies)

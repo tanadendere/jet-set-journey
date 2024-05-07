@@ -44,6 +44,7 @@ export class TripDetailsComponent {
   // currencies$ = this.store.select(selectCurrencies);
   selectedCurrency$ = this.userStore.select(selectCurrency);
   selectedCurrencySubscription = new Subscription();
+  selectedCurrencyCode = '';
   store: Store<ItineraryState> = inject(Store);
   itinerary$ = this.store.select(selectItinerary);
   itinerarySubscription = new Subscription();
@@ -55,6 +56,7 @@ export class TripDetailsComponent {
   router = inject(Router);
   totalCost = 0;
   totalCost$ = this.store.select(selectTotalCost);
+  totalCostSubscription = new Subscription();
 
   constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
@@ -67,6 +69,7 @@ export class TripDetailsComponent {
     this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
       (selectedCurrency) => {
         if (selectedCurrency) {
+          this.selectedCurrencyCode = selectedCurrency.code;
           this.itinerarySubscription = this.itinerary$.subscribe(
             (itinerary) => {
               if (itinerary) {
@@ -82,6 +85,11 @@ export class TripDetailsComponent {
         }
       }
     );
+    this.totalCostSubscription = this.totalCost$.subscribe((totalCost) => {
+      if (totalCost) {
+        this.totalCost = totalCost;
+      }
+    });
   }
 
   // onSelectCurrency(event: Event) {
@@ -110,7 +118,7 @@ export class TripDetailsComponent {
         tag: rawForm.itineraryTag,
         startDateTime: rawForm.startDateTime,
         endDateTime: rawForm.endDateTime,
-        currency: rawForm.currency,
+        currency: this.selectedCurrencyCode,
         costEstimate: Number(rawForm.costEstimate),
         location: rawForm.location,
         notes: rawForm.notes,

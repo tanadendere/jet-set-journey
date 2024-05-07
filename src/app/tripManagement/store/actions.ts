@@ -43,11 +43,11 @@ export const deleteItineraryItemFromFirestore = createAction(
 );
 
 export const getExchangeRates = createAction(
-  '[Trip Management] Get the latest exchange rate itinerary',
+  '[Trip Management] Get the latest exchange rates',
   props<{ selectedCurrency: string; itemCurrencies: string[] }>()
 );
 export const getExchangeRatesComplete = createAction(
-  '[Trip Management] Get the total cost of itinerary complete',
+  '[Trip Management] Get the latest exchange rates complete',
   props<{ exchangeRates: IExchangeRate[] }>()
 );
 

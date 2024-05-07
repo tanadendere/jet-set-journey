@@ -3,6 +3,7 @@ import { IExchangeRateData, IExchangeRate } from '../models/exchangeRate';
 import { IItineraryItem } from '../models/itinerary';
 
 export function getCurrencyCodes(itinerary: IItineraryItem[]) {
+  console.log(itinerary);
   let currencyCodes: string[] = [];
   for (const item of itinerary) {
     if (!currencyCodes.includes(item.currency)) {
@@ -51,7 +52,7 @@ export function calculateItineraryTotalCost(
   let totalCost = 0.0;
   for (const item of itinerary) {
     const rate = getExchangeRate(item.currency, exchangeRates);
-    totalCost += item.costEstimate * rate;
+    totalCost += item.costEstimate / rate;
   }
   return totalCost;
 }
