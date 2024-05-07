@@ -1,24 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
-import { ItineraryState } from '../../../models/state';
+import { ItineraryState, UserState } from '../../../models/state';
 import { Store } from '@ngrx/store';
-import {
-  selectCurrencies,
-  selectItinerary,
-  selectTripDetails,
-} from '../../store/selectors';
+import { selectItinerary, selectTripDetails } from '../../store/selectors';
 import { IItineraryItem } from '../../models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../../userDashboard/models/trip';
 import {
   addItineraryItemToFirestore,
-  getCurrencyList,
+  // getCurrencyList,
+  // getInternalCurrencyList,
   getItineraryItemsFromFirestore,
 } from '../../store/actions';
 import { ItineraryItemComponent } from './itinerary-item/itinerary-item.component';
-import { ICurrency } from '../../models/currency';
+import { ICurrency } from '../../../userManagement/models/currency';
+import { selectCurrency } from '../../../userManagement/store/selectors';
 
 @Component({
   selector: 'app-trip-details',
@@ -36,9 +34,10 @@ import { ICurrency } from '../../models/currency';
 export class TripDetailsComponent {
   fb = inject(FormBuilder);
 
+  userStore: Store<UserState> = inject(Store);
+  // currencies$ = this.store.select(selectCurrencies);
+  selectedCurrency$ = this.userStore.select(selectCurrency);
   store: Store<ItineraryState> = inject(Store);
-  currencies$ = this.store.select(selectCurrencies);
-  selectedCurrencyCode: string | undefined;
   itinerary$ = this.store.select(selectItinerary);
   trip$ = this.store.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
@@ -53,14 +52,14 @@ export class TripDetailsComponent {
         this.store.dispatch(getItineraryItemsFromFirestore({ trip: trip }));
       }
     });
-    this.store.dispatch(getCurrencyList());
+    // this.store.dispatch(getInternalCurrencyList());
   }
 
-  onSelectCurrency(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.selectedCurrencyCode = target.value;
-    console.log(this.selectedCurrencyCode);
-  }
+  // onSelectCurrency(event: Event) {
+  //   const target = event.target as HTMLSelectElement;
+  //   this.selectedCurrencyCode = target.value;
+  //   console.log(this.selectedCurrencyCode);
+  // }
 
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],

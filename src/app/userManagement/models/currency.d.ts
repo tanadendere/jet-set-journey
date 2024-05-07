@@ -14,6 +14,11 @@ export interface ICurrencyAPIObj {
   data: currencyData;
 }
 
+export interface ICurrencyListDataToStore {
+  currencyData: ICurrencyAPIObj;
+  expirationTime: number;
+}
+
 export interface ICurrencyData {
   AED: ICurrency;
   AFN: ICurrency;

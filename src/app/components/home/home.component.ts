@@ -12,6 +12,7 @@ import { selectTrips } from '../../userDashboard/store/selectors';
 import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
 import { ITrip } from '../../userDashboard/models/trip';
 import { getTripDetailsPage } from '../../tripManagement/store/actions';
+import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { getTripDetailsPage } from '../../tripManagement/store/actions';
     RouterLink,
     AddTripComponent,
     TripCardComponent,
+    CurrencySelectionComponent,
   ],
 })
 export class HomeComponent {

@@ -1,11 +1,12 @@
-import { ICurrency, ICurrencyData } from '../tripManagement/models/currency';
+import { ICurrency, ICurrencyData } from '../userManagement/models/currency';
 import { IItineraryItem } from '../tripManagement/models/itinerary';
 import { ITrip } from '../userDashboard/models/trip';
 import { IUser } from '../userManagement/models/user';
 
 export interface UserState {
   user?: IUser;
-  currency?: string;
+  selectedCurrency?: ICurrency;
+  currencyData?: ICurrencyData;
 }
 
 export interface TripState {
@@ -15,5 +16,5 @@ export interface TripState {
 export interface ItineraryState {
   trip?: ITrip;
   itinerary?: IItineraryItem[];
-  currencyData?: ICurrencyData;
+  // currencyData?: ICurrencyData;
 }

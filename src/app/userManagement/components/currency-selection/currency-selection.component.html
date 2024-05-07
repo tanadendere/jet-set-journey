@@ -1,0 +1,14 @@
+@if(currencies$ | async; as currencies){
+<select id="currencySelection" (change)="onSelectCurrency($event)">
+  @for (currency of currencies; track currency.code) { @if(currency.code ===
+  'ZAR'){
+  <option [value]="stringfy(currency)" selected>
+    {{ currency.name }} ({{ currency.code }})
+  </option>
+  }
+  <option [value]="stringfy(currency)">
+    {{ currency.name }} ({{ currency.code }})
+  </option>
+  }
+</select>
+}
