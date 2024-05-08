@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,7 +13,7 @@ import { selectUser } from '../../store/selectors';
   selector: 'app-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, RouterOutlet],
+  imports: [ReactiveFormsModule, RouterLink, RouterOutlet, NgIf],
 })
 export class RegisterComponent {
   fb = inject(FormBuilder);
@@ -24,10 +25,13 @@ export class RegisterComponent {
   hasUnsavedChanges = true;
 
   form = this.fb.nonNullable.group({
-    email: ['', Validators.required],
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.maxLength(254)]],
+    name: ['', [Validators.required, Validators.maxLength(30)]],
+    surname: ['', [Validators.required, Validators.maxLength(30)]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(128)],
+    ],
     confirmPassword: ['', Validators.required],
   });
   errorMessage: string | null = null;

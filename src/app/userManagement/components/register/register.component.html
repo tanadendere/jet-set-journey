@@ -11,6 +11,11 @@
     <div class="alert">
       @if (name?.hasError('required')) {
       <div>Name is required</div>
+      } @if (name?.hasError('maxlength')) {
+      <div>
+        Names can't be longer than 30 characters. Please shorten your name and
+        try again.
+      </div>
       }
     </div>
     }
@@ -21,6 +26,11 @@
     <div class="alert">
       @if (surname?.hasError('required')) {
       <div>Surname is required</div>
+      } @if (surname?.hasError('maxlength')) {
+      <div>
+        Surname can't be longer than 30 characters. Please shorten it and try
+        again.
+      </div>
       }
     </div>
     }
@@ -31,6 +41,8 @@
     <div class="alert">
       @if (email?.hasError('required')) {
       <div>Email is required</div>
+      } @if (email?.hasError('maxlength')) {
+      <div>Your email is too long. It should be less than 254 characters.</div>
       }
     </div>
     }
@@ -41,6 +53,9 @@
     <div class="alert">
       @if (password?.hasError('required')) {
       <div>Password is required</div>
+      } @if (password?.hasError('minlength') || password?.hasError('maxlength'))
+      {
+      <div>Your password must be between 8 and 128 characters long.</div>
       }
     </div>
     }
