@@ -7,15 +7,43 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
     <input type="text" placeholder="Name" formControlName="name" />
+    @if (name?.invalid && (name?.dirty || name?.touched)) {
+    <div class="alert">
+      @if (name?.hasError('required')) {
+      <div>Name is required</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="text" placeholder="Surname" formControlName="surname" />
+    @if (surname?.invalid && (surname?.dirty || surname?.touched)) {
+    <div class="alert">
+      @if (surname?.hasError('required')) {
+      <div>Surname is required</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="text" placeholder="Email" formControlName="email" />
+    @if (email?.invalid && (email?.dirty || email?.touched)) {
+    <div class="alert">
+      @if (email?.hasError('required')) {
+      <div>Email is required</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="password" placeholder="Password" formControlName="password" />
+    @if (password?.invalid && (password?.dirty || password?.touched)) {
+    <div class="alert">
+      @if (password?.hasError('required')) {
+      <div>Password is required</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input
@@ -23,9 +51,17 @@
       placeholder="Confirm Password"
       formControlName="confirmPassword"
     />
+    @if (confirmPassword?.invalid && (confirmPassword?.dirty ||
+    confirmPassword?.touched)) {
+    <div class="alert">
+      @if (confirmPassword?.hasError('required')) {
+      <div>Please confirm your password</div>
+      }
+    </div>
+    }
   </div>
   <div>
-    <button type="submit">Sign Up</button>
+    <button type="submit" [disabled]="!form.valid">Sign Up</button>
   </div>
   <div>Already have an account? <a routerLink="/login">Login</a></div>
 </form>

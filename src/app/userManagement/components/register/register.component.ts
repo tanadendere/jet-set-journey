@@ -32,23 +32,41 @@ export class RegisterComponent {
   });
   errorMessage: string | null = null;
 
+  get email() {
+    return this.form.get('email');
+  }
+  get name() {
+    return this.form.get('name');
+  }
+  get surname() {
+    return this.form.get('surname');
+  }
+  get password() {
+    return this.form.get('password');
+  }
+  get confirmPassword() {
+    return this.form.get('confirmPassword');
+  }
+
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
     this.hasUnsavedChanges = false;
-    this.store.dispatch(
-      registerUser({
-        email: rawForm.email,
-        name: rawForm.name,
-        surname: rawForm.surname,
-        password: rawForm.password,
-      })
-    );
+    if (this.form.valid) {
+      this.store.dispatch(
+        registerUser({
+          email: rawForm.email,
+          name: rawForm.name,
+          surname: rawForm.surname,
+          password: rawForm.password,
+        })
+      );
 
-    this.userSubscription = this.user$.subscribe((user) => {
-      if (user != undefined) {
-        this.router.navigateByUrl('trips');
-      }
-    });
+      this.userSubscription = this.user$.subscribe((user) => {
+        if (user != undefined) {
+          this.router.navigateByUrl('trips');
+        }
+      });
+    }
   }
 
   ngOnDestory() {
