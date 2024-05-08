@@ -3,7 +3,12 @@
 <div>
   Good morning, {{ user.name }}
   <app-add-trip [user]="user"></app-add-trip>
-  <app-user-trips></app-user-trips>
+  @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
+  <app-trip-card
+    [trip]="trip"
+    (tripClicked)="navigateToTripDetails($event)"
+  ></app-trip-card>
+  } }
   <span (click)="logout()">Logout</span>
 </div>
 } @else{

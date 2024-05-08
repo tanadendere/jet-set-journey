@@ -20,6 +20,11 @@ import {
   userDashboardFeatureKey,
   userDashboardReducers,
 } from './userDashboard/store/reducers';
+import {
+  tripManagementFeatureKey,
+  tripManagementReducers,
+} from './tripManagement/store/reducer';
+import { TripManagementEffects } from './tripManagement/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,6 +41,14 @@ export const appConfig: ApplicationConfig = {
       name: userDashboardFeatureKey,
       reducer: userDashboardReducers,
     }),
-    provideEffects(UserManagementEffects, UserDashboardEffects),
+    provideState({
+      name: tripManagementFeatureKey,
+      reducer: tripManagementReducers,
+    }),
+    provideEffects(
+      UserManagementEffects,
+      UserDashboardEffects,
+      TripManagementEffects
+    ),
   ],
 };
