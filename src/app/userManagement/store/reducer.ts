@@ -35,7 +35,7 @@ const initialState: UserState = {
   },
 };
 
-export const userManagementReducers = createReducer(
+export const userManagementReducer = createReducer(
   initialState,
   on(registerUserComplete, (state, { user }) => ({
     ...state,
