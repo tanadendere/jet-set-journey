@@ -11,7 +11,7 @@ export interface ICurrency {
 }
 
 export interface ICurrencyAPIObj {
-  data: currencyData;
+  data: ICurrencyData;
 }
 
 export interface ICurrencyListDataToStore {

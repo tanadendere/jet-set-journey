@@ -23,15 +23,12 @@ export class AuthService {
     password: string
   ): Observable<string | void> {
     return from(
-      createUserWithEmailAndPassword(this.firebaseAuth, email, password)
-        .then((response) => {
+      createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(
+        (response) => {
           updateProfile(response.user, { displayName: name });
           return response.user.uid;
-        })
-        .catch((error) => {
-          console.error('Error with registering the user.', error);
-          return;
-        })
+        }
+      )
     );
   }
 

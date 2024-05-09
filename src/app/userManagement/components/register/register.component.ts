@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { NgIf } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
@@ -13,8 +11,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
 import { UserState } from '../../../models/state';
-import { Observable, Subscription } from 'rxjs';
-import { IUser } from '../../models/user';
+import { Subscription } from 'rxjs';
 import { selectErrorMessage, selectUser } from '../../store/selectors';
 
 @Component({

@@ -34,11 +34,6 @@ export class UserManagementEffects {
           .register(action.email, action.name, action.password)
           .pipe(
             map((response) => {
-              if (response == undefined) {
-                const message =
-                  'The email address you entered is already associated with an existing account. Please use a different email address or try logging in.';
-                return registerUserError({ errorMessage: message });
-              }
               let newUser: IUser = {
                 email: action.email,
                 name: action.name,
@@ -49,11 +44,10 @@ export class UserManagementEffects {
               return addUserToFirestore({ user: newUser });
             }),
             retry(1),
-            catchError((err) => {
-              alert(
-                `${action.name}, unfortunately we could not register you. Please try again \n\n` +
-                  err.toString()
-              );
+            catchError(() => {
+              const message =
+                'The email address you entered is already associated with an existing account. Please use a different email address or try logging in.';
+              this.store.dispatch(registerUserError({ errorMessage: message }));
               return EMPTY;
             })
           )
