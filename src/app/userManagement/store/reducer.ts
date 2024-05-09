@@ -38,7 +38,7 @@ const initialState: UserState = {
   errorMessage: undefined,
 };
 
-export const userManagementReducers = createReducer(
+export const userManagementReducer = createReducer(
   initialState,
   on(registerUserError, (state, { errorMessage }) => ({
     ...state,

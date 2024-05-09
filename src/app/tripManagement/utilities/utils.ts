@@ -2,7 +2,7 @@ import { IExchangeRateData, IExchangeRate } from '../models/exchangeRate';
 import { IItineraryItem } from '../models/itinerary';
 
 export function getCurrencyCodes(itinerary: IItineraryItem[]) {
-  let currencyCodes: string[] = [];
+  const currencyCodes: string[] = [];
   for (const item of itinerary) {
     if (!currencyCodes.includes(item.currency)) {
       if (item.currency !== '') {

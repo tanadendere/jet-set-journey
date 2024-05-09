@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserState } from '../../models/state';
-import { userFeatureKey } from './reducers';
+import { userFeatureKey } from './reducer';
 import { getListOfCurrencies } from '../utilities/utils';
 
 export const selectUserState = createFeatureSelector<UserState>(userFeatureKey);

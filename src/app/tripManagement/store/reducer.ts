@@ -26,7 +26,7 @@ const initialState: ItineraryState = {
   exchangeRates: undefined,
 };
 
-export const tripManagementReducers = createReducer(
+export const tripManagementReducer = createReducer(
   initialState,
   on(getTripDetailsPage, (state, { trip }) => ({
     ...state,
