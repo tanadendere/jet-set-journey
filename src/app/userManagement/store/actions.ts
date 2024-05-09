@@ -26,6 +26,10 @@ export const loginUser = createAction(
   '[User] Login',
   props<{ email: string; password: string }>()
 );
+export const loginUserError = createAction(
+  '[User] Login Error',
+  props<{ errorMessage: string }>()
+);
 
 export const getUserFromFirestore = createAction(
   '[User] Retrival from Firestore',
@@ -64,6 +68,7 @@ const all = union({
   addUserToFirestore,
   registerUserComplete,
   loginUser,
+  loginUserError,
   getCurrencyList,
   getCurrencyListComplete,
   getUserFromFirestore,

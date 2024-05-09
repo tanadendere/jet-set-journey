@@ -9,6 +9,7 @@ import {
   getUserFromFirestore,
   loginUser,
   loginUserComplete,
+  loginUserError,
   logoutUser,
   logoutUserComplete,
   registerUser,
@@ -90,8 +91,10 @@ export class UserManagementEffects {
             return getUserFromFirestore({ email: action.email });
           }),
           retry(1),
-          catchError((err) => {
-            alert(`This user does not exist \n\n` + err.toString());
+          catchError(() => {
+            const message =
+              'Invalid credentials provided. Please double-check your username and password and try again.';
+            this.store.dispatch(loginUserError({ errorMessage: message }));
             return EMPTY;
           })
         )

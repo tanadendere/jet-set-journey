@@ -35,7 +35,7 @@ export class AuthService {
     );
   }
 
-  login(email: string, password: string): Observable<UserCredential> {
+  login(email: string, password: string): Observable<UserCredential | void> {
     return from(
       signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
         (response) => {

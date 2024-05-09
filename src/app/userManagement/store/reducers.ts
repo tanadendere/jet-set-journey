@@ -10,6 +10,7 @@ import { UserState } from '../../models/state';
 import {
   getCurrencyListComplete,
   loginUserComplete,
+  loginUserError,
   logoutUser,
   logoutUserComplete,
   registerUserComplete,
@@ -46,10 +47,16 @@ export const userManagementReducers = createReducer(
   on(registerUserComplete, (state, { user }) => ({
     ...state,
     user,
+    errorMessage: undefined,
+  })),
+  on(loginUserError, (state, { errorMessage }) => ({
+    ...state,
+    errorMessage,
   })),
   on(loginUserComplete, (state, { user }) => ({
     ...state,
     user,
+    errorMessage: undefined,
   })),
   on(getCurrencyListComplete, (state, { currencyData }) => ({
     ...state,
