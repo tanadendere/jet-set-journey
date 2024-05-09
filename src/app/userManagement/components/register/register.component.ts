@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
@@ -14,23 +15,25 @@ import { registerUser } from '../../store/actions';
 import { UserState } from '../../../models/state';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../../models/user';
-import { selectUser } from '../../store/selectors';
+import { selectErrorMessage, selectUser } from '../../store/selectors';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, RouterOutlet, NgIf],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RouterOutlet],
 })
 export class RegisterComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   store: Store<UserState> = inject(Store);
   userSubscription: Subscription = new Subscription();
-  user$: Observable<IUser | undefined> = this.store.select(selectUser);
+  user$ = this.store.select(selectUser);
+
+  errorMessage: string | undefined = undefined;
+  error$ = this.store.select(selectErrorMessage);
 
   hasUnsavedChanges = true;
-
   form = this.fb.nonNullable.group(
     {
       email: [
@@ -60,23 +63,16 @@ export class RegisterComponent {
           Validators.minLength(8),
           Validators.maxLength(128),
           Validators.pattern(
-            /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).{8,}$/
+            /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).{3,}$/
           ),
         ],
       ],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          // this.confirmPasswordValidator(),
-        ],
-      ],
+      confirmPassword: ['', [Validators.required]],
     },
     {
       validators: this.confirmPasswordValidator('password', 'confirmPassword'),
     }
   );
-  errorMessage: string | null = null;
 
   get email() {
     return this.form.get('email');

@@ -1,6 +1,6 @@
 <h1>Register</h1>
 
-@if (errorMessage) {
+@if (error$ | async; as errorMessage) {
 <div>{{ errorMessage }}</div>
 }
 

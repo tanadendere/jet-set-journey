@@ -5,6 +5,11 @@ import { getListOfCurrencies } from '../utilities/utils';
 
 export const selectUserState = createFeatureSelector<UserState>(userFeatureKey);
 
+export const selectErrorMessage = createSelector(
+  selectUserState,
+  (state) => state.errorMessage
+);
+
 export const selectUser = createSelector(
   selectUserState,
   (state) => state.user

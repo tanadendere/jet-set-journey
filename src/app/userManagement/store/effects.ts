@@ -13,6 +13,7 @@ import {
   logoutUserComplete,
   registerUser,
   registerUserComplete,
+  registerUserError,
 } from './actions';
 import { EMPTY, catchError, map, retry, switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -31,13 +32,18 @@ export class UserManagementEffects {
         this.authService
           .register(action.email, action.name, action.password)
           .pipe(
-            map((uid) => {
+            map((response) => {
+              if (response == undefined) {
+                const message =
+                  'The email address you entered is already associated with an existing account. Please use a different email address or try logging in.';
+                return registerUserError({ errorMessage: message });
+              }
               let newUser: IUser = {
                 email: action.email,
                 name: action.name,
                 surname: action.surname,
                 password: action.password,
-                userId: uid ? uid : '',
+                userId: response ? response : '',
               };
               return addUserToFirestore({ user: newUser });
             }),

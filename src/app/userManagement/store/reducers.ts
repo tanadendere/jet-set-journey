@@ -13,6 +13,7 @@ import {
   logoutUser,
   logoutUserComplete,
   registerUserComplete,
+  registerUserError,
   selectUserCurrency,
 } from './actions';
 import { isDevMode } from '@angular/core';
@@ -33,10 +34,15 @@ const initialState: UserState = {
     type: 'fiat',
     countries: ['LS', 'NA', 'ZA', 'ZW'],
   },
+  errorMessage: undefined,
 };
 
 export const userManagementReducers = createReducer(
   initialState,
+  on(registerUserError, (state, { errorMessage }) => ({
+    ...state,
+    errorMessage,
+  })),
   on(registerUserComplete, (state, { user }) => ({
     ...state,
     user,

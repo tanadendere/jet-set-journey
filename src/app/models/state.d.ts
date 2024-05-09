@@ -8,6 +8,7 @@ export interface UserState {
   user?: IUser;
   selectedCurrency?: ICurrency;
   currencyData?: ICurrencyData;
+  errorMessage?: string;
 }
 
 export interface TripState {
