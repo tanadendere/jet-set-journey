@@ -16,6 +16,11 @@
         Names can't be longer than 30 characters. Please shorten your name and
         try again.
       </div>
+      } @if (name?.hasError('pattern')) {
+      <div>
+        Please enter a valid name. Only letters, spaces, and apostrophes are
+        allowed.
+      </div>
       }
     </div>
     }
@@ -31,6 +36,11 @@
         Surname can't be longer than 30 characters. Please shorten it and try
         again.
       </div>
+      } @if (surname?.hasError('pattern')) {
+      <div>
+        Please enter a valid surname. Only letters, spaces, and apostrophes are
+        allowed.
+      </div>
       }
     </div>
     }
@@ -43,6 +53,8 @@
       <div>Email is required</div>
       } @if (email?.hasError('maxlength')) {
       <div>Your email is too long. It should be less than 254 characters.</div>
+      } @if (email?.hasError('pattern')) {
+      <div>Please enter a valid email address.</div>
       }
     </div>
     }
@@ -56,6 +68,12 @@
       } @if (password?.hasError('minlength') || password?.hasError('maxlength'))
       {
       <div>Your password must be between 8 and 128 characters long.</div>
+      }@if (password?.hasError('pattern')) {
+      <div>
+        Please ensure your password has at least one number, one letter and one
+        special character (!&#64;#$%^&*-_?)<br />
+        White space is not allowed.
+      </div>
       }
     </div>
     }
@@ -70,7 +88,9 @@
     confirmPassword?.touched)) {
     <div class="alert">
       @if (confirmPassword?.hasError('required')) {
-      <div>Please confirm your password</div>
+      <div>Please confirm your password.</div>
+      } @if (confirmPassword?.hasError('confirmedValidator')) {
+      <div>Please ensure both passwords match.</div>
       }
     </div>
     }

@@ -1,6 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/actions';
@@ -24,16 +31,51 @@ export class RegisterComponent {
 
   hasUnsavedChanges = true;
 
-  form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.maxLength(254)]],
-    name: ['', [Validators.required, Validators.maxLength(30)]],
-    surname: ['', [Validators.required, Validators.maxLength(30)]],
-    password: [
-      '',
-      [Validators.required, Validators.minLength(8), Validators.maxLength(128)],
-    ],
-    confirmPassword: ['', Validators.required],
-  });
+  form = this.fb.nonNullable.group(
+    {
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(254),
+          Validators.pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/),
+        ],
+      ],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(30),
+          Validators.pattern(/^[A-Za-z\-\'\s]*$/),
+        ],
+      ],
+      surname: [
+        '',
+        [Validators.maxLength(30), Validators.pattern(/^[A-Za-z\-\'\s]*$/)],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(128),
+          Validators.pattern(
+            /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).{8,}$/
+          ),
+        ],
+      ],
+      confirmPassword: [
+        '',
+        [
+          Validators.required,
+          // this.confirmPasswordValidator(),
+        ],
+      ],
+    },
+    {
+      validators: this.confirmPasswordValidator('password', 'confirmPassword'),
+    }
+  );
   errorMessage: string | null = null;
 
   get email() {
@@ -52,10 +94,36 @@ export class RegisterComponent {
     return this.form.get('confirmPassword');
   }
 
+  confirmPasswordValidator(
+    password: string,
+    matchingPassword: string
+  ): ValidatorFn {
+    return (abstractControl: AbstractControl) => {
+      const passwordControl = abstractControl.get(password);
+      const matchingPaaswordControl = abstractControl.get(matchingPassword);
+
+      if (
+        matchingPaaswordControl!.errors &&
+        !matchingPaaswordControl!.errors?.['confirmedValidator']
+      ) {
+        return null;
+      }
+
+      if (passwordControl!.value !== matchingPaaswordControl!.value) {
+        const error = { confirmedValidator: 'Passwords do not match.' };
+        matchingPaaswordControl!.setErrors(error);
+        return error;
+      } else {
+        matchingPaaswordControl!.setErrors(null);
+        return null;
+      }
+    };
+  }
+
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
     this.hasUnsavedChanges = false;
-    if (this.form.valid) {
+    if (this.form.valid && rawForm.password == rawForm.confirmPassword) {
       this.store.dispatch(
         registerUser({
           email: rawForm.email,
