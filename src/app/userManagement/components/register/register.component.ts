@@ -122,7 +122,7 @@ export class RegisterComponent {
     if (this.form.valid && rawForm.password == rawForm.confirmPassword) {
       this.store.dispatch(
         registerUser({
-          email: rawForm.email,
+          email: rawForm.email.toLowerCase(),
           name: rawForm.name,
           surname: rawForm.surname,
           password: rawForm.password,

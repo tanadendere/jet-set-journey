@@ -20,7 +20,7 @@ export class CrudService {
   addTrip(
     userEmail: string,
     tripName: string,
-    tripDestination: string
+    destination: string
   ): Observable<void> {
     return from(
       addDoc(
@@ -30,7 +30,7 @@ export class CrudService {
         ),
         {
           tripName: tripName,
-          tripDestination: tripDestination,
+          destination: destination,
         }
       )
         .then((response) => {

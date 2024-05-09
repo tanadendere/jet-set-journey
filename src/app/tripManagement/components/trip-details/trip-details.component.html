@@ -18,12 +18,28 @@ item.itemId) {
 }
 
 <form [formGroup]="form" (ngSubmit)="addAnItem()">
-  <h2>Add to your itinerary</h2>
+  <h2>New Event</h2>
   <div>
     <input type="text" placeholder="Title" formControlName="name" />
+    @if (name?.invalid && (name?.dirty || name?.touched)) {
+    <div class="alert">
+      @if (name?.hasError('pattern')) {
+      <div>
+        The name of this event contains characters that are not allowed.
+      </div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="text" placeholder="Location" formControlName="location" />
+    @if (location?.invalid && (location?.dirty || location?.touched)) {
+    <div class="alert">
+      @if (location?.hasError('pattern')) {
+      <div>The location name contains characters that are not allowed.</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <p>Tag:</p>
@@ -142,8 +158,9 @@ item.itemId) {
   <div>
     <textarea rows="5" placeholder="Notes" formControlName="notes"></textarea>
   </div>
+  <!-- in UI feature add *required instead -->
   <div>
-    <button type="submit">Add to itinerary</button>
+    <button type="submit" [disabled]="!form.valid">Add to itinerary</button>
   </div>
   <div>
     <!-- this will toggle off the display for the form -->

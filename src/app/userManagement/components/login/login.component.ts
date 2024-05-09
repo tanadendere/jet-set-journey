@@ -53,7 +53,10 @@ export class LoginComponent {
     const rawForm = this.form.getRawValue();
     if (this.form.valid) {
       this.store.dispatch(
-        loginUser({ email: rawForm.email, password: rawForm.password })
+        loginUser({
+          email: rawForm.email.toLowerCase(),
+          password: rawForm.password,
+        })
       );
       this.userSubscription = this.user$.subscribe((user) => {
         if (user != undefined) {

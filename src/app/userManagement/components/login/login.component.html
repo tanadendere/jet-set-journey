@@ -12,10 +12,6 @@
       @if (email?.hasError('required')) {
       <div>Email is required</div>
       }
-      <!-- MIGHT USE LATER NOT SURE IF IT IS NECESSARY
-        @if (email?.hasError('pattern')) {
-      <div>Please enter a valid email address.</div>
-      } -->
     </div>
     }
   </div>
@@ -26,13 +22,6 @@
       @if (password?.hasError('required')) {
       <div>Password is required</div>
       }
-      <!-- MIGHT USE LATER NOT SURE IF IT IS NECESSARY
-        @if (password?.hasError('pattern')) {
-      <div>
-        Please enter a valid password. Only letters, numbers and these special
-        characters (!&#64;#$%^&*-_?) are allowed.
-      </div>
-      } -->
     </div>
     }
   </div>
