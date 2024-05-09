@@ -7,7 +7,7 @@ import {
   doc,
   getDocs,
 } from '@angular/fire/firestore';
-import { ITrip } from '../models/trip';
+import { ITrip } from '../../tripManagement/models/trip';
 import { Observable, from } from 'rxjs';
 import { environment } from '../../../environments/environment';
 

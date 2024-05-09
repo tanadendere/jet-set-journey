@@ -10,8 +10,9 @@ import { Subscription } from 'rxjs';
 import { getTripsFromFirestore } from '../../userDashboard/store/actions';
 import { selectTrips } from '../../userDashboard/store/selectors';
 import { TripCardComponent } from '../../userDashboard/components/trip-card/trip-card.component';
-import { ITrip } from '../../userDashboard/models/trip';
+import { ITrip } from '../../tripManagement/models/trip';
 import { getTripDetailsPage } from '../../tripManagement/store/actions';
+import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { getTripDetailsPage } from '../../tripManagement/store/actions';
     RouterLink,
     AddTripComponent,
     TripCardComponent,
+    CurrencySelectionComponent,
   ],
 })
 export class HomeComponent {
@@ -38,7 +40,7 @@ export class HomeComponent {
 
   router = inject(Router);
 
-  ngOnInit() {
+  constructor() {
     this.userSubscription = this.user$.subscribe((user) => {
       if (user) {
         this.tripStore.dispatch(

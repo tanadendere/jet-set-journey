@@ -12,6 +12,7 @@ import {
   logoutUserComplete,
 } from '../../userManagement/store/actions';
 import {
+  getExchangeRatesComplete,
   getItineraryItemsFromFirestoreComplete,
   getTripDetailsPage,
 } from './actions';
@@ -22,9 +23,10 @@ export const tripManagementFeatureKey = 'tripManagementFeature';
 const initialState: ItineraryState = {
   trip: undefined,
   itinerary: undefined,
+  exchangeRates: undefined,
 };
 
-export const tripManagementReducers = createReducer(
+export const tripManagementReducer = createReducer(
   initialState,
   on(getTripDetailsPage, (state, { trip }) => ({
     ...state,
@@ -33,6 +35,10 @@ export const tripManagementReducers = createReducer(
   on(getItineraryItemsFromFirestoreComplete, (state, { itinerary }) => ({
     ...state,
     itinerary,
+  })),
+  on(getExchangeRatesComplete, (state, { exchangeRates }) => ({
+    ...state,
+    exchangeRates,
   })),
   on(logoutUserComplete, (state, {}) => ({
     ...state,

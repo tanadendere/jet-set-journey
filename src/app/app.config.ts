@@ -12,17 +12,17 @@ import {
   metaReducers,
   reducers,
   userFeatureKey,
-  userManagementReducers,
-} from './userManagement/store/reducers';
+  userManagementReducer,
+} from './userManagement/store/reducer';
 import { UserManagementEffects } from './userManagement/store/effects';
 import { UserDashboardEffects } from './userDashboard/store/effects';
 import {
   userDashboardFeatureKey,
-  userDashboardReducers,
-} from './userDashboard/store/reducers';
+  userDashboardReducer,
+} from './userDashboard/store/reducer';
 import {
   tripManagementFeatureKey,
-  tripManagementReducers,
+  tripManagementReducer,
 } from './tripManagement/store/reducer';
 import { TripManagementEffects } from './tripManagement/store/effects';
 
@@ -36,14 +36,14 @@ export const appConfig: ApplicationConfig = {
     ]),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     provideStore(reducers, { metaReducers }),
-    provideState({ name: userFeatureKey, reducer: userManagementReducers }),
+    provideState({ name: userFeatureKey, reducer: userManagementReducer }),
     provideState({
       name: userDashboardFeatureKey,
-      reducer: userDashboardReducers,
+      reducer: userDashboardReducer,
     }),
     provideState({
       name: tripManagementFeatureKey,
-      reducer: tripManagementReducers,
+      reducer: tripManagementReducer,
     }),
     provideEffects(
       UserManagementEffects,

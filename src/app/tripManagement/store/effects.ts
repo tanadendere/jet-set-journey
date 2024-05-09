@@ -5,10 +5,14 @@ import {
   CoreActionsUnion,
   addItineraryItemToFirestore,
   deleteItineraryItemFromFirestore,
+  getExchangeRates,
+  getExchangeRatesComplete,
   getItineraryItemsFromFirestore,
   getItineraryItemsFromFirestoreComplete,
 } from './actions';
 import { Injectable } from '@angular/core';
+import { CurrencyService } from '../services/currency.service';
+import { getListOfExhangeRates } from '../utilities/utils';
 
 @Injectable()
 export class TripManagementEffects {
@@ -85,8 +89,34 @@ export class TripManagementEffects {
     )
   );
 
+  getExchangeRates$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getExchangeRates.type),
+      switchMap((action) =>
+        this.currencyService
+          .latestExchangeRate(action.selectedCurrency, action.itemCurrencies)
+          .pipe(
+            map((response) => {
+              return getExchangeRatesComplete({
+                exchangeRates: getListOfExhangeRates(response?.data),
+              });
+            }),
+            retry(1),
+            catchError((err) => {
+              alert(
+                `Unfortunately we could not get the current exchange rate. \n\n` +
+                  err.toString()
+              );
+              return EMPTY;
+            })
+          )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions<CoreActionsUnion>,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private currencyService: CurrencyService
   ) {}
 }

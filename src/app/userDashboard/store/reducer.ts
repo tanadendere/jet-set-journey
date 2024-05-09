@@ -20,7 +20,7 @@ const intialState: TripState = {
   trips: undefined,
 };
 
-export const userDashboardReducers = createReducer(
+export const userDashboardReducer = createReducer(
   intialState,
   on(getTripsComplete, (state, { trips }) => ({
     ...state,

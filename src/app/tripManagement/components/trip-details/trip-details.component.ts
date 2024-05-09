@@ -1,18 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
-import { ItineraryState } from '../../../models/state';
+import { ItineraryState, UserState } from '../../../models/state';
 import { Store } from '@ngrx/store';
-import { selectItinerary, selectTripDetails } from '../../store/selectors';
+import {
+  selectItinerary,
+  selectTotalCost,
+  selectTripDetails,
+} from '../../store/selectors';
 import { IItineraryItem } from '../../models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ITrip } from '../../../userDashboard/models/trip';
+import { ITrip } from '../../models/trip';
 import {
   addItineraryItemToFirestore,
+  getExchangeRates,
   getItineraryItemsFromFirestore,
 } from '../../store/actions';
 import { ItineraryItemComponent } from './itinerary-item/itinerary-item.component';
+import { selectCurrency } from '../../../userManagement/store/selectors';
+import { getCurrencyCodes } from '../../utilities/utils';
 
 @Component({
   selector: 'app-trip-details',
@@ -30,19 +37,56 @@ import { ItineraryItemComponent } from './itinerary-item/itinerary-item.componen
 export class TripDetailsComponent {
   fb = inject(FormBuilder);
 
-  store: Store<ItineraryState> = inject(Store);
-  itinerary$ = this.store.select(selectItinerary);
-  trip$ = this.store.select(selectTripDetails);
+  userStore: Store<UserState> = inject(Store);
+  selectedCurrency$ = this.userStore.select(selectCurrency);
+  selectedCurrencySubscription = new Subscription();
+  selectedCurrencyCode = '';
+
+  itineraryStore: Store<ItineraryState> = inject(Store);
+  itinerary$ = this.itineraryStore.select(selectItinerary);
+  itinerarySubscription = new Subscription();
+
+  trip$ = this.itineraryStore.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
 
   router = inject(Router);
 
-  ngOnInit() {
+  totalCost$ = this.itineraryStore.select(selectTotalCost);
+  totalCostSubscription = new Subscription();
+  totalCost = 0;
+
+  constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
       if (trip) {
         this.trip = trip;
-        this.store.dispatch(getItineraryItemsFromFirestore({ trip: trip }));
+        this.itineraryStore.dispatch(
+          getItineraryItemsFromFirestore({ trip: trip })
+        );
+      }
+    });
+    this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
+      (selectedCurrency) => {
+        if (selectedCurrency) {
+          this.selectedCurrencyCode = selectedCurrency.code;
+          this.itinerarySubscription = this.itinerary$.subscribe(
+            (itinerary) => {
+              if (itinerary) {
+                this.itineraryStore.dispatch(
+                  getExchangeRates({
+                    selectedCurrency: selectedCurrency.code,
+                    itemCurrencies: getCurrencyCodes(itinerary),
+                  })
+                );
+              }
+            }
+          );
+        }
+      }
+    );
+    this.totalCostSubscription = this.totalCost$.subscribe((totalCost) => {
+      if (totalCost) {
+        this.totalCost = totalCost;
       }
     });
   }
@@ -53,6 +97,7 @@ export class TripDetailsComponent {
     itineraryTag: ['', Validators.required],
     startDateTime: ['', Validators.required],
     endDateTime: ['', Validators.required],
+    currency: ['', Validators.required],
     costEstimate: ['', Validators.required],
     notes: ['', Validators.required],
   });
@@ -66,12 +111,12 @@ export class TripDetailsComponent {
         tag: rawForm.itineraryTag,
         startDateTime: rawForm.startDateTime,
         endDateTime: rawForm.endDateTime,
-        currency: 'ZAR',
+        currency: this.selectedCurrencyCode,
         costEstimate: Number(rawForm.costEstimate),
         location: rawForm.location,
         notes: rawForm.notes,
       };
-      this.store.dispatch(
+      this.itineraryStore.dispatch(
         addItineraryItemToFirestore({
           trip: this.trip,
           itineraryItem: itineraryItem,
@@ -87,5 +132,8 @@ export class TripDetailsComponent {
 
   ngOnDestory() {
     this.tripSubscription.unsubscribe();
+    this.totalCostSubscription.unsubscribe();
+    this.itinerarySubscription.unsubscribe();
+    this.selectedCurrencySubscription.unsubscribe();
   }
 }

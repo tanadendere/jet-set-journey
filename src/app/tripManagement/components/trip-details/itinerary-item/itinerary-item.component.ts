@@ -5,7 +5,7 @@ import { deleteItineraryItemFromFirestore } from '../../../store/actions';
 import { IItineraryItem } from '../../../models/itinerary';
 import { selectTripDetails } from '../../../store/selectors';
 import { Subscription } from 'rxjs';
-import { ITrip } from '../../../../userDashboard/models/trip';
+import { ITrip } from '../../../models/trip';
 
 @Component({
   selector: 'app-itinerary-item',
@@ -22,7 +22,7 @@ export class ItineraryItemComponent {
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
 
-  ngOnInit() {
+  constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
       if (trip) {
         this.trip = trip;

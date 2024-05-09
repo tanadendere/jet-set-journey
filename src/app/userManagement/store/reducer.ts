@@ -8,10 +8,12 @@ import {
 } from '@ngrx/store';
 import { UserState } from '../../models/state';
 import {
+  getCurrencyListComplete,
   loginUserComplete,
   logoutUser,
   logoutUserComplete,
   registerUserComplete,
+  selectUserCurrency,
 } from './actions';
 import { isDevMode } from '@angular/core';
 
@@ -19,10 +21,21 @@ export const userFeatureKey = 'userFeature';
 
 const initialState: UserState = {
   user: undefined,
-  currency: undefined,
+  currencyData: undefined,
+  selectedCurrency: {
+    symbol: 'R',
+    name: 'South African Rand',
+    symbol_native: 'R',
+    decimal_digits: 2,
+    rounding: 0,
+    code: 'ZAR',
+    name_plural: 'South African rand',
+    type: 'fiat',
+    countries: ['LS', 'NA', 'ZA', 'ZW'],
+  },
 };
 
-export const userManagementReducers = createReducer(
+export const userManagementReducer = createReducer(
   initialState,
   on(registerUserComplete, (state, { user }) => ({
     ...state,
@@ -31,6 +44,14 @@ export const userManagementReducers = createReducer(
   on(loginUserComplete, (state, { user }) => ({
     ...state,
     user,
+  })),
+  on(getCurrencyListComplete, (state, { currencyData }) => ({
+    ...state,
+    currencyData: currencyData,
+  })),
+  on(selectUserCurrency, (state, { selectedCurrency }) => ({
+    ...state,
+    selectedCurrency,
   })),
   on(logoutUserComplete, (state) => ({
     ...state,

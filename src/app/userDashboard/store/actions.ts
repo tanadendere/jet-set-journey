@@ -1,5 +1,5 @@
 import { createAction, props, union } from '@ngrx/store';
-import { ITrip } from '../models/trip';
+import { ITrip } from '../../tripManagement/models/trip';
 
 export const addTripToFirestore = createAction(
   '[UserDashboard] Add trip to Firestore',

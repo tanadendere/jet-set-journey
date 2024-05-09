@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { ITrip } from '../../models/trip';
+import { ITrip } from '../../../tripManagement/models/trip';
 import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import { deleteTripFromFirestore } from '../../store/actions';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-trip-card',
@@ -16,7 +16,6 @@ export class TripCardComponent {
   @Input() trip: ITrip = {} as ITrip;
   @Output() tripClicked: EventEmitter<ITrip> = new EventEmitter<ITrip>();
   store: Store<TripState> = inject(Store);
-  router = inject(Router);
 
   onTripClick() {
     this.tripClicked.emit(this.trip);
