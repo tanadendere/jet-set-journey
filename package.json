@@ -24,6 +24,7 @@
     "@ngrx/store": "^17.2.0",
     "bootstrap": "^5.3.3",
     "firebase-admin": "^12.1.0",
+    "ngrx-store-persist": "^1.0.24",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
