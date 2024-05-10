@@ -1,0 +1,155 @@
+<form [formGroup]="form" (ngSubmit)="addAnItem()">
+  <h2>New Event</h2>
+  <div>
+    <input type="text" placeholder="Title" formControlName="name" />
+    @if (name?.invalid && (name?.dirty || name?.touched)) {
+    <div class="alert">
+      @if (name?.hasError('pattern')) {
+      <span class="text-error-red"
+        >The name of this event contains characters that are not allowed.</span
+      >
+      }
+    </div>
+    }
+  </div>
+  <div>
+    <input type="text" placeholder="Location" formControlName="location" />
+    @if (location?.invalid && (location?.dirty || location?.touched)) {
+    <div class="alert">
+      @if (location?.hasError('pattern')) {
+      <span class="text-error-red"
+        >The location name contains characters that are not allowed.</span
+      >
+      }
+    </div>
+    }
+  </div>
+  <div>
+    <p>Tag:</p>
+    <input
+      type="radio"
+      id="placeToStay"
+      formControlName="itineraryTag"
+      value="Place to stay"
+    />
+    <label for="placeToStay">Place to stay</label><br />
+    <input
+      type="radio"
+      id="foodAndDrink"
+      formControlName="itineraryTag"
+      value="Food and drink"
+    />
+    <label for="foodAndDrink">Food and drink</label><br />
+    <input
+      type="radio"
+      id="activityOutdoor"
+      formControlName="itineraryTag"
+      value="Outdoor Activity"
+    />
+    <label for="activityOutdoor">Outdoor Activity</label><br />
+    <input
+      type="radio"
+      id="activityIndoor"
+      formControlName="itineraryTag"
+      value="Indoor Activity"
+    />
+    <label for="activityIndoor">Indoor Activity</label><br />
+    <input
+      type="radio"
+      id="sightSeeing"
+      formControlName="itineraryTag"
+      value="Sight Seeing"
+    />
+    <label for="sightSeeing">Sight Seeing</label><br />
+    <input
+      type="radio"
+      id="shopping"
+      formControlName="itineraryTag"
+      value="Shopping"
+    />
+    <label for="shopping">Shopping</label><br />
+    <input
+      type="radio"
+      id="relaxation"
+      formControlName="itineraryTag"
+      value="Relaxation"
+    />
+    <label for="relaxation">Relaxation</label><br />
+    <input
+      type="radio"
+      id="visiting"
+      formControlName="itineraryTag"
+      value="Visiting friends and family"
+    />
+    <label for="visiting">Visiting friends and family</label><br />
+    <input
+      type="radio"
+      id="travel"
+      formControlName="itineraryTag"
+      value="Travel"
+    />
+    <label for="travel">Travel</label><br />
+    <input
+      type="radio"
+      id="occasion"
+      formControlName="itineraryTag"
+      value="Occasion"
+    />
+    <label for="occasion">Occasion</label><br />
+    <input
+      type="radio"
+      id="event"
+      formControlName="itineraryTag"
+      value="Event"
+    />
+    <label for="event">Event</label><br />
+    <input
+      type="radio"
+      id="culture"
+      formControlName="itineraryTag"
+      value="Culture"
+    />
+    <label for="culture">Culture</label><br />
+  </div>
+  <div>
+    <label for="startDateTime">Starts:</label>
+    <input
+      type="datetime-local"
+      id="startDateTime"
+      formControlName="startDateTime"
+    />
+  </div>
+  <div>
+    <label for="endDateTime">Ends:</label>
+    <input
+      type="datetime-local"
+      id="endDateTime"
+      formControlName="endDateTime"
+    />
+  </div>
+  <div>{{ selectedCurrency?.symbolNative }}</div>
+  <div></div>
+  <div>
+    <input
+      type="number"
+      placeholder="Cost Estimate"
+      formControlName="costEstimate"
+    />
+  </div>
+  <div>
+    <textarea rows="5" placeholder="Notes" formControlName="notes"></textarea>
+  </div>
+  <!-- in UI feature add *required instead -->
+  <div>
+    <button class="btn m-2" (click)="cancel()">Cancel</button>
+  </div>
+  <div>
+    <button
+      class="btn m-2 btn-secondary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Add to itinerary
+    </button>
+  </div>
+</form>
