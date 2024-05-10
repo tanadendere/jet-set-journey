@@ -95,21 +95,23 @@ export class RegisterComponent {
       const passwordControl = abstractControl.get(password);
       const matchingPaaswordControl = abstractControl.get(matchingPassword);
 
-      if (
-        matchingPaaswordControl!.errors &&
-        !matchingPaaswordControl!.errors?.['confirmedValidator']
-      ) {
-        return null;
+      if (matchingPaaswordControl && passwordControl) {
+        if (
+          matchingPaaswordControl.errors &&
+          !matchingPaaswordControl.errors?.['confirmedValidator']
+        ) {
+          return null;
+        }
+        if (passwordControl.value !== matchingPaaswordControl.value) {
+          const error = { confirmedValidator: 'Passwords do not match.' };
+          matchingPaaswordControl.setErrors(error);
+          return error;
+        } else {
+          matchingPaaswordControl.setErrors(null);
+          return null;
+        }
       }
-
-      if (passwordControl!.value !== matchingPaaswordControl!.value) {
-        const error = { confirmedValidator: 'Passwords do not match.' };
-        matchingPaaswordControl!.setErrors(error);
-        return error;
-      } else {
-        matchingPaaswordControl!.setErrors(null);
-        return null;
-      }
+      return null;
     };
   }
 
