@@ -1,16 +1,45 @@
 <div class="prose w-svw h-svh">
   @if(user$ | async; as user){
   <app-header [user]="user"></app-header>
-  <div>
-    Good morning, {{ user.name }}
-    <app-add-trip [user]="user"></app-add-trip>
-    @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
-    <app-trip-card
-      [trip]="trip"
-      (tripClicked)="navigateToTripDetails($event)"
-    ></app-trip-card>
-    } }
-    <!-- <span (click)="logout()">Logout</span> -->
+  <span class="text-xl font-lato p-2"
+    >Good {{ timeOfDay }}, {{ user.name }}</span
+  >
+  <h1 class="text-2xl font-lato font-medium mt-2 mb-0 p-2">Your trips</h1>
+
+  <div class="content-center relative w-[100%]">
+    <div
+      class="flex flex-col justify-center relative z-10 bg-base-100 p-5 pt-1"
+    >
+      <button
+        (click)="toggleTripForm(false)"
+        class="btn btn-lg btn-secondary font-lato text-3xl self-center"
+      >
+        +
+      </button>
+      <div
+        class="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-2 self-center"
+      >
+        @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
+        <app-trip-card
+          [trip]="trip"
+          (tripClicked)="navigateToTripDetails($event)"
+        ></app-trip-card>
+        } }
+      </div>
+    </div>
+
+    <div
+      id="add-trip-form"
+      class="absolute top-0 left-0 w-[100%] h-[100%] backdrop-blur-sm z-20 hidden"
+      (click)="toggleTripForm(true)"
+    >
+      <app-add-trip
+        id="add-trip-form"
+        class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-30"
+        [user]="user"
+        (submittedEvent)="toggleTripForm($event)"
+      ></app-add-trip>
+    </div>
   </div>
   } @else{
   <div>

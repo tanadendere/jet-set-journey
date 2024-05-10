@@ -17,16 +17,25 @@ export class TripCardComponent {
   @Output() tripClicked: EventEmitter<ITrip> = new EventEmitter<ITrip>();
   store: Store<TripState> = inject(Store);
 
+  getHolidayPhotoSrc() {
+    return `../../../../assets/holiday${this.trip.photoNumber}-min.jpg`;
+  }
+
   onTripClick() {
     this.tripClicked.emit(this.trip);
   }
 
   deleteTrip() {
-    this.store.dispatch(
-      deleteTripFromFirestore({
-        userEmail: this.trip.userEmail,
-        tripId: this.trip.tripId,
-      })
+    const confirmation = window.confirm(
+      'Are you sure you want to delete this trip?'
     );
+    if (confirmation) {
+      this.store.dispatch(
+        deleteTripFromFirestore({
+          userEmail: this.trip.userEmail,
+          tripId: this.trip.tripId,
+        })
+      );
+    }
   }
 }

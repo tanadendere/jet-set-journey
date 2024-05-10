@@ -3,4 +3,5 @@ export interface ITrip {
   tripName: string;
   destination: string;
   userEmail: string;
+  photoNumber?: number;
 }
