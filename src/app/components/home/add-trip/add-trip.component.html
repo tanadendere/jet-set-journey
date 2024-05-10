@@ -1,12 +1,17 @@
 <h1>Add a trip</h1>
 
-@if (errorMessage) {
-<div>{{ errorMessage }}</div>
-}
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
     <input type="text" placeholder="Trip name" formControlName="tripName" />
+    @if (tripName?.invalid && (tripName?.dirty || tripName?.touched)) {
+    <div class="alert">
+      @if (tripName?.hasError('required')) {
+      <div>The name of the trip is required</div>
+      }@if (tripName?.hasError('pattern')) {
+      <div>The name of the trip contains characters that are not allowed.</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input
@@ -14,12 +19,22 @@
       placeholder="Destination"
       formControlName="destination"
     />
+    @if (destination?.invalid && (destination?.dirty || destination?.touched)) {
+    <div class="alert">
+      @if (destination?.hasError('required')) {
+      <div>The destination of the trip is required</div>
+      }@if (destination?.hasError('pattern')) {
+      <div>The destination name contains characters that are not allowed.</div>
+      }
+    </div>
+    }
   </div>
+  <!-- in UI feature add *required instead -->
   <div>
     <!-- TO-DO: in ui/css toggle the form display -->
     <button>Cancel</button>
   </div>
   <div>
-    <button type="submit">Create trip</button>
+    <button type="submit" [disabled]="form.invalid">Create trip</button>
   </div>
 </form>

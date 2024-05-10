@@ -20,14 +20,20 @@ export class AddTripComponent {
   tripStore: Store<TripState> = inject(Store);
 
   form = this.fb.nonNullable.group({
-    tripName: ['', Validators.required],
-    destination: ['', Validators.required],
+    tripName: ['', [Validators.required]],
+    destination: ['', [Validators.required]],
   });
-  errorMessage: string | null = null;
+
+  get tripName() {
+    return this.form.get('tripName');
+  }
+  get destination() {
+    return this.form.get('destination');
+  }
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-    if (this.user) {
+    if (this.user && this.form.valid) {
       this.tripStore.dispatch(
         addTripToFirestore({
           userEmail: this.user.email,

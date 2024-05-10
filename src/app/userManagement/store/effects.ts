@@ -9,10 +9,12 @@ import {
   getUserFromFirestore,
   loginUser,
   loginUserComplete,
+  loginUserError,
   logoutUser,
   logoutUserComplete,
   registerUser,
   registerUserComplete,
+  registerUserError,
 } from './actions';
 import { EMPTY, catchError, map, retry, switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -31,22 +33,21 @@ export class UserManagementEffects {
         this.authService
           .register(action.email, action.name, action.password)
           .pipe(
-            map((uid) => {
+            map((response) => {
               let newUser: IUser = {
                 email: action.email,
                 name: action.name,
                 surname: action.surname,
                 password: action.password,
-                userId: uid ? uid : '',
+                userId: response ? response : '',
               };
               return addUserToFirestore({ user: newUser });
             }),
             retry(1),
-            catchError((err) => {
-              alert(
-                `${action.name}, unfortunately we could not register you. Please try again \n\n` +
-                  err.toString()
-              );
+            catchError(() => {
+              const message =
+                'The email address you entered is already associated with an existing account. Please use a different email address or try logging in.';
+              this.store.dispatch(registerUserError({ errorMessage: message }));
               return EMPTY;
             })
           )
@@ -84,8 +85,10 @@ export class UserManagementEffects {
             return getUserFromFirestore({ email: action.email });
           }),
           retry(1),
-          catchError((err) => {
-            alert(`This user does not exist \n\n` + err.toString());
+          catchError(() => {
+            const message =
+              'Invalid credentials provided. Please double-check your username and password and try again.';
+            this.store.dispatch(loginUserError({ errorMessage: message }));
             return EMPTY;
           })
         )

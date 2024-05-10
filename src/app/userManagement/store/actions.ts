@@ -7,6 +7,11 @@ export const registerUser = createAction(
   props<{ email: string; name: string; surname: string; password: string }>()
 );
 
+export const registerUserError = createAction(
+  '[User] Register Error',
+  props<{ errorMessage: string }>()
+);
+
 export const addUserToFirestore = createAction(
   '[User] Add to Firestore',
   props<{ user: IUser }>()
@@ -20,6 +25,10 @@ export const registerUserComplete = createAction(
 export const loginUser = createAction(
   '[User] Login',
   props<{ email: string; password: string }>()
+);
+export const loginUserError = createAction(
+  '[User] Login Error',
+  props<{ errorMessage: string }>()
 );
 
 export const getUserFromFirestore = createAction(
@@ -55,9 +64,11 @@ export const logoutUserComplete = createAction('[User] Logout success');
 
 const all = union({
   registerUser,
+  registerUserError,
   addUserToFirestore,
   registerUserComplete,
   loginUser,
+  loginUserError,
   getCurrencyList,
   getCurrencyListComplete,
   getUserFromFirestore,

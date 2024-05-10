@@ -93,18 +93,24 @@ export class TripDetailsComponent {
 
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
-    location: ['', Validators.required],
+    location: [''],
     itineraryTag: ['', Validators.required],
     startDateTime: ['', Validators.required],
     endDateTime: ['', Validators.required],
-    currency: ['', Validators.required],
-    costEstimate: ['', Validators.required],
-    notes: ['', Validators.required],
+    costEstimate: [0, Validators.required],
+    notes: [''],
   });
 
+  get name() {
+    return this.form.get('name');
+  }
+  get location() {
+    return this.form.get('location');
+  }
+
   addAnItem() {
-    if (this.trip) {
-      const rawForm = this.form.getRawValue();
+    const rawForm = this.form.getRawValue();
+    if (this.trip && this.form.valid) {
       const itineraryItem: IItineraryItem = {
         itineraryName: rawForm.name,
         tripId: this.trip.tripId,

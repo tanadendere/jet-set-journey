@@ -1,21 +1,82 @@
 <h1>Register</h1>
 
-@if (errorMessage) {
+@if (error$ | async; as errorMessage) {
 <div>{{ errorMessage }}</div>
 }
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div>
     <input type="text" placeholder="Name" formControlName="name" />
+    @if (name?.invalid && (name?.dirty || name?.touched)) {
+    <div class="alert">
+      @if (name?.hasError('required')) {
+      <div>Name is required</div>
+      } @if (name?.hasError('maxlength')) {
+      <div>
+        Names can't be longer than 30 characters. Please shorten your name and
+        try again.
+      </div>
+      } @if (name?.hasError('pattern')) {
+      <div>
+        Please enter a valid name. Only letters, spaces, and apostrophes are
+        allowed.
+      </div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="text" placeholder="Surname" formControlName="surname" />
+    @if (surname?.invalid && (surname?.dirty || surname?.touched)) {
+    <div class="alert">
+      @if (surname?.hasError('required')) {
+      <div>Surname is required</div>
+      } @if (surname?.hasError('maxlength')) {
+      <div>
+        Surname can't be longer than 30 characters. Please shorten it and try
+        again.
+      </div>
+      } @if (surname?.hasError('pattern')) {
+      <div>
+        Please enter a valid surname. Only letters, spaces, and apostrophes are
+        allowed.
+      </div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="text" placeholder="Email" formControlName="email" />
+    @if (email?.invalid && (email?.dirty || email?.touched)) {
+    <div class="alert">
+      @if (email?.hasError('required')) {
+      <div>Email is required</div>
+      } @if (email?.hasError('maxlength')) {
+      <div>Your email is too long. It should be less than 254 characters.</div>
+      } @if (email?.hasError('pattern')) {
+      <div>Please enter a valid email address.</div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input type="password" placeholder="Password" formControlName="password" />
+    @if (password?.invalid && (password?.dirty || password?.touched)) {
+    <div class="alert">
+      @if (password?.hasError('required')) {
+      <div>Password is required</div>
+      } @if (password?.hasError('minlength') || password?.hasError('maxlength'))
+      {
+      <div>Your password must be between 8 and 128 characters long.</div>
+      }@if (password?.hasError('pattern')) {
+      <div>
+        Please ensure your password has at least one number, one letter and one
+        special character (!&#64;#$%^&*-_?)<br />
+        White space is not allowed.
+      </div>
+      }
+    </div>
+    }
   </div>
   <div>
     <input
@@ -23,9 +84,19 @@
       placeholder="Confirm Password"
       formControlName="confirmPassword"
     />
+    @if (confirmPassword?.invalid && (confirmPassword?.dirty ||
+    confirmPassword?.touched)) {
+    <div class="alert">
+      @if (confirmPassword?.hasError('required')) {
+      <div>Please confirm your password.</div>
+      } @if (confirmPassword?.hasError('confirmedValidator')) {
+      <div>Please ensure both passwords match.</div>
+      }
+    </div>
+    }
   </div>
   <div>
-    <button type="submit">Sign Up</button>
+    <button type="submit" [disabled]="form.invalid">Sign Up</button>
   </div>
   <div>Already have an account? <a routerLink="/login">Login</a></div>
 </form>

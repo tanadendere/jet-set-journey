@@ -10,9 +10,11 @@ import { UserState } from '../../models/state';
 import {
   getCurrencyListComplete,
   loginUserComplete,
+  loginUserError,
   logoutUser,
   logoutUserComplete,
   registerUserComplete,
+  registerUserError,
   selectUserCurrency,
 } from './actions';
 import { isDevMode } from '@angular/core';
@@ -25,25 +27,36 @@ const initialState: UserState = {
   selectedCurrency: {
     symbol: 'R',
     name: 'South African Rand',
-    symbol_native: 'R',
-    decimal_digits: 2,
+    symbolNative: 'R',
+    decimalDigits: 2,
     rounding: 0,
     code: 'ZAR',
-    name_plural: 'South African rand',
+    namePlural: 'South African rand',
     type: 'fiat',
     countries: ['LS', 'NA', 'ZA', 'ZW'],
   },
+  errorMessage: undefined,
 };
 
 export const userManagementReducer = createReducer(
   initialState,
+  on(registerUserError, (state, { errorMessage }) => ({
+    ...state,
+    errorMessage,
+  })),
   on(registerUserComplete, (state, { user }) => ({
     ...state,
     user,
+    errorMessage: undefined,
+  })),
+  on(loginUserError, (state, { errorMessage }) => ({
+    ...state,
+    errorMessage,
   })),
   on(loginUserComplete, (state, { user }) => ({
     ...state,
     user,
+    errorMessage: undefined,
   })),
   on(getCurrencyListComplete, (state, { currencyData }) => ({
     ...state,
