@@ -1,22 +1,22 @@
-<app-currency-selection></app-currency-selection>
-
-@if(user$ | async; as user){
-
-<div>
-  Good morning, {{ user.name }}
-  <app-add-trip [user]="user"></app-add-trip>
-  @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
-  <app-trip-card
-    [trip]="trip"
-    (tripClicked)="navigateToTripDetails($event)"
-  ></app-trip-card>
-  } }
-  <span (click)="logout()">Logout</span>
+<div class="prose w-svw h-svh">
+  @if(user$ | async; as user){
+  <app-header [user]="user"></app-header>
+  <div>
+    Good morning, {{ user.name }}
+    <app-add-trip [user]="user"></app-add-trip>
+    @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
+    <app-trip-card
+      [trip]="trip"
+      (tripClicked)="navigateToTripDetails($event)"
+    ></app-trip-card>
+    } }
+    <!-- <span (click)="logout()">Logout</span> -->
+  </div>
+  } @else{
+  <div>
+    <span>Opps, looks like you are not logged in. </span>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register"> Register</a>
+  </div>
+  }
 </div>
-} @else{
-<div>
-  <span>Opps, looks like you are not logged in. </span>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register"> Register</a>
-</div>
-}

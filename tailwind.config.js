@@ -8,7 +8,11 @@ module.exports = {
     colors: {
       "error-red": "#dc2626",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        lato: ['"Lato"'],
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };

@@ -13,6 +13,7 @@ import { TripCardComponent } from '../../userDashboard/components/trip-card/trip
 import { ITrip } from '../../tripManagement/models/trip';
 import { getTripDetailsPage } from '../../tripManagement/store/actions';
 import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { CurrencySelectionComponent } from '../../userManagement/components/curr
     AddTripComponent,
     TripCardComponent,
     CurrencySelectionComponent,
+    HeaderComponent,
   ],
 })
 export class HomeComponent {
@@ -55,8 +57,7 @@ export class HomeComponent {
     this.router.navigateByUrl(`trip-details/${trip.tripId}`);
   }
 
-  logout(): void {
-    this.userStore.dispatch(logoutUser());
-    this.userSubscription.unsubscribe();
+  ngOnDestory() {
+    this.userSubscription.unsubscribe;
   }
 }

@@ -1,5 +1,9 @@
 @if(currencies$ | async; as currencies){
-<select id="currencySelection" (change)="onSelectCurrency($event)">
+<select
+  class="select w-full p-2"
+  id="currencySelection"
+  (change)="onSelectCurrency($event)"
+>
   @for (currency of currencies; track currency.code) { @if(currency.code ===
   selectedCurrencyCode){
   <option [value]="stringfy(currency)" selected>
