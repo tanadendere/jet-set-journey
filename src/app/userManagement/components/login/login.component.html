@@ -1,32 +1,88 @@
-<h1>Login</h1>
+<form class="prose" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1>Login</h1>
 
-@if (error$ | async; as errorMessage) {
-<div>{{ errorMessage }}</div>
-}
+  @if (error$ | async; as errorMessage) {
+  <div role="alert" class="alert alert-error">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current shrink-0 h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <input type="text" placeholder="Email" formControlName="email" />
+    <span>{{ errorMessage }}</span>
+  </div>
+  }
+
+  <!-- email input -->
+  <label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Could you provide your email?</span>
+      <span class="label-text-alt text-error-red">*</span>
+    </div>
+    <input
+      type="text"
+      placeholder="john.doe@example.com"
+      formControlName="email"
+      class="input input-bordered input-primary w-full max-w-xs"
+    />
+
     @if (email?.invalid && (email?.dirty || email?.touched)) {
-    <div class="alert">
-      @if (email?.hasError('required')) {
-      <div>Email is required</div>
-      }
+    <div class="label">
+      <span class="label-text-alt">
+        @if (email?.hasError('required')) {
+        <span class="text-error-red">Email is required</span>
+        }
+      </span>
     </div>
     }
-  </div>
-  <div>
-    <input type="password" placeholder="Password" formControlName="password" />
+  </label>
+
+  <!-- password input -->
+  <label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Enter a password</span>
+      <span class="label-text-alt text-error-red">*</span>
+    </div>
+    <input
+      type="password"
+      placeholder="•••••••••"
+      formControlName="password"
+      class="input input-bordered input-primary w-full max-w-xs"
+    />
+
     @if (password?.invalid && (password?.dirty || password?.touched)) {
-    <div class="alert">
-      @if (password?.hasError('required')) {
-      <div>Password is required</div>
-      }
+    <div class="label">
+      <span class="label-text-alt">
+        @if (password?.hasError('required')) {
+        <span class="text-error-red">Password is required</span>
+        }
+      </span>
     </div>
     }
-  </div>
+  </label>
+  <div class="text-error-red">* required</div>
+
+  <!-- Submit or go to login section -->
+  <button
+    type="submit"
+    [disabled]="form.invalid"
+    class="btn btn-active btn-primary"
+  >
+    Sign In
+  </button>
+
   <div>
-    <button type="submit" [disabled]="!form.invalid">Sign In</button>
+    <span>Don't have an account?</span>
+    <button routerLink="/register" class="btn btn-active btn-link">
+      Register
+    </button>
   </div>
-  <div>Don't have an account? <a routerLink="/register"> Register</a></div>
 </form>

@@ -1,40 +1,70 @@
-<h1>Add a trip</h1>
+<form
+  class="prose w-[80svw] flex-col gap-2"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <h2 class="text-center">Add a trip</h2>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <input type="text" placeholder="Trip name" formControlName="tripName" />
-    @if (tripName?.invalid && (tripName?.dirty || tripName?.touched)) {
-    <div class="alert">
-      @if (tripName?.hasError('required')) {
-      <div>The name of the trip is required</div>
-      }@if (tripName?.hasError('pattern')) {
-      <div>The name of the trip contains characters that are not allowed.</div>
-      }
-    </div>
-    }
-  </div>
-  <div>
+  <!-- trip name input -->
+  <label class="form-control w-full max-w-xs m-2">
     <input
       type="text"
-      placeholder="Destination"
-      formControlName="destination"
+      placeholder="Trip name (or nickname)"
+      formControlName="tripName"
+      class="input input-bordered input-primary w-full max-w-xs"
     />
-    @if (destination?.invalid && (destination?.dirty || destination?.touched)) {
-    <div class="alert">
-      @if (destination?.hasError('required')) {
-      <div>The destination of the trip is required</div>
-      }@if (destination?.hasError('pattern')) {
-      <div>The destination name contains characters that are not allowed.</div>
-      }
+
+    @if (tripName?.invalid && (tripName?.dirty || tripName?.touched)) {
+    <div class="label">
+      <span class="label-text-alt">
+        @if (tripName?.hasError('required')) {
+        <span class="text-error-red">The name of the trip is required</span>
+        } @if (tripName?.hasError('pattern')) {
+        <span class="text-error-red"
+          >The name of the trip contains characters that are not allowed.</span
+        >
+        }
+      </span>
     </div>
     }
-  </div>
-  <!-- in UI feature add *required instead -->
+  </label>
+
+  <!-- destination name input -->
+  <label class="form-control w-full max-w-xs m-2">
+    <input
+      type="text"
+      placeholder="Trip destination"
+      formControlName="destination"
+      class="input input-bordered input-primary w-full max-w-xs"
+    />
+
+    @if (destination?.invalid && (destination?.dirty || destination?.touched)) {
+    <div class="label">
+      <span class="label-text-alt">
+        @if (destination?.hasError('required')) {
+        <span class="text-error-red"
+          >The destination of the trip is required</span
+        >
+        } @if (destination?.hasError('pattern')) {
+        <span class="text-error-red"
+          >Thhe destination name contains characters that are not allowed.</span
+        >
+        }
+      </span>
+    </div>
+    }
+  </label>
+
   <div>
-    <!-- TO-DO: in ui/css toggle the form display -->
-    <button>Cancel</button>
+    <button class="btn m-2" (click)="cancel()">Cancel</button>
   </div>
   <div>
-    <button type="submit" [disabled]="form.invalid">Create trip</button>
+    <button
+      class="btn m-2 btn-secondary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Create trip
+    </button>
   </div>
 </form>

@@ -25,6 +25,8 @@ import {
   tripManagementReducer,
 } from './tripManagement/store/reducer';
 import { TripManagementEffects } from './tripManagement/store/effects';
+import { storageSyncMetaReducer } from 'ngrx-store-persist';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,7 +37,7 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
     ]),
     importProvidersFrom(provideFirestore(() => getFirestore())),
-    provideStore(reducers, { metaReducers }),
+    provideStore(reducers, { metaReducers: [storageSyncMetaReducer] }),
     provideState({ name: userFeatureKey, reducer: userManagementReducer }),
     provideState({
       name: userDashboardFeatureKey,
@@ -49,6 +51,6 @@ export const appConfig: ApplicationConfig = {
       UserManagementEffects,
       UserDashboardEffects,
       TripManagementEffects
-    ),
+    ), provideAnimationsAsync(),
   ],
 };

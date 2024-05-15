@@ -31,6 +31,7 @@ export class CrudService {
         {
           tripName: tripName,
           destination: destination,
+          photoNumber: Math.floor(Math.random() * 10) + 1,
         }
       )
         .then((response) => {
@@ -68,6 +69,7 @@ export class CrudService {
             tripName: tripData.tripName,
             destination: tripData.destination,
             userEmail: userEmail,
+            photoNumber: tripData.photoNumber,
           };
           trips.push(trip);
         });

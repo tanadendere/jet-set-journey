@@ -13,6 +13,7 @@ import { TripCardComponent } from '../../userDashboard/components/trip-card/trip
 import { ITrip } from '../../tripManagement/models/trip';
 import { getTripDetailsPage } from '../../tripManagement/store/actions';
 import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { CurrencySelectionComponent } from '../../userManagement/components/curr
     AddTripComponent,
     TripCardComponent,
     CurrencySelectionComponent,
+    HeaderComponent,
   ],
 })
 export class HomeComponent {
@@ -40,6 +42,8 @@ export class HomeComponent {
 
   router = inject(Router);
 
+  timeOfDay = this.getTimeOfDay();
+
   constructor() {
     this.userSubscription = this.user$.subscribe((user) => {
       if (user) {
@@ -50,13 +54,35 @@ export class HomeComponent {
     });
   }
 
+  getTimeOfDay() {
+    const date = new Date();
+    const time = date.getHours();
+
+    if (time < 12) return 'morning';
+    else if (time < 18) {
+      return 'afternoon';
+    } else {
+      return 'evening';
+    }
+  }
+
+  toggleTripForm(submissionStatus: boolean) {
+    const form = document.getElementById('add-trip-form');
+    if (form) {
+      if (submissionStatus) {
+        form.style.display = 'none';
+      } else {
+        form.style.display = 'block';
+      }
+    }
+  }
+
   navigateToTripDetails(trip: ITrip) {
     this.itineraryStore.dispatch(getTripDetailsPage({ trip: trip }));
     this.router.navigateByUrl(`trip-details/${trip.tripId}`);
   }
 
-  logout(): void {
-    this.userStore.dispatch(logoutUser());
-    this.userSubscription.unsubscribe();
+  ngOnDestory() {
+    this.userSubscription.unsubscribe;
   }
 }

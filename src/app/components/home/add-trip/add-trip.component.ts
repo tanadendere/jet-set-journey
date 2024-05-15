@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
@@ -31,6 +31,12 @@ export class AddTripComponent {
     return this.form.get('destination');
   }
 
+  @Output() submittedEvent = new EventEmitter<boolean>();
+
+  cancel(): void {
+    this.submittedEvent.emit(true);
+  }
+
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
     if (this.user && this.form.valid) {
@@ -41,6 +47,7 @@ export class AddTripComponent {
           destination: rawForm.destination,
         })
       );
+      this.submittedEvent.emit(true);
     }
   }
 }

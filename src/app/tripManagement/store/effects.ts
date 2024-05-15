@@ -105,7 +105,7 @@ export class TripManagementEffects {
             catchError((err) => {
               alert(
                 `Unfortunately we could not get the current exchange rate. \n\n` +
-                  err.toString()
+                  'We are working on it. You can still use everything in the app besides the currency functionality. '
               );
               return EMPTY;
             })

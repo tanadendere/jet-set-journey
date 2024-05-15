@@ -1,0 +1,38 @@
+<header class="flex w-svw min-w-[350px] justify-between items-center">
+  <div class="flex items-center">
+    <div class="w-16 flex-grow-0 flex-shrink-0 p-2 rounded">
+      <img src="../../../../assets/logo.png" />
+    </div>
+    <span class="font-lato font-bold text-2xl hidden sm:block text-center">
+      Jet Set Journey
+    </span>
+  </div>
+
+  <div class="flex items-end gap-3 p-2">
+    <app-currency-selection></app-currency-selection>
+
+    <div class="avatar placeholder dropdown">
+      <div
+        tabindex="0"
+        role="button"
+        class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 text-neutral-content w-14"
+      >
+        <span class="text-xl"
+          >{{ user?.name?.charAt(0) }} {{ user?.surname?.charAt(0) }}</span
+        >
+      </div>
+      <ul
+        tabindex="0"
+        class="dropdown-content absolute right-0 z-[1] menu shadow bg-base-100 rounded-box w-64 list-none"
+      >
+        <li
+          class="flex-col gap-0 max-w-[100%] whitespace-nowrap overflow-hidden"
+        >
+          <span class="p-1">Signed in as</span>
+          <span class="font-semibold p-1">{{ user?.email }}</span>
+        </li>
+        <li><a (click)="logout()" class="p-1">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</header>

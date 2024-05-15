@@ -1,2 +1,20 @@
-<a (click)="onTripClick()">{{ trip.tripName }}</a>
-<button (click)="deleteTrip()">Delete</button>
+<div class="card card-side bg-base-100 shadow-xl">
+  <figure class="w-[60%] p-2">
+    <img class="rounded-lg" [src]="getHolidayPhotoSrc()" alt="Holiday image" />
+  </figure>
+  <div class="flex flex-col justify-between my-10">
+    <div (click)="onTripClick()" class="card-body p-2">
+      <h2 class="card-title mt-2 text-xl">{{ trip.tripName }}</h2>
+      <div class="flex items-center">
+        <i class="material-icons">location_on</i>
+        <span class="">{{ trip.destination }}</span>
+      </div>
+    </div>
+    <button (click)="deleteTrip()" class="btn-sm flex items-center">
+      <i class="material-icons text-error-red">delete</i>
+      <span class="text-xs text-error-red text-nowrap min-h-fit"
+        >Delete this trip</span
+      >
+    </button>
+  </div>
+</div>

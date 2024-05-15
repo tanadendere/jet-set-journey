@@ -18,8 +18,13 @@ import {
   getItineraryItemsFromFirestore,
 } from '../../store/actions';
 import { ItineraryItemComponent } from './itinerary-item/itinerary-item.component';
-import { selectCurrency } from '../../../userManagement/store/selectors';
+import {
+  selectCurrency,
+  selectUser,
+} from '../../../userManagement/store/selectors';
 import { getCurrencyCodes } from '../../utilities/utils';
+import { HeaderComponent } from '../../../components/home/header/header.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 @Component({
   selector: 'app-trip-details',
@@ -32,12 +37,13 @@ import { getCurrencyCodes } from '../../utilities/utils';
     RouterOutlet,
     RouterLink,
     ItineraryItemComponent,
+    HeaderComponent,
+    AddItemComponent,
   ],
 })
 export class TripDetailsComponent {
-  fb = inject(FormBuilder);
-
   userStore: Store<UserState> = inject(Store);
+  user$ = this.userStore.select(selectUser);
   selectedCurrency$ = this.userStore.select(selectCurrency);
   selectedCurrencySubscription = new Subscription();
   selectedCurrencyCode = '';
@@ -91,48 +97,14 @@ export class TripDetailsComponent {
     });
   }
 
-  form = this.fb.nonNullable.group({
-    name: ['', Validators.required],
-    location: [''],
-    itineraryTag: ['', Validators.required],
-    startDateTime: ['', Validators.required],
-    endDateTime: ['', Validators.required],
-    costEstimate: [0, Validators.required],
-    notes: [''],
-  });
-
-  get name() {
-    return this.form.get('name');
-  }
-  get location() {
-    return this.form.get('location');
-  }
-
-  addAnItem() {
-    const rawForm = this.form.getRawValue();
-    if (this.trip && this.form.valid) {
-      const itineraryItem: IItineraryItem = {
-        itineraryName: rawForm.name,
-        tripId: this.trip.tripId,
-        tag: rawForm.itineraryTag,
-        startDateTime: rawForm.startDateTime,
-        endDateTime: rawForm.endDateTime,
-        currency: this.selectedCurrencyCode,
-        costEstimate: Number(rawForm.costEstimate),
-        location: rawForm.location,
-        notes: rawForm.notes,
-      };
-      this.itineraryStore.dispatch(
-        addItineraryItemToFirestore({
-          trip: this.trip,
-          itineraryItem: itineraryItem,
-        })
-      );
-    } else {
-      alert(
-        'Oops! Looks like we cannot access the trip to add this itinerary to :(. Please select a trip.'
-      );
-      this.router.navigateByUrl('trips');
+  toggleTripForm(submissionStatus: boolean) {
+    const form = document.getElementById('add-item-form');
+    if (form) {
+      if (submissionStatus) {
+        form.style.display = 'none';
+      } else {
+        form.style.display = 'block';
+      }
     }
   }
 
