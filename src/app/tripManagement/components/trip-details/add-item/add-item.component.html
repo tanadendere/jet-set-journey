@@ -1,248 +1,259 @@
-<form [formGroup]="form" (ngSubmit)="addAnItem()">
-  <h2 class="font-lato">Add to your itinerary</h2>
-
-  <!-- itinerary name input -->
-  <label class="form-control w-full max-w-xs m-2">
-    <input
-      type="text"
-      placeholder="Title"
-      formControlName="name"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-    @if (name?.invalid && (name?.dirty || name?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (name?.hasError('pattern')) {
-        <span class="text-error-red"
-          >The name of this event contains characters that are not
-          allowed.</span
-        >
-        }
-      </span>
-    </div>
-    }
-  </label>
-
-  <!-- itinerary location input -->
-  <label class="form-control w-full max-w-xs m-2">
-    <input
-      type="text"
-      placeholder="Location"
-      formControlName="location"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-    @if (location?.invalid && (location?.dirty || location?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (location?.hasError('pattern')) {
-        <span class="text-error-red"
-          >The location name contains characters that are not allowed.</span
-        >
-        }
-      </span>
-    </div>
-    }
-  </label>
-
-  <!-- itinerary tag input -->
-  <label class="label">
-    <span class="label-text">Tag:</span>
-  </label>
-  <div class="form-control">
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="placeToStay"
-        formControlName="itineraryTag"
-        value="Place to stay"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Place to stay</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="foodAndDrink"
-        formControlName="itineraryTag"
-        value="Food and drink"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Food and drink</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="activityOutdoor"
-        formControlName="itineraryTag"
-        value="Outdoor Activity"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Outdoor Activity</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="activityIndoor"
-        formControlName="itineraryTag"
-        value="Indoor Activity"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Indoor Activity</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="sightSeeing"
-        formControlName="itineraryTag"
-        value="Sight Seeing"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Sight Seeing</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="shopping"
-        formControlName="itineraryTag"
-        value="Shopping"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Shopping</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="visiting"
-        formControlName="itineraryTag"
-        value="Visiting friends and family"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Visiting friends and family</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="travel"
-        formControlName="itineraryTag"
-        value="Travel"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Travel</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="occasion"
-        formControlName="itineraryTag"
-        value="Occasion"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Occasion</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="event"
-        formControlName="itineraryTag"
-        value="Event"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Event</span>
-    </label>
-
-    <label class="label cursor-pointer justify-normal gap-1">
-      <input
-        type="radio"
-        id="culture"
-        formControlName="itineraryTag"
-        value="Culture"
-        name="radio-10"
-        class="radio checked:bg-red-500"
-      />
-      <span class="label-text">Culture</span>
-    </label>
-  </div>
-
-  <!-- itinerary start date input -->
-  <label class="form-control w-full max-w-xs m-2">
-    <div class="label">
-      <span class="label-text" for="startDateTime">Starts:</span>
-    </div>
-
-    <input
-      type="datetime-local"
-      id="startDateTime"
-      formControlName="startDateTime"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-  </label>
-
-  <!-- itinerary end date input -->
-  <label class="form-control w-full max-w-xs m-2">
-    <div class="label">
-      <span class="label-text" for="endDateTime">Ends:</span>
-    </div>
-    <input
-      type="datetime-local"
-      id="endDateTime"
-      formControlName="endDateTime"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-  </label>
-
-  <!-- itinerary cost estimate input -->
-  <label class="form-control w-full max-w-xs m-2">
-    <span>{{ selectedCurrency?.symbolNative }}</span>
-    <input
-      type="number"
-      class="input input-bordered input-primary w-full max-w-xs"
-      placeholder="Cost Estimate"
-      formControlName="costEstimate"
-    />
-  </label>
-
-  <!-- itinerary notes input -->
-  <label class="form-control w-full m-2">
-    <textarea
-      rows="5"
-      placeholder="Notes"
-      formControlName="notes"
-      class="textarea textarea-primary w-full"
-    ></textarea>
-  </label>
-
-  <div>
-    <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
-  </div>
-  <div
-    class="tooltip"
-    data-tip="Please complete all fields: name of the new itinerary item, tag, start and end time, and cost estimate to create this itinerary event."
+<div class="indicator">
+  <span
+    (click)="cancel()"
+    class="indicator-item badge bg-base-200 font-semibold rounded-full"
+    >X</span
   >
-    <button
-      class="btn m-2 btn-secondary"
-      type="submit"
-      [disabled]="form.invalid"
+  <form
+    class="prose w-[80svw] flex-col gap-2"
+    [formGroup]="form"
+    (ngSubmit)="addAnItem()"
+  >
+    <h2 class="font-lato mt-0">Add to your itinerary</h2>
+
+    <!-- itinerary name input -->
+    <label class="form-control w-full max-w-xs m-2">
+      <input
+        type="text"
+        placeholder="Title"
+        formControlName="name"
+        class="input input-bordered input-primary w-full max-w-xs"
+      />
+      @if (name?.invalid && (name?.dirty || name?.touched)) {
+      <div class="label">
+        <span class="label-text-alt">
+          @if (name?.hasError('pattern')) {
+          <span class="text-error-red"
+            >The name of this event contains characters that are not
+            allowed.</span
+          >
+          }
+        </span>
+      </div>
+      }
+    </label>
+
+    <!-- itinerary location input -->
+    <label class="form-control w-full max-w-xs m-2">
+      <input
+        type="text"
+        placeholder="Location"
+        formControlName="location"
+        class="input input-bordered input-primary w-full max-w-xs"
+      />
+      @if (location?.invalid && (location?.dirty || location?.touched)) {
+      <div class="label">
+        <span class="label-text-alt">
+          @if (location?.hasError('pattern')) {
+          <span class="text-error-red"
+            >The location name contains characters that are not allowed.</span
+          >
+          }
+        </span>
+      </div>
+      }
+    </label>
+
+    <!-- itinerary tag input -->
+    <label class="label">
+      <span class="label-text">Tag:</span>
+    </label>
+    <div class="form-control">
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="placeToStay"
+          formControlName="itineraryTag"
+          value="Place to stay"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Place to stay</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="foodAndDrink"
+          formControlName="itineraryTag"
+          value="Food and drink"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Food and drink</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="activityOutdoor"
+          formControlName="itineraryTag"
+          value="Outdoor Activity"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Outdoor Activity</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="activityIndoor"
+          formControlName="itineraryTag"
+          value="Indoor Activity"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Indoor Activity</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="sightSeeing"
+          formControlName="itineraryTag"
+          value="Sight Seeing"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Sight Seeing</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="shopping"
+          formControlName="itineraryTag"
+          value="Shopping"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Shopping</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="visiting"
+          formControlName="itineraryTag"
+          value="Visiting friends and family"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Visiting friends and family</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="travel"
+          formControlName="itineraryTag"
+          value="Travel"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Travel</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="occasion"
+          formControlName="itineraryTag"
+          value="Occasion"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Occasion</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="event"
+          formControlName="itineraryTag"
+          value="Event"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Event</span>
+      </label>
+
+      <label class="label cursor-pointer justify-normal gap-1">
+        <input
+          type="radio"
+          id="culture"
+          formControlName="itineraryTag"
+          value="Culture"
+          name="radio-10"
+          class="radio checked:bg-red-500"
+        />
+        <span class="label-text">Culture</span>
+      </label>
+    </div>
+
+    <!-- itinerary start date input -->
+    <label class="form-control w-full max-w-xs m-2">
+      <div class="label">
+        <span class="label-text" for="startDateTime">Starts:</span>
+      </div>
+
+      <input
+        type="datetime-local"
+        id="startDateTime"
+        formControlName="startDateTime"
+        class="input input-bordered input-primary w-full max-w-xs"
+      />
+    </label>
+
+    <!-- itinerary end date input -->
+    <label class="form-control w-full max-w-xs m-2">
+      <div class="label">
+        <span class="label-text" for="endDateTime">Ends:</span>
+      </div>
+      <input
+        type="datetime-local"
+        id="endDateTime"
+        formControlName="endDateTime"
+        class="input input-bordered input-primary w-full max-w-xs"
+      />
+    </label>
+
+    <!-- itinerary cost estimate input -->
+    <label class="form-control w-full max-w-xs m-2">
+      <span>{{ selectedCurrency?.symbolNative }}</span>
+      <input
+        type="number"
+        class="input input-bordered input-primary w-full max-w-xs"
+        placeholder="Cost Estimate"
+        formControlName="costEstimate"
+      />
+    </label>
+
+    <!-- itinerary notes input -->
+    <label class="form-control w-full m-2">
+      <textarea
+        rows="5"
+        placeholder="Notes"
+        formControlName="notes"
+        class="textarea textarea-primary w-full"
+      ></textarea>
+    </label>
+
+    <div>
+      <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
+    </div>
+    <div
+      class="tooltip"
+      data-tip="Please complete all fields: name of the new itinerary item, tag, start and end time, and cost estimate to create this itinerary event."
     >
-      Add to itinerary
-    </button>
-  </div>
-</form>
+      <button
+        class="btn m-2 btn-secondary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Add to itinerary
+      </button>
+    </div>
+  </form>
+</div>

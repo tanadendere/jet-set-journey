@@ -56,6 +56,7 @@ export class AddItemComponent {
   @Output() submittedEvent = new EventEmitter<boolean>();
 
   cancel(): void {
+    this.form.reset();
     this.submittedEvent.emit(true);
   }
 
@@ -80,6 +81,7 @@ export class AddItemComponent {
         })
       );
       this.submittedEvent.emit(true);
+      this.form.reset();
     } else {
       alert(
         'Oops! Looks like we cannot access the trip to add this itinerary to :(. Please select a trip.'

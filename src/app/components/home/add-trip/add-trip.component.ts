@@ -34,6 +34,7 @@ export class AddTripComponent {
   @Output() submittedEvent = new EventEmitter<boolean>();
 
   cancel(): void {
+    this.form.reset();
     this.submittedEvent.emit(true);
   }
 
@@ -47,6 +48,7 @@ export class AddTripComponent {
           destination: rawForm.destination,
         })
       );
+      this.form.reset();
       this.submittedEvent.emit(true);
     }
   }
