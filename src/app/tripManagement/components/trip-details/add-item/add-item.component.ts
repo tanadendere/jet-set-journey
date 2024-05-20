@@ -30,7 +30,7 @@ export class AddItemComponent {
     itineraryTag: ['', Validators.required],
     startDateTime: ['', Validators.required],
     endDateTime: ['', Validators.required],
-    costEstimate: [0, Validators.required],
+    costEstimate: [, Validators.required],
     notes: [''],
   });
 
@@ -38,7 +38,19 @@ export class AddItemComponent {
     return this.form.get('name');
   }
   get location() {
-    return this.form.get('location');
+    return this.form.get('itineraryTag');
+  }
+  get itineraryTag() {
+    return this.form.get('itineraryTag');
+  }
+  get startDateTime() {
+    return this.form.get('startDateTime');
+  }
+  get endDateTime() {
+    return this.form.get('endDateTime');
+  }
+  get costEstimate() {
+    return this.form.get('costEstimate');
   }
 
   @Output() submittedEvent = new EventEmitter<boolean>();

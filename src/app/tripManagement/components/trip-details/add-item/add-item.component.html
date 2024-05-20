@@ -230,11 +230,13 @@
     ></textarea>
   </label>
 
-  <!-- in UI feature add *required instead -->
   <div>
-    <button class="btn m-2" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
   </div>
-  <div>
+  <div
+    class="tooltip"
+    data-tip="Please complete all fields: name of the new itinerary item, tag, start and end time, and cost estimate to create this itinerary event."
+  >
     <button
       class="btn m-2 btn-secondary"
       type="submit"
