@@ -10,7 +10,13 @@ export const selectTripManagementState = createFeatureSelector<ItineraryState>(
 // TO-DO Sort in order of earliest to latest item
 export const selectItinerary = createSelector(
   selectTripManagementState,
-  (state) => state.itinerary
+  (state) => {
+    if (state.itinerary?.length == 0) {
+      return undefined;
+    } else {
+      return state.itinerary;
+    }
+  }
 );
 
 export const selectTripDetails = createSelector(

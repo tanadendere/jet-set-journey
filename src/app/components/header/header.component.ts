@@ -1,9 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
-import { IUser } from '../../../userManagement/models/user';
-import { CurrencySelectionComponent } from '../../../userManagement/components/currency-selection/currency-selection.component';
-import { UserState } from '../../../models/state';
+import { IUser } from '../../userManagement/models/user';
+import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
+import { UserState } from '../../models/state';
 import { Store } from '@ngrx/store';
-import { logoutUser } from '../../../userManagement/store/actions';
+import { logoutUser } from '../../userManagement/store/actions';
 
 @Component({
   selector: 'app-header',

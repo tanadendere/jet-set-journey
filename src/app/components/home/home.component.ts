@@ -13,7 +13,7 @@ import { TripCardComponent } from '../../userDashboard/components/trip-card/trip
 import { ITrip } from '../../tripManagement/models/trip';
 import { getTripDetailsPage } from '../../tripManagement/store/actions';
 import { CurrencySelectionComponent } from '../../userManagement/components/currency-selection/currency-selection.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-home',

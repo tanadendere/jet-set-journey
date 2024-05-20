@@ -23,7 +23,7 @@ import {
   selectUser,
 } from '../../../userManagement/store/selectors';
 import { getCurrencyCodes } from '../../utilities/utils';
-import { HeaderComponent } from '../../../components/home/header/header.component';
+import { HeaderComponent } from '../../../components/header/header.component';
 import { AddItemComponent } from './add-item/add-item.component';
 
 @Component({
@@ -55,6 +55,7 @@ export class TripDetailsComponent {
   trip$ = this.itineraryStore.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
+  stylingForHolidayPhoto = '';
 
   router = inject(Router);
 
@@ -69,6 +70,9 @@ export class TripDetailsComponent {
         this.itineraryStore.dispatch(
           getItineraryItemsFromFirestore({ trip: trip })
         );
+        this.stylingForHolidayPhoto = `backgroundImage: url(${this.getHolidayPhotoSrc(
+          trip.photoNumber
+        )})`;
       }
     });
     this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
@@ -106,6 +110,13 @@ export class TripDetailsComponent {
         form.style.display = 'block';
       }
     }
+  }
+
+  getHolidayPhotoSrc(photoNumber: number | undefined) {
+    if (photoNumber) {
+      return `../../../../assets/holiday${photoNumber}-min.jpg`;
+    }
+    return `../../../../assets/holiday${10}-min.jpg`;
   }
 
   ngOnDestory() {

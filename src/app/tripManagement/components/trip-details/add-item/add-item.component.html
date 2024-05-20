@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="addAnItem()">
-  <h2>New Event</h2>
+  <h2 class="font-lato">New Event</h2>
   <div>
     <input type="text" placeholder="Title" formControlName="name" />
     @if (name?.invalid && (name?.dirty || name?.touched)) {
