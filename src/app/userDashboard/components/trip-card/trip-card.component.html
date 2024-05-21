@@ -3,7 +3,7 @@
     <img class="rounded-lg" [src]="getHolidayPhotoSrc()" alt="Holiday image" />
   </figure>
   <div class="flex flex-col justify-between my-10">
-    <div (click)="onTripClick()" class="card-body p-2">
+    <div (click)="onTripClick()" class="card-body p-2 cursor-pointer">
       <h2 class="card-title mt-2 text-xl">{{ trip.tripName }}</h2>
       <div class="flex items-center">
         <i class="material-icons">location_on</i>
