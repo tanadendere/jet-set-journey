@@ -200,6 +200,7 @@
 
       <input
         type="datetime-local"
+        min="{{ dateToday() | date : 'yyyy-MM-ddTHH:mm:ss.sss' }}"
         id="startDateTime"
         formControlName="startDateTime"
         class="input input-bordered input-primary w-full max-w-xs"
@@ -213,6 +214,7 @@
       </div>
       <input
         type="datetime-local"
+        [min]="getMinDateForEndDateTime()"
         id="endDateTime"
         formControlName="endDateTime"
         class="input input-bordered input-primary w-full max-w-xs"

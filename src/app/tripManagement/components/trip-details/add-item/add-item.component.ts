@@ -24,6 +24,21 @@ export class AddItemComponent {
   @Input() trip: ITrip | undefined | null = undefined;
   itineraryStore: Store<ItineraryState> = inject(Store);
 
+  dateToday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    return new Date(year, month, day, hour, minute);
+  }
+
+  getMinDateForEndDateTime() {
+    const rawForm = this.form.getRawValue();
+    return rawForm.startDateTime;
+  }
+
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
     location: [''],
