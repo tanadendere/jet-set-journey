@@ -52,3 +52,18 @@ function getExchangeRate(
   }
   return 0;
 }
+
+export function sortItinerary(itinerary: IItineraryItem[]) {
+  let sortedItinerary = [...itinerary].sort((a, b) => {
+    const aDate = new Date(a.startDateTime);
+    const bDate = new Date(b.startDateTime);
+    if (aDate < bDate) {
+      return -1;
+    } else if (aDate > bDate) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return sortedItinerary;
+}

@@ -89,14 +89,24 @@ export class AddItemComponent {
         location: rawForm.location,
         notes: rawForm.notes,
       };
-      this.itineraryStore.dispatch(
-        addItineraryItemToFirestore({
-          trip: this.trip,
-          itineraryItem: itineraryItem,
-        })
-      );
-      this.submittedEvent.emit(true);
-      this.form.reset();
+
+      const startDate = new Date(itineraryItem.startDateTime);
+      const endDate = new Date(itineraryItem.endDateTime);
+
+      if (endDate < startDate) {
+        alert(
+          'We cannot save this event. The start date must before the end date.'
+        );
+      } else {
+        this.itineraryStore.dispatch(
+          addItineraryItemToFirestore({
+            trip: this.trip,
+            itineraryItem: itineraryItem,
+          })
+        );
+        this.submittedEvent.emit(true);
+        this.form.reset();
+      }
     } else {
       alert(
         'Oops! Looks like we cannot access the trip to add this itinerary to :(. Please select a trip.'

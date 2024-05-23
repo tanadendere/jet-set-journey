@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ItineraryState } from '../../models/state';
 import { tripManagementFeatureKey } from './reducer';
-import { calculateItineraryTotalCost } from '../utilities/utils';
+import { calculateItineraryTotalCost, sortItinerary } from '../utilities/utils';
 
 export const selectTripManagementState = createFeatureSelector<ItineraryState>(
   tripManagementFeatureKey
@@ -11,10 +11,10 @@ export const selectTripManagementState = createFeatureSelector<ItineraryState>(
 export const selectItinerary = createSelector(
   selectTripManagementState,
   (state) => {
-    if (state.itinerary?.length == 0) {
+    if (state.itinerary == undefined || state.itinerary.length == 0) {
       return undefined;
     } else {
-      return state.itinerary;
+      return sortItinerary(state.itinerary);
     }
   }
 );
