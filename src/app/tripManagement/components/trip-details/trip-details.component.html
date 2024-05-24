@@ -14,7 +14,7 @@
       />
     </figure>
     <div>
-      <h1 class="font-lato text-2xl font-semibold m-0">
+      <h1 class="font-lato text-3xl font-semibold m-0">
         Itinerary for {{ trip.tripName }}
       </h1>
       <div class="flex items-center gap-1">
@@ -33,9 +33,7 @@
     <div
       class="flex flex-col justify-center relative z-10 bg-base-100 p-5 pt-1"
     >
-      <div
-        class="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-2 self-center"
-      >
+      <div class="flex flex-col gap-2 self-center">
         @if(itinerary$ | async; as itinerary) { @for (item of itinerary; track
         item.itemId) {
 

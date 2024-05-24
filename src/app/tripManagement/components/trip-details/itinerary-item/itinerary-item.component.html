@@ -1,2 +1,28 @@
-<div>{{ item.itineraryName }}</div>
-<button (click)="deleteItem()">Delete</button>
+<span class="font-extrabold text-sm leading-8 m-1 mb-0">
+  {{ getTime(item.startDateTime) }}
+</span>
+
+<div class="flex flex-col font-lato bg-base-100 shadow-xl">
+  <div class="flex flex-row justify-between items-end">
+    <h2 class="text-2xl m-1 mb-0">{{ item.itineraryName }}</h2>
+    <div class="badge badge-outline text-xs">{{ item.tag }}</div>
+  </div>
+
+  <div class="flex flex-row items-center">
+    <i class="material-icons">location_on</i>
+    <span>{{ item.location }}</span>
+  </div>
+
+  <div class="flex flex-row justify-between items-center m-1 mt-3">
+    <div class="flex flex-row justify-center">
+      <span
+        class="flex justify-center items-center text-center bg-base-200 w-12 h-12 rounded-md my-auto"
+        >💰</span
+      >
+      <div class="flex flex-col p-2 text-left">
+        <span class="font-bold -mb-2">Cost</span>
+        <span>{{ item.costEstimate }} {{ item.currency }}</span>
+      </div>
+    </div>
+  </div>
+</div>
