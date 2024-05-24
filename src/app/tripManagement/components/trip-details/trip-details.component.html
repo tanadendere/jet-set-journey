@@ -34,11 +34,21 @@
       class="flex flex-col justify-center relative z-10 bg-base-100 p-5 pt-1"
     >
       <div class="flex flex-col gap-2 self-center">
-        @if(itinerary$ | async; as itinerary) { @for (item of itinerary; track
-        item.itemId) {
-
-        <app-itinerary-item [item]="item"></app-itinerary-item>
-        } } @else {
+        @if(itinerary$ | async; as itinerary) { @if (itineraryDates$ | async; as
+        itineraryDates) { @for (date of itineraryDates; track date) {
+        <div class="collapse collapse-arrow bg-base-200">
+          <input type="radio" name="my-accordion-2" checked="checked" />
+          <div class="collapse-title text-xl font-medium">
+            {{ date }}
+          </div>
+          <div class="collapse-content">
+            @for (item of itinerary; track item.itemId) { @if
+            (getItemsDay(item.startDateTime) === date) {
+            <app-itinerary-item [item]="item"></app-itinerary-item>
+            } }
+          </div>
+        </div>
+        } } } @else {
         <p class="font-lato text-center flex flex-col gap-2">
           <span>No itinerary items.</span>
           <span

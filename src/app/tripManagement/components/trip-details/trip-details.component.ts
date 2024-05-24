@@ -5,6 +5,7 @@ import { ItineraryState, UserState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import {
   selectItinerary,
+  selectItineraryDates,
   selectTotalCost,
   selectTripDetails,
 } from '../../store/selectors';
@@ -22,7 +23,7 @@ import {
   selectCurrency,
   selectUser,
 } from '../../../userManagement/store/selectors';
-import { getCurrencyCodes } from '../../utilities/utils';
+import { getCurrencyCodes, getItineraryDay } from '../../utilities/utils';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AddItemComponent } from './add-item/add-item.component';
 
@@ -63,6 +64,9 @@ export class TripDetailsComponent {
   totalCostSubscription = new Subscription();
   totalCost = 0;
 
+  itineraryDates$ = this.itineraryStore.select(selectItineraryDates);
+  itineraryDatesSubscription = new Subscription();
+
   constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
       if (trip) {
@@ -99,6 +103,10 @@ export class TripDetailsComponent {
         this.totalCost = totalCost;
       }
     });
+  }
+
+  getItemsDay(dateString: string) {
+    return getItineraryDay(dateString);
   }
 
   toggleTripForm(submissionStatus: boolean) {

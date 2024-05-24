@@ -1,13 +1,16 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ItineraryState } from '../../models/state';
 import { tripManagementFeatureKey } from './reducer';
-import { calculateItineraryTotalCost, sortItinerary } from '../utilities/utils';
+import {
+  calculateItineraryTotalCost,
+  sortItinerary,
+  getItineraryDates,
+} from '../utilities/utils';
 
 export const selectTripManagementState = createFeatureSelector<ItineraryState>(
   tripManagementFeatureKey
 );
 
-// TO-DO Sort in order of earliest to latest item
 export const selectItinerary = createSelector(
   selectTripManagementState,
   (state) => {
@@ -15,6 +18,17 @@ export const selectItinerary = createSelector(
       return undefined;
     } else {
       return sortItinerary(state.itinerary);
+    }
+  }
+);
+
+export const selectItineraryDates = createSelector(
+  selectTripManagementState,
+  (state) => {
+    if (state.itinerary == undefined || state.itinerary.length == 0) {
+      return undefined;
+    } else {
+      return getItineraryDates(state.itinerary);
     }
   }
 );
