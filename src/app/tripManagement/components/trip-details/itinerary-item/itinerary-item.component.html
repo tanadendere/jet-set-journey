@@ -2,7 +2,10 @@
   {{ getTime(item.startDateTime) }}
 </span>
 
-<div class="flex flex-col font-lato bg-base-100 shadow-xl">
+<div
+  (click)="onEventClick()"
+  class="flex flex-col font-lato bg-base-100 shadow-xl"
+>
   <div class="flex flex-row justify-between items-end">
     <h2 class="text-2xl m-1 mb-0">{{ item.itineraryName }}</h2>
     <div class="badge badge-outline text-xs">{{ item.tag }}</div>

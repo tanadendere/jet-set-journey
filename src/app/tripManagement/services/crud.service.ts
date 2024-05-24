@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { IItineraryItem } from '../models/itinerary';
+import { IItineraryItem } from '../../eventManagement/models/itinerary';
 import { ITrip } from '../models/trip';
 import {
   getDocs,

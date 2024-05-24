@@ -27,6 +27,10 @@ import {
 import { TripManagementEffects } from './tripManagement/store/effects';
 import { storageSyncMetaReducer } from 'ngrx-store-persist';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {
+  itemManagementFeatureKey,
+  itemManagementReducer,
+} from './eventManagement/item-detail/store/reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,10 +51,15 @@ export const appConfig: ApplicationConfig = {
       name: tripManagementFeatureKey,
       reducer: tripManagementReducer,
     }),
+    provideState({
+      name: itemManagementFeatureKey,
+      reducer: itemManagementReducer,
+    }),
     provideEffects(
       UserManagementEffects,
       UserDashboardEffects,
       TripManagementEffects
-    ), provideAnimationsAsync(),
+    ),
+    provideAnimationsAsync(),
   ],
 };

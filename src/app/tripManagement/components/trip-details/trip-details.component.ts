@@ -9,7 +9,7 @@ import {
   selectTotalCost,
   selectTripDetails,
 } from '../../store/selectors';
-import { IItineraryItem } from '../../models/itinerary';
+import { IItineraryItem } from '../../../eventManagement/models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../models/trip';
@@ -26,6 +26,7 @@ import {
 import { getCurrencyCodes, getItineraryDay } from '../../utilities/utils';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { getItemDetailsPage } from '../../../eventManagement/item-detail/store/actions';
 
 @Component({
   selector: 'app-trip-details',
@@ -125,6 +126,13 @@ export class TripDetailsComponent {
       return `../../../../assets/holiday${photoNumber}-min.jpg`;
     }
     return `../../../../assets/holiday${10}-min.jpg`;
+  }
+
+  navigateToItemDetails(item: IItineraryItem) {
+    this.itineraryStore.dispatch(getItemDetailsPage({ item: item }));
+    this.router.navigateByUrl(
+      `trip-details/${item.tripId}/event/${item.itemId}`
+    );
   }
 
   ngOnDestory() {

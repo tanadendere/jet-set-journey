@@ -1,4 +1,4 @@
-<div class="prose w-svw h-svh">
+<div class="w-svw h-svh">
   @if(user$ | async; as user){
   <app-header [user]="user"></app-header>
 
@@ -44,7 +44,10 @@
           <div class="collapse-content">
             @for (item of itinerary; track item.itemId) { @if
             (getItemsDay(item.startDateTime) === date) {
-            <app-itinerary-item [item]="item"></app-itinerary-item>
+            <app-itinerary-item
+              [item]="item"
+              (itemClicked)="navigateToItemDetails($event)"
+            ></app-itinerary-item>
             } }
           </div>
         </div>

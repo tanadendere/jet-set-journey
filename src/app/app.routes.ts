@@ -4,6 +4,7 @@ import { LoginComponent } from './userManagement/components/login/login.componen
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './userManagement/guards/auth.guard';
 import { TripDetailsComponent } from './tripManagement/components/trip-details/trip-details.component';
+import { ItemDetailComponent } from './eventManagement/item-detail/item-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,11 @@ export const routes: Routes = [
   {
     path: 'trip-details/:tripId',
     component: TripDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'trip-details/:tripId/event/:eventId',
+    component: ItemDetailComponent,
     canActivate: [AuthGuard],
   },
   {

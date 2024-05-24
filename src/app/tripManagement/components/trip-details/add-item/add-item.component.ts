@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
-import { IItineraryItem } from '../../../models/itinerary';
+import { IItineraryItem } from '../../../../eventManagement/models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { addItineraryItemToFirestore } from '../../../store/actions';
 import { ICurrency } from '../../../../userManagement/models/currency';

@@ -1,0 +1,11 @@
+<div class="w-svw h-svh">
+  @if(user$ | async; as user){
+  <app-header [user]="user"></app-header>
+
+  <!-- THE CONTENT FOR THIS PAGE -->
+  @if (item$ | async; as item) {
+  <p>{{ item.itineraryName }}</p>
+  } @else {
+  <p>eeeee</p>
+  } }
+</div>

@@ -1,5 +1,5 @@
 import { IExchangeRateData, IExchangeRate } from '../models/exchangeRate';
-import { IItineraryItem } from '../models/itinerary';
+import { IItineraryItem } from '../../eventManagement/models/itinerary';
 
 export function getCurrencyCodes(itinerary: IItineraryItem[]) {
   const currencyCodes: string[] = [];

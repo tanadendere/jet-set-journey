@@ -1,6 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 import { ITrip } from '../models/trip';
-import { IItineraryItem } from '../models/itinerary';
+import { IItineraryItem } from '../../eventManagement/models/itinerary';
 import { IExchangeRate } from '../models/exchangeRate';
 
 export const getTripDetailsPage = createAction(

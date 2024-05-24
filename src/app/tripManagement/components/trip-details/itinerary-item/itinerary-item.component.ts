@@ -1,11 +1,12 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ItineraryState } from '../../../../models/state';
 import { Store } from '@ngrx/store';
 import { deleteItineraryItemFromFirestore } from '../../../store/actions';
-import { IItineraryItem } from '../../../models/itinerary';
+import { IItineraryItem } from '../../../../eventManagement/models/itinerary';
 import { selectTripDetails } from '../../../store/selectors';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../../models/trip';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-itinerary-item',
@@ -17,6 +18,10 @@ import { ITrip } from '../../../models/trip';
 export class ItineraryItemComponent {
   store: Store<ItineraryState> = inject(Store);
   @Input() item: IItineraryItem = {} as IItineraryItem;
+  @Output() itemClicked: EventEmitter<IItineraryItem> =
+    new EventEmitter<IItineraryItem>();
+
+  router = inject(Router);
 
   trip$ = this.store.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
@@ -28,6 +33,10 @@ export class ItineraryItemComponent {
         this.trip = trip;
       }
     });
+  }
+
+  onEventClick() {
+    this.itemClicked.emit(this.item);
   }
 
   getTime(dateString: string) {
