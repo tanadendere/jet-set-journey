@@ -8,10 +8,16 @@ import {
 import { tripManagementFeatureKey } from './app/tripManagement/store/reducer';
 import { userDashboardFeatureKey } from './app/userDashboard/store/reducer';
 import { userFeatureKey } from './app/userManagement/store/reducer';
+import { itemManagementFeatureKey } from './app/eventManagement/item-detail/store/reducer';
 
 getAllDataFromLocalForage({
   driver: localForage.INDEXEDDB,
-  keys: [userFeatureKey, userDashboardFeatureKey, tripManagementFeatureKey],
+  keys: [
+    userFeatureKey,
+    userDashboardFeatureKey,
+    tripManagementFeatureKey,
+    itemManagementFeatureKey,
+  ],
 }).then(() => {
   bootstrapApplication(AppComponent, appConfig).catch((err) =>
     console.error(err)
