@@ -1,11 +1,57 @@
-<div class="w-svw h-svh">
+<div class="w-svw h-svh min-h-screen flex flex-col">
   @if(user$ | async; as user){
   <app-header [user]="user"></app-header>
 
   <!-- THE CONTENT FOR THIS PAGE -->
   @if (item$ | async; as item) {
-  <p>{{ item.itineraryName }}</p>
+  <div class="flex flex-col font-lato gap-5 p-3 flex-grow">
+    <div class="flex justify-between items-center">
+      <i (click)="goBack()" class="material-icons">arrow_back_ios_new</i>
+      <h1 class="flex-grow text-center text-xl">Event details</h1>
+      <button class="ml-auto text-error-red">Edit</button>
+    </div>
+
+    <h2 class="text-3xl">{{ item.itineraryName }}</h2>
+    <div class="flex flex-row items-center text-xl">
+      <i class="material-icons text-primary">location_on</i>
+      <span>{{ item.location }}</span>
+    </div>
+
+    <div class="flex-col font-light">
+      <p>Thursday, 23 May 2024</p>
+      <p>from 9:00 to 11:00</p>
+    </div>
+
+    <div class="flex flex-row justify-between items-center m-1 mt-3">
+      <div class="flex flex-row justify-center">
+        <span
+          class="flex justify-center items-center text-center bg-base-200 w-12 h-12 rounded-md my-auto"
+          >💰</span
+        >
+        <div class="flex flex-col p-2 text-left">
+          <span class="font-bold -mb-2">Cost</span>
+          <span>{{ item.costEstimate }} {{ item.currency }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col bg-base-200 rounded-md font-light h-36 p-1">
+      <h3 class="font-medium">Notes</h3>
+      <p>{{ item.notes }}</p>
+    </div>
+
+    <button class="text-center text-error-red mt-auto">Delete event</button>
+  </div>
+
   } @else {
-  <p>eeeee</p>
+  <div class="flex-col gap-1">
+    <span
+      >Oops! Looks like we cannot find the itinerary item that you
+      selected.</span
+    >
+    <button (click)="goBack()" class="btn btn-active btn-link">
+      Go back and select an event.
+    </button>
+  </div>
   } }
 </div>

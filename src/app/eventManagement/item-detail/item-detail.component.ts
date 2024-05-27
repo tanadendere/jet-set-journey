@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { ItemState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { HeaderComponent } from '../../components/header/header.component';
-import { IItineraryItem } from '../models/itinerary';
 import { selectItem } from './store/selector';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-event-detail',
@@ -22,24 +22,10 @@ export class ItemDetailComponent {
   itemStore: Store<ItemState> = inject(Store);
 
   item$ = this.itemStore.select(selectItem);
-  // item: IItineraryItem | undefined = undefined;
-  // itemSubscription = new Subscription();
 
-  constructor() {
-    // this.itemSubscription = this.item$.subscribe((item) => {
-    //   if (item) {
-    //     this.item = item;
-    //     this.itineraryStore.dispatch(
-    //       getItineraryItemsFromFirestore({ trip: trip })
-    //     );
-    //     this.stylingForHolidayPhoto = `backgroundImage: url(${this.getHolidayPhotoSrc(
-    //       trip.photoNumber
-    //     )})`;
-    //   }
-    // });
-  }
+  location = inject(Location);
 
-  ngOnDestory() {
-    // this.tripSubscription.unsubscribe();
+  goBack() {
+    this.location.back();
   }
 }
