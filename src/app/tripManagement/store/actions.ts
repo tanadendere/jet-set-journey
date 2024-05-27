@@ -32,14 +32,6 @@ export const addItineraryItemToFirestore = createAction(
   '[Trip Management] Add itinerary item to Firestore',
   props<{ trip: ITrip; itineraryItem: IItineraryItem }>()
 );
-export const editItineraryItemInFirestore = createAction(
-  '[Trip Management] Edit itinerary item in Firestore',
-  props<{ trip: ITrip; itineraryItem: IItineraryItem }>()
-);
-export const deleteItineraryItemFromFirestore = createAction(
-  '[Trip Management] Delete itinerary item from Firestore',
-  props<{ trip: ITrip; itineraryItemId: string }>()
-);
 
 export const getExchangeRates = createAction(
   '[Trip Management] Get the latest exchange rates',
@@ -56,8 +48,6 @@ const all = union({
   getItineraryItemsFromFirestore,
   getItineraryItemsFromFirestoreComplete,
   addItineraryItemToFirestore,
-  editItineraryItemInFirestore,
-  deleteItineraryItemFromFirestore,
   getExchangeRates,
   getExchangeRatesComplete,
 });

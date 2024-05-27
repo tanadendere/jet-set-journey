@@ -31,6 +31,7 @@ import {
   itemManagementFeatureKey,
   itemManagementReducer,
 } from './eventManagement/item-detail/store/reducer';
+import { EventManagementEffects } from './eventManagement/item-detail/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -58,7 +59,8 @@ export const appConfig: ApplicationConfig = {
     provideEffects(
       UserManagementEffects,
       UserDashboardEffects,
-      TripManagementEffects
+      TripManagementEffects,
+      EventManagementEffects
     ),
     provideAnimationsAsync(),
   ],

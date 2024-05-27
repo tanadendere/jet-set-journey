@@ -4,7 +4,6 @@ import { CrudService } from '../services/crud.service';
 import {
   CoreActionsUnion,
   addItineraryItemToFirestore,
-  deleteItineraryItemFromFirestore,
   getExchangeRates,
   getExchangeRatesComplete,
   getItineraryItemsFromFirestore,
@@ -32,31 +31,6 @@ export class TripManagementEffects {
             catchError((err) => {
               alert(
                 `Unfortunately we could not add that item to the database. Please try adding it again. \n\n` +
-                  err.toString()
-              );
-              return EMPTY;
-            })
-          )
-      )
-    )
-  );
-
-  deleteItineraryItemFromFirestore$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(deleteItineraryItemFromFirestore.type),
-      switchMap((action) =>
-        this.crudService
-          .deleteItineraryItem(action.trip, action.itineraryItemId)
-          .pipe(
-            map(() => {
-              return getItineraryItemsFromFirestore({
-                trip: action.trip,
-              });
-            }),
-            retry(1),
-            catchError((err) => {
-              alert(
-                `Unfortunately we could not delete this trip. Please try deleting it again. \n\n` +
                   err.toString()
               );
               return EMPTY;

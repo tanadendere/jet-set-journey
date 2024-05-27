@@ -9,12 +9,16 @@ import {
 } from '@ngrx/store';
 import { ItemState, ItineraryState } from '../../../models/state';
 import { logoutUser } from '../../../userManagement/store/actions';
-import { getItemDetailsPage } from './actions';
+import {
+  getItemDetailsPage,
+  deleteItineraryItemFromFirestoreComplete,
+} from './actions';
 
 export const itemManagementFeatureKey = 'itemManagementFeature';
 
 const initialState: ItemState = {
   item: undefined,
+  deleted: false,
 };
 
 export const itemManagementReducer = createReducer(
@@ -22,6 +26,11 @@ export const itemManagementReducer = createReducer(
   on(getItemDetailsPage, (state, { item }) => ({
     ...state,
     item,
+  })),
+  on(deleteItineraryItemFromFirestoreComplete, (state, {}) => ({
+    ...state,
+    item: undefined,
+    deleted: true,
   }))
 );
 

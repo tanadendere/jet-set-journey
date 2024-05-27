@@ -66,16 +66,4 @@ export class CrudService {
         .catch((error) => console.error('Error adding the trip: ', error))
     );
   }
-
-  deleteItineraryItem(trip: ITrip, itineraryItemId: string): Observable<void> {
-    return from(
-      deleteDoc(
-        doc(
-          this.firestore,
-          `${environment.collectionNames.usersCollection}/${trip.userEmail}/${environment.collectionNames.tripsCollection}/${trip.tripId}/${environment.collectionNames.itineraryCollection}`,
-          itineraryItemId
-        )
-      )
-    );
-  }
 }

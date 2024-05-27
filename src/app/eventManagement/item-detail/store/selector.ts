@@ -13,3 +13,10 @@ export const selectItem = createSelector(selectItemManagementState, (state) => {
     return state.item;
   }
 });
+
+export const checkIfItemDeleted = createSelector(
+  selectItemManagementState,
+  (state) => {
+    return state.deleted;
+  }
+);

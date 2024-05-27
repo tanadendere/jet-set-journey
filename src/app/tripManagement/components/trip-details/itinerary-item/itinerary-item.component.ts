@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ItineraryState } from '../../../../models/state';
 import { Store } from '@ngrx/store';
-import { deleteItineraryItemFromFirestore } from '../../../store/actions';
 import { IItineraryItem } from '../../../../eventManagement/models/itinerary';
 import { selectTripDetails } from '../../../store/selectors';
 import { Subscription } from 'rxjs';
@@ -48,21 +47,6 @@ export class ItineraryItemComponent {
     const formattedMinutes = minutes.toString().padStart(2, '0');
 
     return formattedHours + ':' + formattedMinutes;
-  }
-
-  deleteItem() {
-    if (this.trip && this.item.itemId) {
-      this.store.dispatch(
-        deleteItineraryItemFromFirestore({
-          trip: this.trip!,
-          itineraryItemId: this.item.itemId,
-        })
-      );
-    } else {
-      alert(
-        'That item cannot be deleted. Please try again or take it as a sign 😉'
-      );
-    }
   }
 
   ngOnDestory() {

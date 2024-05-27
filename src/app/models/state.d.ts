@@ -23,4 +23,5 @@ export interface ItineraryState {
 
 export interface ItemState {
   item?: IItineraryItem;
+  deleted: boolean;
 }
