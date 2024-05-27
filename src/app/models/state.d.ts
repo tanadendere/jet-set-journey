@@ -19,9 +19,10 @@ export interface ItineraryState {
   trip?: ITrip;
   itinerary?: IItineraryItem[];
   exchangeRates?: IExchangeRate[];
+  deleted?: boolean;
 }
 
 export interface ItemState {
   item?: IItineraryItem;
-  deleted: boolean;
+  deleted?: boolean;
 }

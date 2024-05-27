@@ -4,6 +4,8 @@ import { CrudService } from '../services/crud.service';
 import {
   CoreActionsUnion,
   addItineraryItemToFirestore,
+  deleteTripFromFirestore,
+  deleteTripFromFirestoreComplete,
   getExchangeRates,
   getExchangeRatesComplete,
   getItineraryItemsFromFirestore,
@@ -84,6 +86,27 @@ export class TripManagementEffects {
               return EMPTY;
             })
           )
+      )
+    )
+  );
+
+  deleteTripFromFirestore$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteTripFromFirestore.type),
+      switchMap((action) =>
+        this.crudService.deleteTrip(action.userEmail, action.tripId).pipe(
+          map(() => {
+            return deleteTripFromFirestoreComplete();
+          }),
+          retry(1),
+          catchError((err) => {
+            alert(
+              `Unfortunately we could not delete this trip. Please try deleting it again. \n\n` +
+                err.toString()
+            );
+            return EMPTY;
+          })
+        )
       )
     )
   );

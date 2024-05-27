@@ -8,6 +8,15 @@ export const getTripDetailsPage = createAction(
   props<{ trip: ITrip }>()
 );
 
+export const deleteTripFromFirestore = createAction(
+  '[Trip Management] Delete trip from Firestore',
+  props<{ userEmail: string; tripId: string }>()
+);
+
+export const deleteTripFromFirestoreComplete = createAction(
+  '[Trip Management] Delete trip from Firestore complete'
+);
+
 export const editTripById = createAction(
   '[Trip Management] Edit trip details',
   props<{ userEmail: string; tripId: string }>()
@@ -48,6 +57,8 @@ const all = union({
   getItineraryItemsFromFirestore,
   getItineraryItemsFromFirestoreComplete,
   addItineraryItemToFirestore,
+  deleteTripFromFirestore,
+  deleteTripFromFirestoreComplete,
   getExchangeRates,
   getExchangeRatesComplete,
 });

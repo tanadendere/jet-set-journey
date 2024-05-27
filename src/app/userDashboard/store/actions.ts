@@ -16,16 +16,10 @@ export const getTripsComplete = createAction(
   props<{ trips: ITrip[] }>()
 );
 
-export const deleteTripFromFirestore = createAction(
-  '[UserDashboard] Delete trip from Firestore',
-  props<{ userEmail: string; tripId: string }>()
-);
-
 const all = union({
   addTripToFirestore,
   getTripsFromFirestore,
   getTripsComplete,
-  deleteTripFromFirestore,
 });
 
 export type CoreActionsUnion = typeof all;

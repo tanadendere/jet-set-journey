@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ITrip } from '../../../tripManagement/models/trip';
 import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
-import { deleteTripFromFirestore } from '../../store/actions';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -15,7 +14,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class TripCardComponent {
   @Input() trip: ITrip = {} as ITrip;
   @Output() tripClicked: EventEmitter<ITrip> = new EventEmitter<ITrip>();
-  store: Store<TripState> = inject(Store);
 
   getHolidayPhotoSrc() {
     return `../../../../assets/holiday${this.trip.photoNumber}-min.jpg`;
@@ -23,19 +21,5 @@ export class TripCardComponent {
 
   onTripClick() {
     this.tripClicked.emit(this.trip);
-  }
-
-  deleteTrip() {
-    const confirmation = window.confirm(
-      'Are you sure you want to delete this trip?'
-    );
-    if (confirmation) {
-      this.store.dispatch(
-        deleteTripFromFirestore({
-          userEmail: this.trip.userEmail,
-          tripId: this.trip.tripId,
-        })
-      );
-    }
   }
 }

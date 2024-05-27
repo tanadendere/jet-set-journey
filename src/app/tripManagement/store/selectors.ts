@@ -47,3 +47,10 @@ export const selectTotalCost = createSelector(
     return calculateItineraryTotalCost(state.itinerary, state.exchangeRates);
   }
 );
+
+export const checkIfTripDeleted = createSelector(
+  selectTripManagementState,
+  (state) => {
+    return state.deleted;
+  }
+);

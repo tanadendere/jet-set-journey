@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { Location, CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -6,7 +6,6 @@ import { ItemState, ItineraryState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { HeaderComponent } from '../../components/header/header.component';
 import { checkIfItemDeleted, selectItem } from './store/selector';
-import { Location } from '@angular/common';
 import { selectTripDetails } from '../../tripManagement/store/selectors';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../tripManagement/models/trip';
@@ -55,17 +54,22 @@ export class ItemDetailComponent {
   }
 
   deleteItem() {
-    if (this.trip && this.item?.itemId) {
-      this.itemStore.dispatch(
-        deleteItineraryItemFromFirestore({
-          trip: this.trip,
-          itineraryItemId: this.item.itemId,
-        })
-      );
-    } else {
-      alert(
-        'That item cannot be deleted. Please try again or take it as a sign 😉'
-      );
+    const confirmation = window.confirm(
+      'Are you sure you want to delete this trip?'
+    );
+    if (confirmation) {
+      if (this.trip && this.item?.itemId) {
+        this.itemStore.dispatch(
+          deleteItineraryItemFromFirestore({
+            trip: this.trip,
+            itineraryItemId: this.item.itemId,
+          })
+        );
+      } else {
+        alert(
+          'That item cannot be deleted. Please try again or take it as a sign 😉'
+        );
+      }
     }
   }
 

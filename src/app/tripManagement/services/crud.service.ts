@@ -66,4 +66,16 @@ export class CrudService {
         .catch((error) => console.error('Error adding the trip: ', error))
     );
   }
+
+  deleteTrip(userEmail: string, tripId: string): Observable<void> {
+    return from(
+      deleteDoc(
+        doc(
+          this.firestore,
+          `${environment.collectionNames.usersCollection}/${userEmail}/${environment.collectionNames.tripsCollection}`,
+          tripId
+        )
+      )
+    );
+  }
 }

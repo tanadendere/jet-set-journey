@@ -1,9 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { Location, CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
-import { ItineraryState, UserState } from '../../../models/state';
+import { ItineraryState, TripState, UserState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import {
+  checkIfTripDeleted,
   selectItinerary,
   selectItineraryDates,
   selectTotalCost,
@@ -15,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { ITrip } from '../../models/trip';
 import {
   addItineraryItemToFirestore,
+  deleteTripFromFirestore,
   getExchangeRates,
   getItineraryItemsFromFirestore,
 } from '../../store/actions';
@@ -59,7 +61,10 @@ export class TripDetailsComponent {
   tripSubscription = new Subscription();
   stylingForHolidayPhoto = '';
 
+  store: Store<TripState> = inject(Store);
+
   router = inject(Router);
+  location = inject(Location);
 
   totalCost$ = this.itineraryStore.select(selectTotalCost);
   totalCostSubscription = new Subscription();
@@ -67,6 +72,8 @@ export class TripDetailsComponent {
 
   itineraryDates$ = this.itineraryStore.select(selectItineraryDates);
   itineraryDatesSubscription = new Subscription();
+
+  deleted$ = this.itineraryStore.select(checkIfTripDeleted);
 
   constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
@@ -133,6 +140,26 @@ export class TripDetailsComponent {
     this.router.navigateByUrl(
       `trip-details/${item.tripId}/event/${item.itemId}`
     );
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  deleteTrip() {
+    const confirmation = window.confirm(
+      'Are you sure you want to delete this trip?'
+    );
+    if (confirmation) {
+      if (this.trip) {
+        this.store.dispatch(
+          deleteTripFromFirestore({
+            userEmail: this.trip.userEmail,
+            tripId: this.trip.tripId,
+          })
+        );
+      }
+    }
   }
 
   ngOnDestory() {

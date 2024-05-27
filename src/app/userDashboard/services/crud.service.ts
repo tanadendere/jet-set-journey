@@ -41,18 +41,6 @@ export class CrudService {
     );
   }
 
-  deleteTrip(userEmail: string, tripId: string): Observable<void> {
-    return from(
-      deleteDoc(
-        doc(
-          this.firestore,
-          `${environment.collectionNames.usersCollection}/${userEmail}/${environment.collectionNames.tripsCollection}`,
-          tripId
-        )
-      )
-    );
-  }
-
   getTrips(userEmail: string): Observable<ITrip[]> {
     return from(
       getDocs(
