@@ -1,88 +1,110 @@
-<form class="prose" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h1>Login</h1>
-
-  @if (error$ | async; as errorMessage) {
-  <div role="alert" class="alert alert-error">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-
-    <span>{{ errorMessage }}</span>
-  </div>
-  }
-
-  <!-- email input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">Could you provide your email?</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="text"
-      placeholder="john.doe@example.com"
-      formControlName="email"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-
-    @if (email?.invalid && (email?.dirty || email?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (email?.hasError('required')) {
-        <span class="text-error-red">Email is required</span>
-        }
+<div class="hero min-h-screen bg-base-200 font-lato">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center">
+      <div class="mx-auto w-16 sm:w-24 flex-grow-0 flex-shrink-0 p-1">
+        <img src="../../../../assets/logo.png" />
+      </div>
+      <span class="font-lato font-bold text-xl sm:text-3xl text-center">
+        Jet Set Journey
       </span>
+      <p class="py-6 text-center hidden sm:block">
+        Securely store and manage your travel plans online, accessible from any
+        device, with currency conversion and detailed itineraries.
+      </p>
     </div>
-    }
-  </label>
+    <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form
+        class="card-body flex flex-col"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+      >
+        <h1>Login</h1>
 
-  <!-- password input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">Enter a password</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="password"
-      placeholder="•••••••••"
-      formControlName="password"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
+        @if (error$ | async; as errorMessage) {
+        <div role="alert" class="alert alert-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
 
-    @if (password?.invalid && (password?.dirty || password?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (password?.hasError('required')) {
-        <span class="text-error-red">Password is required</span>
+          <span>{{ errorMessage }}</span>
+        </div>
         }
-      </span>
+
+        <!-- email input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Could you provide your email?</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="text"
+            placeholder="john.doe@example.com"
+            formControlName="email"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (email?.invalid && (email?.dirty || email?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (email?.hasError('required')) {
+              <span class="text-error-red">Email is required</span>
+              }
+            </span>
+          </div>
+          }
+        </label>
+
+        <!-- password input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Enter a password</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="password"
+            placeholder="•••••••••"
+            formControlName="password"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (password?.invalid && (password?.dirty || password?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (password?.hasError('required')) {
+              <span class="text-error-red">Password is required</span>
+              }
+            </span>
+          </div>
+          }
+        </label>
+        <div class="text-error-red">* required</div>
+
+        <!-- Submit or go to login section -->
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="btn btn-active btn-primary"
+        >
+          Sign In
+        </button>
+
+        <div>
+          <span>Don't have an account?</span>
+          <button routerLink="/register" class="btn btn-active btn-link">
+            Register
+          </button>
+        </div>
+      </form>
     </div>
-    }
-  </label>
-  <div class="text-error-red">* required</div>
-
-  <!-- Submit or go to login section -->
-  <button
-    type="submit"
-    [disabled]="form.invalid"
-    class="btn btn-active btn-primary"
-  >
-    Sign In
-  </button>
-
-  <div>
-    <span>Don't have an account?</span>
-    <button routerLink="/register" class="btn btn-active btn-link">
-      Register
-    </button>
   </div>
-</form>
+</div>

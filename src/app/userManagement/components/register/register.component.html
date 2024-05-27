@@ -1,195 +1,224 @@
-<form class="prose" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h1 class="">Register</h1>
-
-  @if (error$ | async; as errorMessage) {
-  <div role="alert" class="alert alert-error text-error-red">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-
-    <span>{{ errorMessage }}</span>
-  </div>
-  }
-  <!-- name input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">What is your name?</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="text"
-      placeholder="John"
-      formControlName="name"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-
-    @if (name?.invalid && (name?.dirty || name?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (name?.hasError('required')) {
-        <span class="text-error-red">Name is required</span>
-        } @if (name?.hasError('maxlength')) {
-        <span class="text-error-red">
-          Names can't be longer than 30 characters. Please shorten your name and
-          try again.
-        </span>
-        } @if (name?.hasError('pattern')) {
-        <span class="text-error-red">
-          Please enter a valid name. Only letters, spaces, and apostrophes are
-          allowed.
-        </span>
-        }
+<div class="hero min-h-screen bg-base-200 font-lato">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center">
+      <div class="mx-auto w-16 sm:w-24 flex-grow-0 flex-shrink-0 p-1">
+        <img src="../../../../assets/logo.png" />
+      </div>
+      <span class="font-lato font-bold text-xl sm:text-3xl text-center">
+        Jet Set Journey
       </span>
+      <p class="py-6 text-center hidden sm:block">
+        Securely store and manage your travel plans online, accessible from any
+        device, with currency conversion and detailed itineraries.
+      </p>
     </div>
-    }
-  </label>
+    <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <form
+        class="card-body flex flex-col"
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+      >
+        <h1 class="text-3xl">Register</h1>
 
-  <!-- surname input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">And your last name?</span>
-    </div>
-    <input
-      type="text"
-      placeholder="Doe"
-      formControlName="surname"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
+        @if (error$ | async; as errorMessage) {
+        <div role="alert" class="alert alert-error text-error-red">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
 
-    @if (surname?.invalid && (surname?.dirty || surname?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (surname?.hasError('maxlength')) {
-        <span class="text-error-red">
-          Surname can't be longer than 30 characters. Please shorten it and try
-          again.
-        </span>
-        } @if (surname?.hasError('pattern')) {
-        <span class="text-error-red">
-          Please enter a valid surname. Only letters, spaces, and apostrophes
-          are allowed.
-        </span>
+          <span>{{ errorMessage }}</span>
+        </div>
         }
-      </span>
-    </div>
-    }
-  </label>
+        <!-- name input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">What is your name?</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="text"
+            placeholder="John"
+            formControlName="name"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
 
-  <!-- email input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">Could you provide your email?</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="text"
-      placeholder="john.doe@example.com"
-      formControlName="email"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
+          @if (name?.invalid && (name?.dirty || name?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (name?.hasError('required')) {
+              <span class="text-error-red">Name is required</span>
+              } @if (name?.hasError('maxlength')) {
+              <span class="text-error-red">
+                Names can't be longer than 30 characters. Please shorten your
+                name and try again.
+              </span>
+              } @if (name?.hasError('pattern')) {
+              <span class="text-error-red">
+                Please enter a valid name. Only letters, spaces, and apostrophes
+                are allowed.
+              </span>
+              }
+            </span>
+          </div>
+          }
+        </label>
 
-    @if (email?.invalid && (email?.dirty || email?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (email?.hasError('required')) {
-        <span class="text-error-red">Email is required</span>
-        } @if (email?.hasError('maxlength')) {
-        <span class="text-error-red"
-          >Your email is too long. It should be less than 254 characters.</span
+        <!-- surname input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">And your last name?</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Doe"
+            formControlName="surname"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (surname?.invalid && (surname?.dirty || surname?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (surname?.hasError('maxlength')) {
+              <span class="text-error-red">
+                Surname can't be longer than 30 characters. Please shorten it
+                and try again.
+              </span>
+              } @if (surname?.hasError('pattern')) {
+              <span class="text-error-red">
+                Please enter a valid surname. Only letters, spaces, and
+                apostrophes are allowed.
+              </span>
+              }
+            </span>
+          </div>
+          }
+        </label>
+
+        <!-- email input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Could you provide your email?</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="text"
+            placeholder="john.doe@example.com"
+            formControlName="email"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (email?.invalid && (email?.dirty || email?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (email?.hasError('required')) {
+              <span class="text-error-red">Email is required</span>
+              } @if (email?.hasError('maxlength')) {
+              <span class="text-error-red"
+                >Your email is too long. It should be less than 254
+                characters.</span
+              >
+              } @if (email?.hasError('pattern')) {
+              <span class="text-error-red"
+                >Please enter a valid email address.</span
+              >
+              }
+            </span>
+          </div>
+          }
+        </label>
+
+        <!-- password input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Enter a password</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="password"
+            placeholder="•••••••••"
+            formControlName="password"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (password?.invalid && (password?.dirty || password?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (password?.hasError('required')) {
+              <span class="text-error-red">Password is required</span>
+              } @if (password?.hasError('minlength') ||
+              password?.hasError('maxlength')) {
+              <span class="text-error-red"
+                >Your password must be between 8 and 128 characters long.</span
+              >
+              }@if (password?.hasError('pattern')) {
+              <span class="text-error-red">
+                Please ensure your password has at least one number, one letter
+                and one special character (!&#64;#$%^&*-_?)<br />
+                White space is not allowed.
+              </span>
+              }
+            </span>
+          </div>
+          }
+        </label>
+
+        <!-- Confirm password input -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Confirm your password</span>
+            <span class="label-text-alt text-error-red">*</span>
+          </div>
+          <input
+            type="password"
+            placeholder="•••••••••"
+            formControlName="confirmPassword"
+            class="input input-bordered input-primary w-full max-w-xs"
+          />
+
+          @if (confirmPassword?.invalid && (confirmPassword?.dirty ||
+          confirmPassword?.touched)) {
+          <div class="label">
+            <span class="label-text-alt">
+              @if (confirmPassword?.hasError('required')) {
+              <span class="text-error-red">Please confirm your password.</span>
+              } @if (confirmPassword?.hasError('confirmedValidator')) {
+              <span class="text-error-red"
+                >Please ensure both passwords match.</span
+              >
+              }
+            </span>
+          </div>
+          }
+        </label>
+
+        <div class="text-error-red">* required</div>
+
+        <!-- Submit or go to login section -->
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="btn btn-active btn-primary flex-grow-0"
         >
-        } @if (email?.hasError('pattern')) {
-        <span class="text-error-red">Please enter a valid email address.</span>
-        }
-      </span>
+          Sign Up
+        </button>
+
+        <div>
+          <span>Already have an account?</span>
+          <button routerLink="/login" class="btn btn-active btn-link">
+            Login
+          </button>
+        </div>
+      </form>
     </div>
-    }
-  </label>
-
-  <!-- password input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">Enter a password</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="password"
-      placeholder="•••••••••"
-      formControlName="password"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-
-    @if (password?.invalid && (password?.dirty || password?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (password?.hasError('required')) {
-        <span class="text-error-red">Password is required</span>
-        } @if (password?.hasError('minlength') ||
-        password?.hasError('maxlength')) {
-        <span class="text-error-red"
-          >Your password must be between 8 and 128 characters long.</span
-        >
-        }@if (password?.hasError('pattern')) {
-        <span class="text-error-red">
-          Please ensure your password has at least one number, one letter and
-          one special character (!&#64;#$%^&*-_?)<br />
-          White space is not allowed.
-        </span>
-        }
-      </span>
-    </div>
-    }
-  </label>
-
-  <!-- Confirm password input -->
-  <label class="form-control w-full max-w-xs">
-    <div class="label">
-      <span class="label-text">Confirm your password</span>
-      <span class="label-text-alt text-error-red">*</span>
-    </div>
-    <input
-      type="password"
-      placeholder="•••••••••"
-      formControlName="confirmPassword"
-      class="input input-bordered input-primary w-full max-w-xs"
-    />
-
-    @if (confirmPassword?.invalid && (confirmPassword?.dirty ||
-    confirmPassword?.touched)) {
-    <div class="label">
-      <span class="label-text-alt">
-        @if (confirmPassword?.hasError('required')) {
-        <span class="text-error-red">Please confirm your password.</span>
-        } @if (confirmPassword?.hasError('confirmedValidator')) {
-        <span class="text-error-red">Please ensure both passwords match.</span>
-        }
-      </span>
-    </div>
-    }
-  </label>
-
-  <div class="text-error-red">* required</div>
-
-  <!-- Submit or go to login section -->
-  <button
-    type="submit"
-    [disabled]="form.invalid"
-    class="btn btn-active btn-primary"
-  >
-    Sign Up
-  </button>
-
-  <div>
-    <span>Already have an account?</span>
-    <button routerLink="/login" class="btn btn-active btn-link">Login</button>
   </div>
-</form>
+</div>
