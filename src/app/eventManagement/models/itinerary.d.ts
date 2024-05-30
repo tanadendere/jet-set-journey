@@ -1,3 +1,5 @@
+import { IPlaceSearchResult } from '../../models/placesAPI';
+
 export interface IItineraryItem {
   itemId?: string;
   itineraryName: string;
@@ -7,7 +9,7 @@ export interface IItineraryItem {
   endDateTime: string;
   currency: string;
   costEstimate: number;
-  location: string;
+  location: IPlaceSearchResult | string;
   notes: string;
 }
 

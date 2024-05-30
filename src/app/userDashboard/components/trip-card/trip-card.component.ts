@@ -15,8 +15,16 @@ export class TripCardComponent {
   @Input() trip: ITrip = {} as ITrip;
   @Output() tripClicked: EventEmitter<ITrip> = new EventEmitter<ITrip>();
 
+  dest = this.trip.googleDestination
+    ? this.trip.googleDestination.address
+    : this.trip.destination;
+
   getHolidayPhotoSrc() {
-    return `../../../../assets/holiday${this.trip.photoNumber}-min.jpg`;
+    if (this.trip.googleDestination) {
+      return this.trip.googleDestination.imageUrl;
+    } else {
+      return `../../../../assets/holiday${this.trip.photoNumber}-min.jpg`;
+    }
   }
 
   onTripClick() {

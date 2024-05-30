@@ -35,12 +35,10 @@
 
     <!-- itinerary location input -->
     <label class="form-control w-full max-w-xs m-2">
-      <input
-        type="text"
+      <app-location-autocomplete
+        (placeChanged)="locationValue = $event"
         placeholder="Location"
-        formControlName="location"
-        class="input input-bordered input-primary w-full max-w-xs"
-      />
+      ></app-location-autocomplete>
       @if (location?.invalid && (location?.dirty || location?.touched)) {
       <div class="label">
         <span class="label-text-alt">

@@ -1,9 +1,14 @@
 import { createAction, props, union } from '@ngrx/store';
 import { ITrip } from '../../tripManagement/models/trip';
+import { IPlaceSearchResult } from '../../models/placesAPI';
 
 export const addTripToFirestore = createAction(
   '[UserDashboard] Add trip to Firestore',
-  props<{ userEmail: string; tripName: string; destination: string }>()
+  props<{
+    userEmail: string;
+    tripName: string;
+    destination: IPlaceSearchResult | string;
+  }>()
 );
 
 export const getTripsFromFirestore = createAction(

@@ -6,6 +6,7 @@ import {
   sortItinerary,
   getItineraryDates,
 } from '../utilities/utils';
+import { IPlaceSearchResult } from '../../models/placesAPI';
 
 export const selectTripManagementState = createFeatureSelector<ItineraryState>(
   tripManagementFeatureKey
@@ -35,7 +36,18 @@ export const selectItineraryDates = createSelector(
 
 export const selectTripDetails = createSelector(
   selectTripManagementState,
-  (state) => state.trip
+  (state) => {
+    if (state.trip) {
+      const locationResult: IPlaceSearchResult = JSON.parse(
+        state.trip.destination
+      );
+      if (locationResult) {
+        state.trip.googleDestination = locationResult;
+      }
+      return state.trip;
+    }
+    return state.trip;
+  }
 );
 
 export const selectTotalCost = createSelector(

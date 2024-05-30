@@ -8,11 +8,19 @@ import { ICurrency } from '../../../../userManagement/models/currency';
 import { ITrip } from '../../../models/trip';
 import { Store } from '@ngrx/store';
 import { ItineraryState } from '../../../../models/state';
+import { LocationAutocompleteComponent } from '../../../../components/location-autocomplete/location-autocomplete.component';
+import { IPlaceSearchResult } from '../../../../models/placesAPI';
 
 @Component({
   selector: 'app-add-item',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    LocationAutocompleteComponent,
+  ],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.scss',
 })
@@ -23,6 +31,8 @@ export class AddItemComponent {
   @Input() selectedCurrency: ICurrency | undefined | null = undefined;
   @Input() trip: ITrip | undefined | null = undefined;
   itineraryStore: Store<ItineraryState> = inject(Store);
+
+  locationValue: IPlaceSearchResult | undefined;
 
   dateToday() {
     const now = new Date();
@@ -86,7 +96,7 @@ export class AddItemComponent {
         endDateTime: rawForm.endDateTime,
         currency: this.selectedCurrency.code,
         costEstimate: Number(rawForm.costEstimate),
-        location: rawForm.location,
+        location: this.locationValue ? this.locationValue : rawForm.location,
         notes: rawForm.notes,
       };
 

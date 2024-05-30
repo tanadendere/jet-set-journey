@@ -10,6 +10,7 @@ import {
 import { ITrip } from '../../tripManagement/models/trip';
 import { Observable, from } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { IPlaceSearchResult } from '../../models/placesAPI';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class CrudService {
   addTrip(
     userEmail: string,
     tripName: string,
-    destination: string
+    destination: IPlaceSearchResult | string
   ): Observable<void> {
     return from(
       addDoc(
@@ -30,7 +31,7 @@ export class CrudService {
         ),
         {
           tripName: tripName,
-          destination: destination,
+          destination: JSON.stringify(destination),
           photoNumber: Math.floor(Math.random() * 10) + 1,
         }
       )

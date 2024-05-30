@@ -4,24 +4,28 @@ import { TripState } from '../../../models/state';
 import { Store } from '@ngrx/store';
 import { addTripToFirestore } from '../../../userDashboard/store/actions';
 import { IUser } from '../../../userManagement/models/user';
+import { LocationAutocompleteComponent } from '../../location-autocomplete/location-autocomplete.component';
+import { IPlaceSearchResult } from '../../../models/placesAPI';
 
 @Component({
   selector: 'app-add-trip',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LocationAutocompleteComponent],
   templateUrl: './add-trip.component.html',
   styleUrl: './add-trip.component.scss',
 })
 export class AddTripComponent {
-  @Input()
-  user: IUser | undefined | null = undefined;
+  @Input() user: IUser | undefined | null = undefined;
 
   fb = inject(FormBuilder);
   tripStore: Store<TripState> = inject(Store);
 
+  destinationValue: IPlaceSearchResult | undefined;
+  errorMessage = '';
+
   form = this.fb.nonNullable.group({
     tripName: ['', [Validators.required]],
-    destination: ['', [Validators.required]],
+    destination: ['', []],
   });
 
   get tripName() {
@@ -40,12 +44,16 @@ export class AddTripComponent {
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-    if (this.user && this.form.valid) {
+    if (rawForm.destination === '' && this.destinationValue == undefined) {
+      this.errorMessage = 'Please enter a destination.';
+    } else if (this.user && this.form.valid) {
       this.tripStore.dispatch(
         addTripToFirestore({
           userEmail: this.user.email,
           tripName: rawForm.tripName,
-          destination: rawForm.destination,
+          destination: this.destinationValue
+            ? this.destinationValue
+            : rawForm.destination,
         })
       );
       this.form.reset();

@@ -25,11 +25,6 @@
         <span class="label-text-alt">
           @if (tripName?.hasError('required')) {
           <span class="text-error-red">The name of the trip is required</span>
-          } @if (tripName?.hasError('pattern')) {
-          <span class="text-error-red"
-            >The name of the trip contains characters that are not
-            allowed.</span
-          >
           }
         </span>
       </div>
@@ -38,12 +33,10 @@
 
     <!-- destination name input -->
     <label class="form-control w-full max-w-xs m-2">
-      <input
-        type="text"
-        placeholder="Trip destination"
-        formControlName="destination"
-        class="input input-bordered input-primary w-full max-w-xs"
-      />
+      <app-location-autocomplete
+        (placeChanged)="destinationValue = $event"
+        placeholder="Destination"
+      ></app-location-autocomplete>
 
       @if (destination?.invalid && (destination?.dirty || destination?.touched))
       {
@@ -53,16 +46,13 @@
           <span class="text-error-red"
             >The destination of the trip is required</span
           >
-          } @if (destination?.hasError('pattern')) {
-          <span class="text-error-red"
-            >Thhe destination name contains characters that are not
-            allowed.</span
-          >
           }
         </span>
       </div>
       }
     </label>
+
+    <div class="text-error-red p-3">{{ errorMessage }}</div>
 
     <div>
       <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
