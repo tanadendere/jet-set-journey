@@ -88,6 +88,22 @@ export function getItineraryDay(dateString: string) {
   return day + ', ' + numberDate + ' ' + month;
 }
 
+export function getItineraryDayWithYear(dateString: string) {
+  const date = new Date(dateString);
+  const day = getDayOfWeek(date.getDay());
+  const numberDate = date.getDate();
+  const month = getMonthName(date.getMonth());
+  const year = date.getFullYear();
+  return day + ', ' + numberDate + ' ' + month + ' ' + year;
+}
+
+export function getItineryTime(dateString: string) {
+  const date = new Date(dateString);
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  return hour + ':' + minutes;
+}
+
 function getDayOfWeek(day: number) {
   switch (day) {
     case 0:

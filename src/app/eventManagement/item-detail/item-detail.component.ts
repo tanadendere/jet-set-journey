@@ -11,6 +11,10 @@ import { Subscription } from 'rxjs';
 import { ITrip } from '../../tripManagement/models/trip';
 import { deleteItineraryItemFromFirestore } from './store/actions';
 import { IItineraryItem } from '../models/itinerary';
+import {
+  getItineraryDayWithYear,
+  getItineryTime,
+} from '../../tripManagement/utilities/utils';
 
 @Component({
   selector: 'app-event-detail',
@@ -51,6 +55,32 @@ export class ItemDetailComponent {
 
   goBack() {
     this.location.back();
+  }
+
+  getItemsDetailedStartAndEnd(startDateString: string, endDateString: string) {
+    let detailedDuration = '';
+    const startDay = getItineraryDayWithYear(startDateString);
+    const endDay = getItineraryDayWithYear(endDateString);
+
+    const startTime = getItineryTime(startDateString);
+    const endTime = getItineryTime(endDateString);
+
+    if (startDay === endDay) {
+      detailedDuration =
+        startDay + '</br>' + 'from ' + startTime + ' to ' + endTime;
+    } else {
+      detailedDuration =
+        'Starting ' +
+        startDay +
+        ' at ' +
+        startTime +
+        '\n' +
+        'to ' +
+        endDay +
+        ' at ' +
+        endTime;
+    }
+    return detailedDuration;
   }
 
   deleteItem() {

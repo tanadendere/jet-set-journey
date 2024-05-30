@@ -17,8 +17,11 @@
     </div>
 
     <div class="flex-col font-light">
-      <p>Thursday, 23 May 2024</p>
-      <p>from 9:00 to 11:00</p>
+      <p
+        [innerHTML]="
+          getItemsDetailedStartAndEnd(item.startDateTime, item.endDateTime)
+        "
+      ></p>
     </div>
 
     <div class="flex flex-row justify-between items-center m-1 mt-3">
