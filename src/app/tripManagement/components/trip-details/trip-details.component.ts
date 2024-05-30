@@ -29,6 +29,7 @@ import { getCurrencyCodes, getItineraryDay } from '../../utilities/utils';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { getItemDetailsPage } from '../../../eventManagement/store/actions';
+import { ICurrency } from '../../../userManagement/models/currency';
 
 @Component({
   selector: 'app-trip-details',
@@ -48,7 +49,9 @@ import { getItemDetailsPage } from '../../../eventManagement/store/actions';
 export class TripDetailsComponent {
   userStore: Store<UserState> = inject(Store);
   user$ = this.userStore.select(selectUser);
+
   selectedCurrency$ = this.userStore.select(selectCurrency);
+  userSelectedCurrency: ICurrency | undefined = undefined;
   selectedCurrencySubscription = new Subscription();
   selectedCurrencyCode = '';
 
@@ -82,14 +85,12 @@ export class TripDetailsComponent {
         this.itineraryStore.dispatch(
           getItineraryItemsFromFirestore({ trip: trip })
         );
-        // this.stylingForHolidayPhoto = `backgroundImage: url(${this.getHolidayPhotoSrc(
-        //   trip.photoNumber
-        // )})`;
       }
     });
     this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
       (selectedCurrency) => {
         if (selectedCurrency) {
+          this.userSelectedCurrency = selectedCurrency;
           this.selectedCurrencyCode = selectedCurrency.code;
           this.itinerarySubscription = this.itinerary$.subscribe(
             (itinerary) => {

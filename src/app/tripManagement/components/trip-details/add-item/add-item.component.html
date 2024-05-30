@@ -214,6 +214,7 @@
         id="startDateTime"
         formControlName="startDateTime"
         class="input input-bordered input-primary w-full max-w-xs"
+        (input)="onDateTimeChange($event)"
       />
     </label>
 
@@ -228,22 +229,26 @@
         id="endDateTime"
         formControlName="endDateTime"
         class="input input-bordered input-primary w-full max-w-xs"
+        (input)="onDateTimeChange($event)"
       />
     </label>
 
     <!-- itinerary cost estimate input -->
-    <label class="form-control w-full max-w-xs m-2">
-      <span>{{ selectedCurrency?.symbolNative }}</span>
-      <input
-        type="number"
-        class="input input-bordered input-primary w-full max-w-xs"
-        placeholder="Cost Estimate"
-        formControlName="costEstimate"
-      />
-    </label>
+    <label class="form-control w-full max-w-xs m-2 my-4">
+      <label
+        class="input input-bordered input-primary w-full max-w-xs flex items-center gap-2"
+      >
+        <span>{{ selectedCurrency?.symbol_native }}</span>
+        <input
+          type="number"
+          class="grow"
+          placeholder="Cost Estimate"
+          formControlName="costEstimate"
+        /> </label
+    ></label>
 
     <!-- itinerary notes input -->
-    <label class="form-control w-full m-2">
+    <label class="form-control w-full max-w-xs m-2">
       <textarea
         rows="5"
         placeholder="Notes"

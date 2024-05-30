@@ -117,11 +117,12 @@ export class UserManagementEffects {
     )
   );
 
+  // using internal list to prevent too many network calls for the drop down select
   getCurrencyList$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getCurrencyList.type),
       switchMap(() =>
-        this.currencyService.getCurrencyList().pipe(
+        this.currencyService.getInternalCurrencyList().pipe(
           map((currencyList) => {
             return getCurrencyListComplete({ currencyData: currencyList.data });
           }),

@@ -1,11 +1,11 @@
 export interface ICurrency {
   symbol: string;
   name: string;
-  symbolNative: string;
-  decimalDigits: number;
+  symbol_native: string;
+  decimal_digits: number;
   rounding: number;
   code: string;
-  namePlural: string;
+  name_plural: string;
   type: string;
   countries: string[];
 }

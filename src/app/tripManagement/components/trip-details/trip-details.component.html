@@ -31,7 +31,10 @@
           <div class="flex items-center gap-1">
             <i class="material-icons">account_balance_wallet</i>
             <span class="font-semibold">Total Cost</span>
-            <span>{{ selectedCurrency.symbolNative }}{{ totalCost }}</span>
+            <div class="flex gap-0.5">
+              <span>{{ selectedCurrency.symbol_native }}</span
+              ><span>{{ totalCost }}</span>
+            </div>
           </div>
         </div>
       </div>

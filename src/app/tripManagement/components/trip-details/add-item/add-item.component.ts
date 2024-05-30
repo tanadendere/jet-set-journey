@@ -51,6 +51,13 @@ export class AddItemComponent {
     return rawForm.startDateTime;
   }
 
+  onDateTimeChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    setTimeout(() => {
+      input.blur();
+    }, 1500);
+  }
+
   form = this.fb.nonNullable.group({
     name: ['', Validators.required],
     location: [''],
