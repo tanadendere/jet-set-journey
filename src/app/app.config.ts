@@ -30,8 +30,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {
   itemManagementFeatureKey,
   itemManagementReducer,
-} from './eventManagement/item-detail/store/reducer';
-import { EventManagementEffects } from './eventManagement/item-detail/store/effects';
+} from './eventManagement/store/reducer';
+import { EventManagementEffects } from './eventManagement/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [

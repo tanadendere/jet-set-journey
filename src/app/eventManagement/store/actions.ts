@@ -1,6 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import { IItineraryItem } from '../../models/itinerary';
-import { ITrip } from '../../../tripManagement/models/trip';
+import { IItineraryItem } from '../models/itinerary';
+import { ITrip } from '../../tripManagement/models/trip';
 
 export const getItemDetailsPage = createAction(
   '[Item Management] Get item details',

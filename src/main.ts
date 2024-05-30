@@ -8,7 +8,7 @@ import {
 import { tripManagementFeatureKey } from './app/tripManagement/store/reducer';
 import { userDashboardFeatureKey } from './app/userDashboard/store/reducer';
 import { userFeatureKey } from './app/userManagement/store/reducer';
-import { itemManagementFeatureKey } from './app/eventManagement/item-detail/store/reducer';
+import { itemManagementFeatureKey } from './app/eventManagement/store/reducer';
 
 getAllDataFromLocalForage({
   driver: localForage.INDEXEDDB,

@@ -28,7 +28,7 @@ import {
 import { getCurrencyCodes, getItineraryDay } from '../../utilities/utils';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { AddItemComponent } from './add-item/add-item.component';
-import { getItemDetailsPage } from '../../../eventManagement/item-detail/store/actions';
+import { getItemDetailsPage } from '../../../eventManagement/store/actions';
 
 @Component({
   selector: 'app-trip-details',

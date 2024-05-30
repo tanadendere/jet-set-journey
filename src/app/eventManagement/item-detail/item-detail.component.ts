@@ -5,11 +5,11 @@ import { Store } from '@ngrx/store';
 import { ItemState, ItineraryState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
 import { HeaderComponent } from '../../components/header/header.component';
-import { checkIfItemDeleted, selectItem } from './store/selector';
+import { checkIfItemDeleted, selectItem } from '../store/selector';
 import { selectTripDetails } from '../../tripManagement/store/selectors';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../tripManagement/models/trip';
-import { deleteItineraryItemFromFirestore } from './store/actions';
+import { deleteItineraryItemFromFirestore } from '../store/actions';
 import { IItineraryItem } from '../models/itinerary';
 import {
   getItineraryDayWithYear,
@@ -84,22 +84,13 @@ export class ItemDetailComponent {
   }
 
   deleteItem() {
-    const confirmation = window.confirm(
-      'Are you sure you want to delete this trip?'
-    );
-    if (confirmation) {
-      if (this.trip && this.item?.itemId) {
-        this.itemStore.dispatch(
-          deleteItineraryItemFromFirestore({
-            trip: this.trip,
-            itineraryItemId: this.item.itemId,
-          })
-        );
-      } else {
-        alert(
-          'That item cannot be deleted. Please try again or take it as a sign 😉'
-        );
-      }
+    if (this.trip && this.item?.itemId) {
+      this.itemStore.dispatch(
+        deleteItineraryItemFromFirestore({
+          trip: this.trip,
+          itineraryItemId: this.item.itemId,
+        })
+      );
     }
   }
 

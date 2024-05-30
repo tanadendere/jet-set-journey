@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { switchMap, map, retry, catchError, EMPTY } from 'rxjs';
-import { getItineraryItemsFromFirestore } from '../../../tripManagement/store/actions';
-import { CrudService } from '../../services/crud.service';
+import { CrudService } from '../services/crud.service';
 import {
   deleteItineraryItemFromFirestore,
   CoreActionsUnion,
@@ -23,10 +22,7 @@ export class EventManagementEffects {
             }),
             retry(1),
             catchError((err) => {
-              alert(
-                `Unfortunately we could not delete this event. Please try deleting it again. \n\n` +
-                  err.toString()
-              );
+              console.error('Error, deleting event.', err);
               return EMPTY;
             })
           )

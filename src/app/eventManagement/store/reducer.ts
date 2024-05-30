@@ -7,8 +7,8 @@ import {
   INIT,
   MetaReducer,
 } from '@ngrx/store';
-import { ItemState, ItineraryState } from '../../../models/state';
-import { logoutUser } from '../../../userManagement/store/actions';
+import { ItemState, ItineraryState } from '../../models/state';
+import { logoutUser } from '../../userManagement/store/actions';
 import {
   getItemDetailsPage,
   deleteItineraryItemFromFirestoreComplete,
