@@ -5,7 +5,7 @@
   <!-- THE CONTENT FOR THIS PAGE -->
   @if (trip$ | async; as trip) { @if (selectedCurrency$ | async; as
   selectedCurrency) {
-  <div class="flex-col justify-between">
+  <div class="flex-col justify-between z-[0]">
     <div class="flex flex-col font-lato flex-grow gap-3">
       <div class="flex justify-between items-center p-3">
         <i (click)="goBack()" class="material-icons">arrow_back_ios_new</i>
@@ -76,21 +76,9 @@
             Add to Your Itinerary
           </button>
         </div>
-
-        <div
-          id="add-item-form"
-          class="absolute top-0 left-0 w-[100%] h-[100%] backdrop-blur-sm z-20 hidden"
-        >
-          <app-add-item
-            [trip]="trip"
-            [selectedCurrency]="selectedCurrency"
-            id="add-trip-form"
-            class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-30"
-            (submittedEvent)="toggleTripForm($event)"
-          ></app-add-item>
-        </div>
       </div>
     </div>
+
     <button
       (click)="deleteTrip()"
       class="flex items-center text-center mx-auto text-error-red"
@@ -98,6 +86,19 @@
       <i class="material-icons">delete</i>
       <span class="text-sm text-nowrap min-h-fit">Delete this trip</span>
     </button>
+  </div>
+
+  <div
+    id="add-item-form"
+    class="absolute bottom-0 left-0 w-[100%] h-fit backdrop-blur-sm z-[1] hidden"
+  >
+    <app-add-item
+      [trip]="trip"
+      [selectedCurrency]="selectedCurrency"
+      id="add-trip-form"
+      class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-[2]"
+      (submittedEvent)="toggleTripForm($event)"
+    ></app-add-item>
   </div>
 
   } } @else { @if (deleted$ | async; as deleted) {
