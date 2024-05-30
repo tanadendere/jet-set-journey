@@ -96,7 +96,9 @@ export class AddItemComponent {
         endDateTime: rawForm.endDateTime,
         currency: this.selectedCurrency.code,
         costEstimate: Number(rawForm.costEstimate),
-        location: this.locationValue ? this.locationValue : rawForm.location,
+        location: this.locationValue
+          ? JSON.stringify(this.locationValue)
+          : rawForm.location,
         notes: rawForm.notes,
       };
 

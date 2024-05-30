@@ -9,8 +9,9 @@ export interface IItineraryItem {
   endDateTime: string;
   currency: string;
   costEstimate: number;
-  location: IPlaceSearchResult | string;
+  location: string;
   notes: string;
+  googleDestination?: IPlaceSearchResult;
 }
 
 // Tags

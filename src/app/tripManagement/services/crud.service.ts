@@ -11,6 +11,7 @@ import {
   doc,
 } from '@angular/fire/firestore';
 import { environment } from '../../../environments/environment';
+import { IPlaceSearchResult } from '../../models/placesAPI';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,14 @@ export class CrudService {
         let itineraryItems: IItineraryItem[] = [];
         response.forEach((doc) => {
           const itemData = doc.data() as IItineraryItem;
+          let locationResult: IPlaceSearchResult | undefined = undefined;
+          if (itemData.location) {
+            try {
+              locationResult = JSON.parse(itemData.location);
+            } catch (error) {
+              console.error(error);
+            }
+          }
           const itineraryItem: IItineraryItem = {
             itemId: doc.id,
             itineraryName: itemData.itineraryName,
@@ -40,6 +49,7 @@ export class CrudService {
             costEstimate: itemData.costEstimate,
             location: itemData.location,
             notes: itemData.notes,
+            googleDestination: locationResult,
           };
           itineraryItems.push(itineraryItem);
         });
