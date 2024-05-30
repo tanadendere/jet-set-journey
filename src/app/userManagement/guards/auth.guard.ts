@@ -31,11 +31,12 @@ export class AuthGuard {
   };
 
   canDeactivate: CanDeactivateFn<RegisterComponent> = (component) => {
-    if (component.hasUnsavedChanges) {
-      return window.confirm(
-        'You have unsaved changes. Do you really want to leave?'
-      );
-    }
+    // TO-DO figure out how make this a modal pop up instead to keep flow within the application.
+    // if (component.hasUnsavedChanges) {
+    //   return window.confirm(
+    //     'You have unsaved changes. Do you really want to leave?'
+    //   );
+    // }
     return true;
   };
 

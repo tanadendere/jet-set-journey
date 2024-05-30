@@ -24,7 +24,12 @@
           [trip]="trip"
           (tripClicked)="navigateToTripDetails($event)"
         ></app-trip-card>
-        } }
+        } } @else {
+        <p class="font-lato text-lg text-center flex flex-col gap-2 mt-10">
+          <span>You have no trips planned.</span>
+          <span>Start planning an unforgettable trip today!</span>
+        </p>
+        }
       </div>
     </div>
     <div

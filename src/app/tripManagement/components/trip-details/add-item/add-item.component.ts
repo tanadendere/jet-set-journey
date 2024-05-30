@@ -34,6 +34,8 @@ export class AddItemComponent {
 
   locationValue: IPlaceSearchResult | undefined;
 
+  errorMessage = '';
+
   dateToday() {
     const now = new Date();
     const year = now.getFullYear();
@@ -106,9 +108,8 @@ export class AddItemComponent {
       const endDate = new Date(itineraryItem.endDateTime);
 
       if (endDate < startDate) {
-        alert(
-          'We cannot save this event. The start date must before the end date.'
-        );
+        this.errorMessage =
+          'We cannot save this event. The start date must before the end date.';
       } else {
         this.itineraryStore.dispatch(
           addItineraryItemToFirestore({
@@ -120,9 +121,6 @@ export class AddItemComponent {
         this.form.reset();
       }
     } else {
-      alert(
-        'Oops! Looks like we cannot access the trip to add this itinerary to :(. Please select a trip.'
-      );
       this.router.navigateByUrl('trips');
     }
   }

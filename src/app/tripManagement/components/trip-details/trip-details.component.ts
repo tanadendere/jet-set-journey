@@ -151,18 +151,13 @@ export class TripDetailsComponent {
   }
 
   deleteTrip() {
-    const confirmation = window.confirm(
-      'Are you sure you want to delete this trip?'
-    );
-    if (confirmation) {
-      if (this.trip) {
-        this.store.dispatch(
-          deleteTripFromFirestore({
-            userEmail: this.trip.userEmail,
-            tripId: this.trip.tripId,
-          })
-        );
-      }
+    if (this.trip) {
+      this.store.dispatch(
+        deleteTripFromFirestore({
+          userEmail: this.trip.userEmail,
+          tripId: this.trip.tripId,
+        })
+      );
     }
   }
 

@@ -31,10 +31,7 @@ export class TripManagementEffects {
             }),
             retry(1),
             catchError((err) => {
-              alert(
-                `Unfortunately we could not add that item to the database. Please try adding it again. \n\n` +
-                  err.toString()
-              );
+              console.error('Error, adding item to database', err);
               return EMPTY;
             })
           )
@@ -54,10 +51,7 @@ export class TripManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(
-              `Unfortunately we could retrieve your trips. \n\n` +
-                err.toString()
-            );
+            console.error('Error retriving trips', err);
             return EMPTY;
           })
         )
@@ -79,10 +73,7 @@ export class TripManagementEffects {
             }),
             retry(1),
             catchError((err) => {
-              alert(
-                `Unfortunately we could not get the current exchange rate. \n\n` +
-                  'We are working on it. You can still use everything in the app besides the currency functionality. '
-              );
+              console.error('Error with API latest exchange rate', err);
               return EMPTY;
             })
           )
@@ -100,10 +91,7 @@ export class TripManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(
-              `Unfortunately we could not delete this trip. Please try deleting it again. \n\n` +
-                err.toString()
-            );
+            console.error('Error with deleting the trip', err);
             return EMPTY;
           })
         )

@@ -25,10 +25,7 @@ export class UserDashboardEffects {
             }),
             retry(1),
             catchError((err) => {
-              alert(
-                `Unfortunately we could not add ${action.tripName} to the database. Please try adding it again. \n\n` +
-                  err.toString()
-              );
+              console.error('Error adding a trip to database', err);
               return EMPTY;
             })
           )
@@ -46,10 +43,7 @@ export class UserDashboardEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(
-              `Unfortunately we could retrieve your trips. \n\n` +
-                err.toString()
-            );
+            console.error('Error getting trips from firestore', err);
             return EMPTY;
           })
         )

@@ -65,10 +65,9 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(
-              `${action.user.name}, unfortunately we could not add you to the database. Please register again. \n\n` +
-                err.toString()
-            );
+            const message = `${action.user.name}, unfortunately we could not add you to the database. Please register again.`;
+            this.store.dispatch(registerUserError({ errorMessage: message }));
+            console.error(err);
             return EMPTY;
           })
         )
@@ -85,10 +84,11 @@ export class UserManagementEffects {
             return getUserFromFirestore({ email: action.email });
           }),
           retry(1),
-          catchError(() => {
+          catchError((err) => {
             const message =
               'Invalid credentials provided. Please double-check your username and password and try again.';
             this.store.dispatch(loginUserError({ errorMessage: message }));
+            console.error(err);
             return EMPTY;
           })
         )
@@ -106,7 +106,10 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(`This user does not exist \n\n` + err.toString());
+            const message =
+              'Invalid credentials provided. Please double-check your username and password and try again.';
+            this.store.dispatch(loginUserError({ errorMessage: message }));
+            console.error(err);
             return EMPTY;
           })
         )
@@ -146,10 +149,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(
-              `Unfortunately we could retrieve the list of currencies. \n\n` +
-                err.toString()
-            );
+            console.error('Error, retriveing the list of currencies', err);
             return EMPTY;
           })
         )
@@ -167,7 +167,7 @@ export class UserManagementEffects {
           }),
           retry(1),
           catchError((err) => {
-            alert(`Could not log you out. \n\n` + err.toString());
+            console.error('Error logging user out');
             return EMPTY;
           })
         )
