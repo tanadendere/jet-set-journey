@@ -59,7 +59,7 @@ export class TripDetailsComponent {
   trip$ = this.itineraryStore.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
-  stylingForHolidayPhoto = '';
+  // stylingForHolidayPhoto = '';
 
   store: Store<TripState> = inject(Store);
 
@@ -82,9 +82,9 @@ export class TripDetailsComponent {
         this.itineraryStore.dispatch(
           getItineraryItemsFromFirestore({ trip: trip })
         );
-        this.stylingForHolidayPhoto = `backgroundImage: url(${this.getHolidayPhotoSrc(
-          trip.photoNumber
-        )})`;
+        // this.stylingForHolidayPhoto = `backgroundImage: url(${this.getHolidayPhotoSrc(
+        //   trip.photoNumber
+        // )})`;
       }
     });
     this.selectedCurrencySubscription = this.selectedCurrency$.subscribe(
@@ -128,11 +128,15 @@ export class TripDetailsComponent {
     }
   }
 
-  getHolidayPhotoSrc(photoNumber: number | undefined) {
-    if (photoNumber) {
-      return `../../../../assets/holiday${photoNumber}-min.jpg`;
+  getHolidayPhotoSrc() {
+    if (this.trip) {
+      if (this.trip.googleDestination) {
+        return this.trip.googleDestination.imageUrl;
+      } else {
+        return `../../../../assets/holiday${this.trip.photoNumber}-min.jpg`;
+      }
     }
-    return `../../../../assets/holiday${10}-min.jpg`;
+    return `../../../../assets/holiday2-min.jpg`;
   }
 
   navigateToItemDetails(item: IItineraryItem) {

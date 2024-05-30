@@ -37,15 +37,15 @@ export const selectItineraryDates = createSelector(
 export const selectTripDetails = createSelector(
   selectTripManagementState,
   (state) => {
-    if (state.trip) {
-      const locationResult: IPlaceSearchResult = JSON.parse(
-        state.trip.destination
-      );
-      if (locationResult) {
-        state.trip.googleDestination = locationResult;
-      }
-      return state.trip;
-    }
+    // if (state.trip) {
+    //   const locationResult: IPlaceSearchResult = JSON.parse(
+    //     state.trip.destination
+    //   );
+    //   if (locationResult) {
+    //     state.trip.googleDestination = locationResult;
+    //   }
+    //   return state.trip;
+    // }
     return state.trip;
   }
 );

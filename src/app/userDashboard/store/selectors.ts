@@ -9,24 +9,26 @@ export const selectUserDashboardState = createFeatureSelector<TripState>(
 );
 
 export const selectTrips = createSelector(selectUserDashboardState, (state) => {
-  if (state.trips) {
-    const trips: ITrip[] = [];
-    for (const trip of state.trips) {
-      if (trip) {
-        if (trip.destination) {
-          try {
-            const locationResult: IPlaceSearchResult = JSON.parse(
-              trip.destination
-            );
-            if (locationResult) {
-              trip.googleDestination = locationResult;
-            }
-          } catch (error) {}
-        }
-        trips.push(trip);
-      }
-    }
-    return trips;
-  }
+  // if (state.trips) {
+  //   const trips: ITrip[] = [];
+  //   for (let trip of state.trips) {
+  //     if (trip) {
+  //       if (trip.destination) {
+  //         try {
+  //           const locationResult: IPlaceSearchResult = JSON.parse(
+  //             trip.destination
+  //           );
+  //           if (locationResult) {
+  //             trip.googleDestination = locationResult;
+  //           }
+  //         } catch (error) {
+  //           console.error(error);
+  //         }
+  //       }
+  //       trips.push(trip);
+  //     }
+  //   }
+  //   return trips;
+  // }
   return state.trips;
 });

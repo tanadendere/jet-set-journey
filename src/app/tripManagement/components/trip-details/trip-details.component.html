@@ -16,7 +16,7 @@
         <figure>
           <img
             class="object-fill"
-            [src]="getHolidayPhotoSrc(trip.photoNumber)"
+            [src]="getHolidayPhotoSrc()"
             alt="Holiday Image"
           />
         </figure>
@@ -26,7 +26,7 @@
           </h1>
           <div class="flex items-center gap-1">
             <i class="material-icons">location_on</i>
-            <span class="text-xl">{{ trip.destination }}</span>
+            <span class="text-xl">{{ trip.googleDestination?.address }}</span>
           </div>
           <div class="flex items-center gap-1">
             <i class="material-icons">account_balance_wallet</i>

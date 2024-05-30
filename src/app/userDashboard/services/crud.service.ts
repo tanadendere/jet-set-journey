@@ -53,12 +53,21 @@ export class CrudService {
         let trips: ITrip[] = [];
         response.forEach((doc) => {
           const tripData = doc.data() as ITrip;
+          let locationResult: IPlaceSearchResult | undefined = undefined;
+          if (tripData.destination) {
+            try {
+              locationResult = JSON.parse(tripData.destination);
+            } catch (error) {
+              console.error(error);
+            }
+          }
           const trip: ITrip = {
             tripId: doc.id,
             tripName: tripData.tripName,
             destination: tripData.destination,
             userEmail: userEmail,
             photoNumber: tripData.photoNumber,
+            googleDestination: locationResult,
           };
           trips.push(trip);
         });
