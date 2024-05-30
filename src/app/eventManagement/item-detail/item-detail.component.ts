@@ -70,7 +70,7 @@ export class ItemDetailComponent {
         startDay + '</br>' + 'from ' + startTime + ' to ' + endTime;
     } else {
       detailedDuration =
-        'Starting ' +
+        'From ' +
         startDay +
         ' at ' +
         startTime +

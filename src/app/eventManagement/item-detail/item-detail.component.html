@@ -10,13 +10,31 @@
       <h1 class="flex-grow text-center text-xl">Event details</h1>
     </div>
 
-    <h2 class="text-3xl">{{ item.itineraryName }}</h2>
-    <div class="flex flex-row items-center text-xl">
-      <i class="material-icons text-primary">location_on</i>
-      <span>{{ item.googleDestination?.address }}</span>
+    <!-- <h2 class="pl-2 text-3xl">{{ item.itineraryName }}</h2> -->
+    <div class="flex flex-row justify-between items-end">
+      <h2 class="pl-2 text-3xl m-1 mb-0">{{ item.itineraryName }}</h2>
+      <div class="kbd text-xs mr-2">{{ item.tag }}</div>
     </div>
 
-    <div class="flex-col font-light">
+    <div class="card w-full h-[33svh] bg-base-200 p-2 rounded-md">
+      <figure>
+        <img
+          class="object-fill"
+          [src]="item.googleDestination?.imageUrl"
+          alt="Holiday Image"
+        />
+      </figure>
+    </div>
+
+    <div class="flex flex-row items-center text-xl">
+      <i
+        class="material-icons text-primary flex justify-center items-center text-center w-12 h-12 rounded-md my-auto"
+        >location_on</i
+      >
+      <span class="p-2 text-left">{{ item.googleDestination?.address }}</span>
+    </div>
+
+    <div class="flex-col font-light pl-2">
       <p
         [innerHTML]="
           getItemsDetailedStartAndEnd(item.startDateTime, item.endDateTime)
