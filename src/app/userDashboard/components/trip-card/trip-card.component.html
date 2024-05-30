@@ -1,12 +1,15 @@
-<div class="card card-side bg-base-100 shadow-xl">
+<div
+  (click)="onTripClick()"
+  class="card card-side bg-base-100 shadow-xl max-w-[425px] cursor-pointer"
+>
   <figure class="w-[60%] p-2">
     <img class="rounded-lg" [src]="getHolidayPhotoSrc()" alt="Holiday image" />
   </figure>
   <div class="flex flex-col justify-between my-10">
-    <div (click)="onTripClick()" class="card-body p-2 cursor-pointer">
+    <div class="card-body p-2">
       <h2 class="card-title mt-2 text-xl">{{ trip.tripName }}</h2>
       <div class="flex items-center">
-        <i class="material-icons">location_on</i>
+        <i class="material-icons text-primary">location_on</i>
         <span class="">{{ trip.destination }}</span>
       </div>
     </div>

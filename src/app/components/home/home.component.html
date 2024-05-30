@@ -12,12 +12,12 @@
     >
       <button
         (click)="toggleTripForm(false)"
-        class="btn btn-lg btn-secondary font-lato text-3xl self-center"
+        class="btn btn-circle btn-lg btn-secondary font-lato text-3xl self-center"
       >
         +
       </button>
       <div
-        class="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-2 self-center"
+        class="flex flex-col sm:flex-row flex-nowrap sm:flex-wrap gap-2 mt-1 self-center"
       >
         @if(trips$ | async; as trips){ @for (trip of trips; track trip.tripId) {
         <app-trip-card
@@ -27,18 +27,16 @@
         } }
       </div>
     </div>
-
-    <div
-      id="add-trip-form"
-      class="absolute top-0 left-0 w-[100%] h-[100%] backdrop-blur-sm z-20 hidden"
-    >
-      <app-add-trip
-        id="add-trip-form"
-        class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-30"
-        [user]="user"
-        (submittedEvent)="toggleTripForm($event)"
-      ></app-add-trip>
-    </div>
+    <dialog class="modal max-h-32">
+      <div id="add-trip-form" class="modal-box">
+        <app-add-trip
+          id="add-trip-form"
+          class=""
+          [user]="user"
+          (submittedEvent)="toggleTripForm($event)"
+        ></app-add-trip>
+      </div>
+    </dialog>
   </div>
   } @else{
   <div>

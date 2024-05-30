@@ -1,10 +1,10 @@
-<span class="font-extrabold text-sm leading-8 m-1 mb-0">
-  {{ getTime(item.startDateTime) }}
+<span class="font-bold text-xl leading-8 m-1 mb-0">
+  ⏱️ {{ getTime(item.startDateTime) }}
 </span>
 
 <div
   (click)="onEventClick()"
-  class="flex flex-col font-lato bg-base-100 shadow-xl"
+  class="flex flex-col font-lato bg-base-100 m-1 p-1 rounded-sm"
 >
   <div class="flex flex-row justify-between items-end">
     <h2 class="text-2xl m-1 mb-0">{{ item.itineraryName }}</h2>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="flex flex-row items-center">
-    <i class="material-icons">location_on</i>
+    <i class="material-icons text-primary">location_on</i>
     <span>{{ item.location }}</span>
   </div>
 

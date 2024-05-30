@@ -18,7 +18,7 @@
         [formGroup]="form"
         (ngSubmit)="onSubmit()"
       >
-        <h1>Login</h1>
+        <h1 class="text-3xl">Login</h1>
 
         @if (error$ | async; as errorMessage) {
         <div role="alert" class="alert alert-error">

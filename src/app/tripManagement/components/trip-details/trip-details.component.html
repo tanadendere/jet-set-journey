@@ -5,98 +5,98 @@
   <!-- THE CONTENT FOR THIS PAGE -->
   @if (trip$ | async; as trip) { @if (selectedCurrency$ | async; as
   selectedCurrency) {
-
-  <div class="flex flex-col font-lato flex-grow p-3 gap-3">
-    <div class="flex justify-between items-center">
-      <i (click)="goBack()" class="material-icons">arrow_back_ios_new</i>
-      <h1 class="flex-grow text-center text-xl">Trip details</h1>
-      <button class="ml-auto text-error-red">Edit</button>
-    </div>
-
-    <div class="card w-full h-1/3 bg-base-100 rounded-sm">
-      <figure>
-        <img
-          class="object-fit"
-          [src]="getHolidayPhotoSrc(trip.photoNumber)"
-          alt="Holiday Image"
-        />
-      </figure>
-      <div>
-        <h1 class="font-lato text-3xl font-semibold m-0">
-          Itinerary for {{ trip.tripName }}
-        </h1>
-        <div class="flex items-center gap-1">
-          <i class="material-icons">location_on</i>
-          <span class="text-xl">{{ trip.destination }}</span>
-        </div>
-        <div class="flex items-center gap-1">
-          <i class="material-icons">account_balance_wallet</i>
-          <span class="font-semibold">Budget</span>
-          <span>{{ selectedCurrency.symbolNative }}{{ totalCost }}</span>
-        </div>
+  <div class="flex-col justify-between">
+    <div class="flex flex-col font-lato flex-grow gap-3">
+      <div class="flex justify-between items-center p-3">
+        <i (click)="goBack()" class="material-icons">arrow_back_ios_new</i>
+        <h1 class="flex-grow text-center text-xl">Trip details</h1>
       </div>
-    </div>
 
-    <div class="content-center relative w-[100%]">
-      <div
-        class="flex flex-col justify-center relative z-10 bg-base-100 p-5 pt-1"
-      >
-        <div class="flex flex-col gap-2 self-center">
-          @if(itinerary$ | async; as itinerary) { @if (itineraryDates$ | async;
-          as itineraryDates) { @for (date of itineraryDates; track date) {
-          <div class="collapse collapse-arrow bg-base-200">
-            <input type="radio" name="my-accordion-2" checked="checked" />
-            <div class="collapse-title text-xl font-medium">
-              {{ date }}
-            </div>
-            <div class="collapse-content">
-              @for (item of itinerary; track item.itemId) { @if
-              (getItemsDay(item.startDateTime) === date) {
-              <app-itinerary-item
-                [item]="item"
-                (itemClicked)="navigateToItemDetails($event)"
-              ></app-itinerary-item>
-              } }
-            </div>
+      <div class="card w-full h-[33svh] bg-base-200 p-2 rounded-md">
+        <figure>
+          <img
+            class="object-fill"
+            [src]="getHolidayPhotoSrc(trip.photoNumber)"
+            alt="Holiday Image"
+          />
+        </figure>
+        <div>
+          <h1 class="font-lato text-3xl font-semibold m-0">
+            Itinerary for {{ trip.tripName }}
+          </h1>
+          <div class="flex items-center gap-1">
+            <i class="material-icons">location_on</i>
+            <span class="text-xl">{{ trip.destination }}</span>
           </div>
-          } } } @else {
-          <p class="font-lato text-center flex flex-col gap-2">
-            <span>No itinerary items.</span>
-            <span
-              >Add to your itinerary to start planning your unforgettable
-              trip.</span
-            >
-          </p>
-          }
+          <div class="flex items-center gap-1">
+            <i class="material-icons">account_balance_wallet</i>
+            <span class="font-semibold">Total Cost</span>
+            <span>{{ selectedCurrency.symbolNative }}{{ totalCost }}</span>
+          </div>
         </div>
-        <button
-          (click)="toggleTripForm(false)"
-          class="btn btn-lg btn-secondary font-lato text-xl self-center"
-        >
-          Add to Your Itinerary
-        </button>
       </div>
 
-      <div
-        id="add-item-form"
-        class="absolute top-0 left-0 w-[100%] h-[100%] backdrop-blur-sm z-20 hidden"
-      >
-        <app-add-item
-          [trip]="trip"
-          [selectedCurrency]="selectedCurrency"
-          id="add-trip-form"
-          class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-30"
-          (submittedEvent)="toggleTripForm($event)"
-        ></app-add-item>
+      <div class="content-center relative w-[100%]">
+        <div
+          class="flex flex-col justify-center relative z-10 bg-base-100 p-5 pt-1"
+        >
+          <div class="flex flex-col gap-2 self-center w-full">
+            @if(itinerary$ | async; as itinerary) { @if (itineraryDates$ |
+            async; as itineraryDates) { @for (date of itineraryDates; track
+            date) {
+            <div class="collapse collapse-arrow bg-base-200">
+              <input type="radio" name="my-accordion-2" checked="checked" />
+              <div class="collapse-title text-xl font-medium">
+                {{ date }}
+              </div>
+              <div class="collapse-content">
+                @for (item of itinerary; track item.itemId) { @if
+                (getItemsDay(item.startDateTime) === date) {
+                <app-itinerary-item
+                  [item]="item"
+                  (itemClicked)="navigateToItemDetails($event)"
+                ></app-itinerary-item>
+                } }
+              </div>
+            </div>
+            } } } @else {
+            <p class="font-lato text-center flex flex-col gap-2">
+              <span>No itinerary items.</span>
+              <span
+                >Add to your itinerary to start planning your unforgettable
+                trip.</span
+              >
+            </p>
+            }
+          </div>
+          <button
+            (click)="toggleTripForm(false)"
+            class="btn btn-lg btn-secondary font-lato text-xl self-center mt-2"
+          >
+            Add to Your Itinerary
+          </button>
+        </div>
+
+        <div
+          id="add-item-form"
+          class="absolute top-0 left-0 w-[100%] h-[100%] backdrop-blur-sm z-20 hidden"
+        >
+          <app-add-item
+            [trip]="trip"
+            [selectedCurrency]="selectedCurrency"
+            id="add-trip-form"
+            class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-base-100 p-5 z-30"
+            (submittedEvent)="toggleTripForm($event)"
+          ></app-add-item>
+        </div>
       </div>
     </div>
-
     <button
       (click)="deleteTrip()"
-      class="flex items-center text-center mx-auto text-error-red mt-auto"
+      class="flex items-center text-center mx-auto text-error-red"
     >
       <i class="material-icons">delete</i>
-      <span class="text-xs text-nowrap min-h-fit">Delete this trip</span>
+      <span class="text-sm text-nowrap min-h-fit">Delete this trip</span>
     </button>
   </div>
 
