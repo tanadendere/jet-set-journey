@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
     ]),
     importProvidersFrom(provideFirestore(() => getFirestore())),
-    provideStore(reducers, { metaReducers: [storageSyncMetaReducer] }),
+    provideStore(reducers, { metaReducers }),
     provideState({ name: userFeatureKey, reducer: userManagementReducer }),
     provideState({
       name: userDashboardFeatureKey,

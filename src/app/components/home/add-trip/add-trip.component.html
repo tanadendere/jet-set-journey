@@ -54,20 +54,22 @@
 
     <div class="text-error-red p-3">{{ errorMessage }}</div>
 
-    <div>
-      <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
-    </div>
-    <div
-      class="tooltip"
-      data-tip="Trip name and destination is required to create a trip"
-    >
-      <button
-        class="btn m-2 btn-secondary"
-        type="submit"
-        [disabled]="form.invalid"
+    <div class="flex">
+      <div>
+        <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
+      </div>
+      <div
+        class="tooltip"
+        data-tip="Trip name and destination is required to create a trip"
       >
-        Create trip
-      </button>
+        <button
+          class="btn m-2 btn-secondary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Create trip
+        </button>
+      </div>
     </div>
   </form>
 </div>

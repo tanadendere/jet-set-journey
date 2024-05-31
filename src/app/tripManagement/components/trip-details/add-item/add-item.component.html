@@ -259,17 +259,19 @@
 
     <div class="text-error-red p-3">{{ errorMessage }}</div>
 
-    <div>
-      <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
-    </div>
-    <div class="tooltip" data-tip="Please complete all fields.">
-      <button
-        class="btn m-2 btn-secondary"
-        type="submit"
-        [disabled]="form.invalid"
-      >
-        Add to itinerary
-      </button>
+    <div class="flex">
+      <div>
+        <button type="button" class="btn m-2" (click)="cancel()">Cancel</button>
+      </div>
+      <div class="tooltip" data-tip="Please complete all fields.">
+        <button
+          class="btn m-2 btn-secondary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Add to itinerary
+        </button>
+      </div>
     </div>
   </form>
 </div>
