@@ -6,7 +6,6 @@ import {
   sortItinerary,
   getItineraryDates,
 } from '../utilities/utils';
-import { IPlaceSearchResult } from '../../models/placesAPI';
 
 export const selectTripManagementState = createFeatureSelector<ItineraryState>(
   tripManagementFeatureKey

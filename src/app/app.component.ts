@@ -11,7 +11,6 @@ import { Loader } from '@googlemaps/js-api-loader';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  // src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleAPI}&loading=async&libraries=places&&callback=initMap`;
   src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleAPI}&loading=async&libraries=places&callback=initMap`;
 
   ngOnInit(): void {
@@ -22,11 +21,6 @@ export class AppComponent implements OnInit {
       language: 'en',
     });
 
-    loader.importLibrary('places').then(async (url) => {
-      // const script = document.createElement('script');
-      // const googleAPIURL = `https://maps.googleapis.com/maps/api/js?key=${environment.googleAPI}&libraries=places&language=en`;
-      // script.src = url.Autocomplete;
-      // document.body.appendChild(script);
-    });
+    loader.importLibrary('places').then(async (url) => {});
   }
 }

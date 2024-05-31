@@ -3,8 +3,6 @@ import {
   Firestore,
   addDoc,
   collection,
-  deleteDoc,
-  doc,
   getDocs,
 } from '@angular/fire/firestore';
 import { ITrip } from '../../tripManagement/models/trip';

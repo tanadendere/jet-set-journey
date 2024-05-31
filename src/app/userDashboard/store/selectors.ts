@@ -1,8 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TripState } from '../../models/state';
 import { userDashboardFeatureKey } from './reducer';
-import { ITrip } from '../../tripManagement/models/trip';
-import { IPlaceSearchResult } from '../../models/placesAPI';
 
 export const selectUserDashboardState = createFeatureSelector<TripState>(
   userDashboardFeatureKey

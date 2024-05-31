@@ -35,7 +35,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    // TO-DO: change this to NotFoundPage
     redirectTo: 'trips',
   },
 ];

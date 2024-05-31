@@ -15,7 +15,6 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ITrip } from '../../models/trip';
 import {
-  addItineraryItemToFirestore,
   deleteTripFromFirestore,
   getExchangeRates,
   getItineraryItemsFromFirestore,

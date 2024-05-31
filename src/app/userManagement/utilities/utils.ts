@@ -1,4 +1,4 @@
-import { ICurrencyAPIObj, ICurrency, ICurrencyData } from '../models/currency';
+import { ICurrency, ICurrencyData } from '../models/currency';
 
 export function getListOfCurrencies(currencyData: ICurrencyData): ICurrency[] {
   const listOfCurrencies: ICurrency[] = [];

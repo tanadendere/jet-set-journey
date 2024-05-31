@@ -4,7 +4,6 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ItineraryState, TripState, UserState } from '../../models/state';
 import { selectUser } from '../../userManagement/store/selectors';
-import { logoutUser } from '../../userManagement/store/actions';
 import { AddTripComponent } from './add-trip/add-trip.component';
 import { Subscription } from 'rxjs';
 import { getTripsFromFirestore } from '../../userDashboard/store/actions';

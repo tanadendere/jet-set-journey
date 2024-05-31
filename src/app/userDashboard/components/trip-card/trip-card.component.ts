@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITrip } from '../../../tripManagement/models/trip';
-import { TripState } from '../../../models/state';
-import { Store } from '@ngrx/store';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({

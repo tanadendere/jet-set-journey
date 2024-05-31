@@ -54,6 +54,5 @@ export class LocationAutocompleteComponent {
     return place?.photos && place?.photos.length > 0
       ? place?.photos[0].getUrl({ maxWidth: 500 })
       : undefined;
-    // undefined for no photos
   }
 }

@@ -56,7 +56,11 @@ export class ItemDetailComponent {
   }
 
   goBack() {
-    this.router.navigateByUrl(`trip-details/${this.item?.tripId}/`);
+    if (this.item) {
+      this.router.navigateByUrl(`trip-details/${this.item?.tripId}/`);
+    } else {
+      this.router.navigateByUrl(`trips`);
+    }
   }
 
   getItemsDetailedStartAndEnd(startDateString: string, endDateString: string) {
