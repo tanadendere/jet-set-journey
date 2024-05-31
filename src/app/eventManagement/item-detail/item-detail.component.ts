@@ -41,6 +41,8 @@ export class ItemDetailComponent {
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
 
+  router = inject(Router);
+
   constructor() {
     this.tripSubscription = this.trip$.subscribe((trip) => {
       if (trip) {
@@ -54,7 +56,7 @@ export class ItemDetailComponent {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl(`trip-details/${this.item?.tripId}/`);
   }
 
   getItemsDetailedStartAndEnd(startDateString: string, endDateString: string) {

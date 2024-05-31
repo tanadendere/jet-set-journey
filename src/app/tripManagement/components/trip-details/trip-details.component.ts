@@ -147,7 +147,7 @@ export class TripDetailsComponent {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl(`trips/`);
   }
 
   deleteTrip() {

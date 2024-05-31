@@ -1,16 +1,18 @@
 <div
   (click)="onTripClick()"
-  class="card card-side bg-base-100 shadow-xl max-w-[425px] cursor-pointer"
+  class="card card-side bg-base-100 shadow-xl w-96 h-48 max-w-[425px] max-h-[192px] cursor-pointer"
 >
-  <figure class="w-[60%] p-2">
+  <figure class="w-3/5 p-1">
     <img class="rounded-lg" [src]="getHolidayPhotoSrc()" alt="Holiday image" />
   </figure>
-  <div class="flex flex-col justify-between my-10">
-    <div class="card-body p-2">
+  <div class="w-2/5 flex flex-col justify-between my-auto">
+    <div class="card-body p-1">
       <h2 class="card-title mt-2 text-xl">{{ trip.tripName }}</h2>
       <div class="flex items-center">
         <i class="material-icons text-primary">location_on</i>
-        <span class="">{{ trip.googleDestination?.address }}</span>
+        <span class="text-balance clamp-2 leading-relaxed max-h-18">{{
+          trip.googleDestination?.address
+        }}</span>
       </div>
     </div>
   </div>
