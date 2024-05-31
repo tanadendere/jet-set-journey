@@ -62,7 +62,6 @@ export class TripDetailsComponent {
   trip$ = this.itineraryStore.select(selectTripDetails);
   trip: ITrip | undefined = undefined;
   tripSubscription = new Subscription();
-  // stylingForHolidayPhoto = '';
 
   store: Store<TripState> = inject(Store);
 
@@ -71,7 +70,7 @@ export class TripDetailsComponent {
 
   totalCost$ = this.itineraryStore.select(selectTotalCost);
   totalCostSubscription = new Subscription();
-  totalCost = 0;
+  totalCost = '0';
 
   itineraryDates$ = this.itineraryStore.select(selectItineraryDates);
   itineraryDatesSubscription = new Subscription();

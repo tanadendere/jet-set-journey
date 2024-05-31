@@ -54,7 +54,7 @@ export const selectTotalCost = createSelector(
   selectTripManagementState,
   (state) => {
     if (!(state.itinerary && state.exchangeRates)) {
-      return 0;
+      return '0';
     }
     return calculateItineraryTotalCost(state.itinerary, state.exchangeRates);
   }

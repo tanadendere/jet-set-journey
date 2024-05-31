@@ -38,7 +38,7 @@ export function calculateItineraryTotalCost(
     const rate = getExchangeRate(item.currency, exchangeRates);
     totalCost += item.costEstimate / rate;
   }
-  return totalCost;
+  return totalCost.toFixed(2);
 }
 
 function getExchangeRate(

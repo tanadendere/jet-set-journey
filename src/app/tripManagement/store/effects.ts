@@ -71,7 +71,7 @@ export class TripManagementEffects {
                 exchangeRates: getListOfExhangeRates(response?.data),
               });
             }),
-            retry(1),
+            retry(0),
             catchError((err) => {
               console.error('Error with API latest exchange rate', err);
               return EMPTY;
