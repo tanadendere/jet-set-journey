@@ -100,7 +100,7 @@ export function getItineraryDayWithYear(dateString: string) {
 export function getItineryTime(dateString: string) {
   const date = new Date(dateString);
   const hour = date.getHours();
-  const minutes = date.getMinutes();
+  const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   return hour + ':' + minutes;
 }
 

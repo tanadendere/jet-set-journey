@@ -12,7 +12,7 @@ import {
 } from '../../store/selectors';
 import { IItineraryItem } from '../../../eventManagement/models/itinerary';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { ITrip } from '../../models/trip';
 import {
   deleteTripFromFirestore,
@@ -90,9 +90,11 @@ export class TripDetailsComponent {
         if (selectedCurrency) {
           this.userSelectedCurrency = selectedCurrency;
           this.selectedCurrencyCode = selectedCurrency.code;
-          this.itinerarySubscription = this.itinerary$.subscribe(
-            (itinerary) => {
+          this.itinerarySubscription = this.itinerary$
+            .pipe(take(2))
+            .subscribe((itinerary) => {
               if (itinerary) {
+                console.log('this is happening a lot i think');
                 this.itineraryStore.dispatch(
                   getExchangeRates({
                     selectedCurrency: selectedCurrency.code,
@@ -100,8 +102,7 @@ export class TripDetailsComponent {
                   })
                 );
               }
-            }
-          );
+            });
         }
       }
     );

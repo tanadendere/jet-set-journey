@@ -7,11 +7,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CurrencyService {
-  getCurrencyList() {
-    return this.http.get<ICurrencyAPIObj>(
-      `https://api.currencyapi.com/v3/currencies?apikey=${environment.currencyAPI}`
-    );
-  }
+  // getCurrencyList() {
+  //   return this.http.get<ICurrencyAPIObj>(
+  //     `https://api.currencyapi.com/v3/currencies?apikey=${environment.currencyAPI}`
+  //   );
+  // } might use later commenting out to reduce calls to api
 
   getInternalCurrencyList() {
     return this.http.get<ICurrencyAPIObj>('assets/currencies.json');
